@@ -14,6 +14,11 @@
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
+      tm-form-group.select-network
+        tm-field(
+          type="select"
+          placeholder="Select network..."
+          :options="networkSelectOptions")
     div(class="background-cover")
     <video playsinline autoplay muted loop id="background" poster="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.jpg">
       <source src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.mp4" type="video/mp4">
@@ -40,7 +45,17 @@ export default {
     TmField
   },
   data: () => ({
-    query: ``
+    query: ``,
+    networkSelectOptions: [
+      {
+        value: `mainnet`,
+        key: `Columbus Mainnet`
+      },
+      {
+        value: `testnet`,
+        key: `Soju Testnet`
+      }
+    ]
   }),
   methods: {
     search() {
@@ -162,6 +177,13 @@ input:-webkit-autofill
   z-index -99
   transform translateX(-50%) translateY(-50%)
   background rgba(8,32,128,.85)
+
+.select-network
+  position absolute
+  top 20px
+  right 20px
+  padding 0
+  margin 0
 
 @media screen and (max-width: 767px)
   .logo-container
