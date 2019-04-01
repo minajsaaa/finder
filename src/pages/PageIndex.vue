@@ -187,12 +187,12 @@ input:-webkit-autofill
 
 @media screen and (max-width: 767px)
   .logo-container
-    margin-top: -100px
-    padding-bottom 50px
+    margin-top: -40px
+    padding-bottom 40px
 
   .logo-container img
-    width 200px
-    height 26px
+    width 196px
+    height 25px
 
   .main-container .tm-form-group input
     font-size 16px
