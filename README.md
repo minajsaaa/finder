@@ -4,6 +4,8 @@
 
 The Terra Finder is a tool to search through blocks, transactions, and accounts on the Terra blockchain. 
 
+The Finder is derived from the [Cosmos Explorer](https://github.com/cosmos/explorer). 
+
 ## Project setup
 ```
 yarn install
