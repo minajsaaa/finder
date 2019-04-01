@@ -2,8 +2,8 @@
   div(class="not-found")
     div
       h1 Search not found
-      p Sorry, we are unable to find #[span "{{ keyword }}"] in  terra space.
-      p Please input correct block number or transaction hash.
+      p Sorry, we couldn't find any results for #[span "{{ keyword }}"].
+      p Please input the correct block number or transaction hash.
       img(src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/earth.svg")
       router-link(to="/" exact): span Back to Home
 </template>
@@ -58,7 +58,7 @@ p
   text-align: center;
   padding: 0;
   color #2845ae
-  max-width 480px
+  max-width 540px
   margin 0 auto
   word-break break-word
 
