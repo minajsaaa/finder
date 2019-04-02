@@ -29,7 +29,8 @@
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
             li
               p.type
-                span {{ tx.tx.type }}
+                div {{ tx.tx.type }}
+                span +2
             li
               p.txfee {{ tx.tx.value.fee.amount[0].amount }}
             li
@@ -201,21 +202,27 @@ export default {
   overflow hidden
   width 100%
 
-.txs-container .type span
+.txs-container .type div
   border-radius: 13px;
   height: 26px;
   overflow: hidden;
-  background-color: rgba(253, 154, 2, 0.1);
+  background-color: rgba(40, 69, 174,0.1);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 26px;
   letter-spacing: -0.3px;
-  color: rgba(253, 154, 2, 1);
+  color: rgba(40, 69, 174, 1);
   padding 0 15px
   display inline-block
   vertical-align middle
+
+.txs-container .type span
+  display: inline-block;
+  font-size: 11px;
+  vertical-align: middle;
+  margin-left: 5px;
 
 .txs-container .tx-table
   border-radius 5px
@@ -235,7 +242,7 @@ export default {
   .txs-container .row li:first-child
     width 40%
 
-  .txs-container .type span
+  .txs-container .type div
     font-size 11px
     padding 0 10px
 
@@ -250,7 +257,7 @@ export default {
   .txs-container .row li:first-child
     width 40%
 
-  .txs-container .type span
+  .txs-container .type div
     font-size 11px
     padding 0 10px
 

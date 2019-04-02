@@ -252,15 +252,15 @@ export default {
 
 .copied
   position absolute
-  top -24px
+  top -28px
   left 50%
   margin-left: -28px
-  width 56px
-  height 22px
+  width 60px
+  height 26px
   text-align center
   background #1daa8e
-  line-height 20px
-  font-size 11px
+  line-height 26px
+  font-size 12px
   color #fff
   border-radius 2px
   z-index 100
@@ -282,12 +282,11 @@ export default {
   background #1daa8e
   width 10px
   height 10px
-  top 14px
+  top 18px
   left 50%
   margin-left -5px
   z-index -1
   transform rotate(45deg)
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 
 .tm-li-dd.tm-li-dd-flush
   overflow visible

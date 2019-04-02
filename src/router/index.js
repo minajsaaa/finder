@@ -5,6 +5,7 @@ import Index from "../pages/PageIndex"
 import Block from "../pages/PageBlock"
 import Transactions from "../pages/PageTransactions"
 import Transaction from "../pages/PageTransaction"
+import Account from "../pages/PageAccount"
 
 Vue.use(Router)
 
@@ -12,7 +13,8 @@ const routes = [
   { path: "/", component: Index },
   { path: "/blocks/:block", name: "block", component: Block },
   { path: "/txs/:block", name: "txs", component: Transactions },
-  { path: "/tx/:hash", name: "tx", component: Transaction }
+  { path: "/tx/:hash", name: "tx", component: Transaction },
+  { path: "/account", name: "account", component: Account }
 ]
 
 export default new Router({
