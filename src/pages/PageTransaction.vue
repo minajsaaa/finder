@@ -30,10 +30,16 @@
           template(slot="dd" v-for="m in transaction.tx.value.msg")
             //- vue-json-pretty(:data="transaction.tx")
             div.msgBox
-              p {{ m.value.from_address}}
-              div.type
-                p {{ m.type }}
-              p {{ `to ${m.value.to_address}` }}
+              div.type {{ m.type }}
+              p
+                span Delegator
+                span {{ m.value.from_address}}
+              p
+                span Validator
+                span {{ m.value.to_address}}
+              p
+                span Delegation Amount
+                span 1.234 Luna
 
     template(v-else-if="tx.error && !tx.txLoading")
       app-not-found
@@ -169,36 +175,43 @@ export default {
   height auto
   display block
   border-radius: 5px;
-  border: solid 1px #D8DDF0;
-  background-color: #FBFDFF !important;
+  border: solid 1px #d8ddf0;
+  background-color: #fbfdff !important;
   margin: 10px 0;
-  padding 13px 20px
+  padding 0 20px
   overflow auto
   font-size 15px
 
 .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p
   line-height: 1.5;
-  margin: 7px 0 8px;
-  min-height 20px
+  margin: 20px 0;
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+
+.tx-container .rawData .tm-li-dd.tm-li-dd-flush > div:first-child
+  margin-top: 10px;
+
+.tx-container .rawData .tm-li-dd.tm-li-dd-flush > div:last-child
+  margin-bottom: 10px;
+
+.tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p span
+  display: table-cell;
+
+.tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p span:first-child
+  width: 200px;
+  font-weight: 500;
+  font-size: 14px;
 
 .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox div.type
-  padding-left 0
-  display block
-
-.tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox div.type p
-  border-radius: 13px;
-  height: 26px;
-  overflow: hidden;
-  background-color: rgba(253, 154, 2, 0.1);
-  font-size: 12px;
+  padding: 20px;
+  line-height: 1;
   font-weight: 500;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 26px;
-  letter-spacing: -0.3px;
-  color: rgba(253, 154, 2, 1);
-  padding 0 15px
-  display inline-block
+  font-size: 16px;
+  border-bottom: solid 1px #d8ddf0;
+  margin-left: -20px;
+  margin-right: -20px;
+  box-sizing: content-box;
 
 .tx-container .status span
   color #1daa8e
@@ -313,7 +326,32 @@ export default {
     word-wrap break-word
     white-space unset
 
+  .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div
+    height auto
+    display block
+    margin: 20px 0;
+    padding: 0 20px;
+    font-size: 14px;
+
   .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p
-    height unset
-    line-height unset
+    margin: 20px 0;
+    display: block;
+
+  .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p span
+    display: block;
+
+  .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox p span:first-child
+    width: 100%;
+    margin-top: 20px;
+    font-size: 13px;
+
+  .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox div.type
+    padding: 20px;
+    line-height: 1;
+    font-weight: 500;
+    font-size: 16px;
+    border-bottom: solid 1px #d8ddf0;
+    margin-left: -20px;
+    margin-right: -20px;
+    box-sizing: content-box;
 </style>
