@@ -8,7 +8,7 @@
           .tm-modal-search
             tm-field#search-input(
               type="text"
-              placeholder="block number or transaction hash"
+              placeholder="Search Block / Tx / Account"
               required
               v-model="query"
               autocomplete="off"
