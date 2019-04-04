@@ -27,15 +27,15 @@
 </template>
 
 <script>
-import { isNaN } from "lodash"
-import TmFormGroup from "../components/TmFormGroup"
-import TmFormStruct from "../components/TmFormStruct"
-import TmBtn from "../components/TmBtn"
-import TmField from "../components/TmField"
+import TmFormGroup from "../components/TmFormGroup";
+import TmFormStruct from "../components/TmFormStruct";
+import TmBtn from "../components/TmBtn";
+import TmField from "../components/TmField";
+import { handleSearch } from "../scripts/utility";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "home"
+    document.body.className = "home";
   },
   name: "page-index",
   components: {
@@ -59,14 +59,10 @@ export default {
   }),
   methods: {
     search() {
-      if (isNaN(Number(this.query))) {
-        this.$router.push({ path: `/tx/${this.query}` })
-      } else {
-        this.$router.push({ path: `/blocks/${this.query}` })
-      }
+      this.$router.push({ path: handleSearch(this.query) });
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>

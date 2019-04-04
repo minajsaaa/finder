@@ -14,7 +14,7 @@ const routes = [
   { path: "/blocks/:block", name: "block", component: Block },
   { path: "/txs/:block", name: "txs", component: Transactions },
   { path: "/tx/:hash", name: "tx", component: Transaction },
-  { path: "/account", name: "account", component: Account }
+  { path: "/account/:address", name: "account", component: Account }
 ]
 
 export default new Router({

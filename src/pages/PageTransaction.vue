@@ -12,7 +12,7 @@
             span {{ transaction.txhash }}
             span.copy(:data-clipboard-text="transaction.txhash" v-on:click="copy")
               i.material-icons filter_none
-              span.copied(:class="{ on: clicked }" )
+              span.copied(:class="{ on: copied }" )
         tm-list-item.status(dt="Status")
           template(slot="dd")
             span.title Success
@@ -24,44 +24,38 @@
         tm-list-item(dt="Timestamp" :dd="`2019.02.28 15:06:58`")
         //- tm-list-item(dt="Sender" :dd="transaction.tx.value.msg[0].value.from_address")
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
-        tm-list-item(dt="Transaction fee" :dd="`${transaction.tx.value.fee.amount[0].amount} ${transaction.tx.value.fee.amount[0].denom}`")
+        tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? transaction.tx.value.fee.amount[0].amount : `Null`")
         tm-list-item(dt="Gas (Used/Requested)" :dd="`${parseInt(transaction.gas_used).toLocaleString()}/${parseInt(transaction.gas_wanted).toLocaleString()}`")
         tm-list-item.rawData(dt="Message")
           template(slot="dd" v-for="m in transaction.tx.value.msg")
             //- vue-json-pretty(:data="transaction.tx")
             div.msgBox
               div.type {{ m.type }}
-              p
-                span Delegator
-                span {{ m.value.from_address}}
-              p
-                span Validator
-                span {{ m.value.to_address}}
-              p
-                span Delegation Amount
-                span 1.234 Luna
+              p(v-for="(value, key) in m.value")
+                span {{ key }}
+                span {{ value }}
 
     template(v-else-if="tx.error && !tx.txLoading")
       app-not-found
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
-import { isEmpty } from "lodash"
-import Clipboard from "clipboard"
-import TmListItem from "../components/TmListItem"
-import AppHeader from "../components/AppHeader"
-import AppNotFound from "../components/AppNotFound"
-import AppLoading from "../components/AppLoading"
-import { setTimeout } from "timers"
+import { mapGetters, mapActions } from "vuex";
+import { isEmpty } from "lodash";
+import Clipboard from "clipboard";
+import TmListItem from "../components/TmListItem";
+import AppHeader from "../components/AppHeader";
+import AppNotFound from "../components/AppNotFound";
+import AppLoading from "../components/AppLoading";
+import { setTimeout } from "timers";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "page"
+    document.body.className = "page";
   },
   name: "page-Tx",
   data: () => ({
-    clicked: false
+    copied: false
   }),
   components: {
     AppHeader,
@@ -72,34 +66,34 @@ export default {
   computed: {
     ...mapGetters(["tx", "block"]),
     transaction() {
-      const hash = this.$route.params.hash
+      const hash = this.$route.params.hash;
 
-      return this.tx.txs[hash]
+      return this.tx.txs[hash];
     }
   },
   methods: {
     ...mapActions(["queryTx"]),
     isEmpty,
     copy() {
-      this.clicked = true
+      this.copied = true;
       setTimeout(() => {
-        this.clicked = false
-      }, 1500)
+        this.copied = false;
+      }, 1500);
     }
   },
   async created() {
-    await this.queryTx(this.$route.params.hash)
+    await this.queryTx(this.$route.params.hash);
   },
   mounted() {
-    new Clipboard(".copy")
+    new Clipboard(".copy");
   },
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      this.queryTx(this.$route.params.hash)
+      this.queryTx(this.$route.params.hash);
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">

@@ -1,43 +1,27 @@
 <template lang="pug">
   div
     app-header
-    div(class="account-container")
+    div(v-if="!account.loaded && account.loading")
+      app-loading
+    div(class="account-container" v-else-if="account.loaded && !account.loading && !isEmpty(account)")
       h2 Account
-
       div(class="table")
         tm-list-item(dt="Address")
           template(slot="dd")
-            span terra1zr7aswwzskhav7w57vwpaqsafuh5uj7nv8a964
-            span.copy
+            span {{ $route.params.address }}
+            span.copy(:data-clipboard-text="$route.params.address" v-on:click="copy")
               i.material-icons filter_none
-              span.copied.on
-        tm-list-item(dt="Created")
-          template(slot="dd")
-            span 2019.02.28 15:06:58 (UTC)
+              span.copied(:class="{ on: copied }" )
+        // tm-list-item(dt="Created")
+        //   template(slot="dd")
+        //     span 2019.02.28 15:06:58 (UTC)
         tm-list-item(dt="Balance")
           template(slot="dd")
-            span Total 1,734 Luna
+            // span Total 1,734 Luna
             ul.chart
-              li
+              li(v-for="coin in coins")
                 div.inner
-                  div.pie
-                    img(src="https://i.imgur.com/UWbvi1O.png")
-                  span 1,024 Luna (66.12%)
-                  span Available: 888 (80.23%)
-                  span Delegated: 206 (19.76%)
-                  span Reward: 1.203 (0.076%)
-              li
-                div.inner
-                  div.pie
-                    img(src="https://i.imgur.com/CzorzpD.png")
-                  span 1,024 TerraKRW (33.21%)
-                  span ~520 Luna
-              li
-                div.inner
-                  div.pie
-                    img(src="https://i.imgur.com/ioL3J3d.png")
-                  span 1,024 TerraUSD (10.67%)
-                  span ~520 Luna
+                  span {{ coin.amount }} {{ coin.denom }}
 
         tm-list-item(dt="Delegations")
           template(slot="dd")
@@ -49,27 +33,14 @@
                   li
                     p Delegated
                   li
-                    p Weight
-                  li
                     p Rewards
-              li
+              li(v-for="d in delegations")
                 ul.row
-                  li TerraformLabs
-                  li 100 Luna
+                  li {{ d.validator_addr }}
+                  li {{ shortNumber(Number(d.shares)) }} Luna
                   li
-                    span 60%
-                    span.pie-sm
-                      img(src="https://i.imgur.com/Pcoqs3r.png")
-                  li 1.234 Luna
-              li
-                ul.row
-                  li TerraformLabs
-                  li 100 Luna
-                  li
-                    span 40%
-                    span.pie-sm
-                      img(src="https://i.imgur.com/TOCDbgZ.png")
-                  li 1.234 Luna
+                    p(v-for="reward in d.rewards")
+                      span {{ shortNumber(Number(reward.amount)) }} {{ reward.denom }}
 
         tm-list-item(dt="Transactions")
           template(slot="dd")
@@ -84,41 +55,82 @@
                     p Block
                   li
                     p Timestamp (UTC)
-              li
+              li(v-for="tx in txs")
                 ul.row
                   li
-                    a(href="/") 0x8c07bee83216f832163216f832163216f83216
-                  li.type 
-                    div Delegated
-                    span +2
-                  li 100 Luna
-                  li 2018.03.21 23:13:24
+                    router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
+                  li.type
+                    div {{ tx.tags[0].value }}
+                    span {{ `+${tx.tags.length - 1}` }}
+                  li
+                    router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
+                  li
+                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (UTC)` }}
+
+    template(v-else-if="account.error && !account.loading")
+      app-not-found
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
-import { isEmpty } from "lodash"
-import utility from "../scripts/utility"
-import TmListItem from "../components/TmListItem"
+import { mapGetters, mapActions } from "vuex";
+import { isEmpty } from "lodash";
+import Clipboard from "clipboard";
 
-import AppHeader from "../components/AppHeader"
-import AppNotFound from "../components/AppNotFound"
-import AppLoading from "../components/AppLoading"
-
-const { format } = utility
+import { format } from "../scripts/utility";
+import { shortNumber } from "../scripts/num";
+import TmListItem from "../components/TmListItem";
+import AppHeader from "../components/AppHeader";
+import AppNotFound from "../components/AppNotFound";
+import AppLoading from "../components/AppLoading";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "page"
+    document.body.className = "page";
   },
   name: "page-account",
+  data: () => ({
+    copied: false
+  }),
   components: {
     TmListItem,
     AppHeader,
     AppNotFound,
     AppLoading
   },
-}
+  computed: {
+    ...mapGetters(["account", "block"]),
+    currentAccount() {
+      return this.account.accounts[this.$route.params.address];
+    },
+    coins() {
+      return this.currentAccount.coins || [];
+    },
+    txs() {
+      return this.currentAccount.txs || [];
+    },
+    delegations() {
+      return this.currentAccount.delegations || [];
+    }
+  },
+  methods: {
+    ...mapActions(["fetchAccount"]),
+    isEmpty,
+    format,
+    shortNumber,
+    copy() {
+      this.copied = true;
+      setTimeout(() => {
+        this.copied = false;
+      }, 1500);
+    }
+  },
+  mounted() {
+    new Clipboard(".copy");
+  },
+  async created() {
+    await this.fetchAccount(this.$route.params.address);
+  }
+};
 </script>
 
 <style lang="stylus">
@@ -224,7 +236,7 @@ export default {
   margin-left -5px
   z-index -1
   transform rotate(45deg)
-  
+
 
 .tm-li-dd.tm-li-dd-flush
   overflow visible
@@ -257,7 +269,7 @@ export default {
   margin: 0 auto 20px;
   overflow: hidden;
 
-.account-container .chart li .pie img 
+.account-container .chart li .pie img
   width: 80px;
   height: 80px;
 
@@ -405,7 +417,7 @@ export default {
     width: 60px;
     height: 60px;
 
-  .account-container .chart li .pie img 
+  .account-container .chart li .pie img
     width: 60px;
     height: 60px;
 

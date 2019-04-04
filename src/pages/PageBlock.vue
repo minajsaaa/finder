@@ -37,14 +37,12 @@
 <script>
 import { mapGetters, mapActions } from "vuex"
 import { isEmpty } from "lodash"
-import utility from "../scripts/utility"
+import { format } from "../scripts/utility"
 import TmListItem from "../components/TmListItem"
 
 import AppHeader from "../components/AppHeader"
 import AppNotFound from "../components/AppNotFound"
 import AppLoading from "../components/AppLoading"
-
-const { format } = utility
 
 export default {
   beforeCreate: function() {
