@@ -29,7 +29,7 @@
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
             li
               p.type
-              div {{ tx.tx.type }}
+                div {{ tx.tx.type }}
                 span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
               p.txfee {{ tx.tx.value.fee.amount ? tx.tx.value.fee.amount[0].amount : `Null` }}
