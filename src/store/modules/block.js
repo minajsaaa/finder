@@ -1,6 +1,5 @@
 import axios from "../axios"
 import { state as configState } from "./config"
-
 const state = {
   blocks: {},
   loading: false,
@@ -9,34 +8,27 @@ const state = {
 }
 
 const actions = {
-  async fetchBlock({ state, commit }, blockHeight) {
-    commit("setLoading", true)
+  async fetchBlock({ commit }, blockHeight) {
+    commit("setBlockLoaded", true)
     commit("setError", {})
     try {
-      if (configState.localDev) {
-        let url = `${configState.rpc}/block?height=${blockHeight}`
-        let json = await axios.get(url)
-        state.blocks[blockHeight] = {}
-        state.blocks[blockHeight].block_meta = json.data.result.block_meta
-        state.blocks[blockHeight] = json.data.result.block
-        return
-      }
       let url = `${configState.lcd}/blocks/${blockHeight}`
       let json = await axios.get(url)
-      await commit("updateBlock", {
+      commit("updateBlock", {
         blockHeight,
         json
       })
+
+      commit("setBlockLoaded", true)
+      commit("setBlockLoading", false)
     } catch (error) {
-      await commit("setError", error)
-      commit("setLoading", false)
+      commit("setError", error)
+      commit("setBlockLoading", false)
     }
 
-    commit("setLoaded", true)
-    commit("setLoading", false)
   },
   setBlockLoadedFalse({ commit }) {
-    commit("setLoaded", false)
+    commit("setBlockLoaded", false)
   }
 }
 
@@ -47,11 +39,11 @@ const mutations = {
     newBlock.block = json.data.block
     state.blocks = { ...state.blocks, [blockHeight]: newBlock }
   },
-  setLoading(state, flag) {
-    state.loading = flag
-  },
-  setLoaded(state, flag) {
+  setBlockLoaded(state, flag) {
     state.loaded = flag
+  },
+  setBlockLoading(state, flag) {
+    state.loading = flag
   },
   setError(state, error) {
     state.error = error

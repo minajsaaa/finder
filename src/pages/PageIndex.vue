@@ -8,12 +8,17 @@
           .tm-modal-search
             tm-field#search-input(
               type="text"
-              placeholder="block number or transaction hash"
+              placeholder="Search Block / Tx / Account"
               required
               v-model="query"
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
+      // tm-form-group.select-network
+      //   tm-field(
+      //     type="select"
+      //     placeholder="Select network..."
+      //     :options="networkSelectOptions")
     div(class="background-cover")
     <video playsinline autoplay muted loop id="background" poster="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.jpg">
       <source src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.mp4" type="video/mp4">
@@ -22,15 +27,15 @@
 </template>
 
 <script>
-import { isNaN } from "lodash"
-import TmFormGroup from "../components/TmFormGroup"
-import TmFormStruct from "../components/TmFormStruct"
-import TmBtn from "../components/TmBtn"
-import TmField from "../components/TmField"
+import TmFormGroup from "../components/TmFormGroup";
+import TmFormStruct from "../components/TmFormStruct";
+import TmBtn from "../components/TmBtn";
+import TmField from "../components/TmField";
+import { handleSearch } from "../scripts/utility";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "home"
+    document.body.className = "home";
   },
   name: "page-index",
   components: {
@@ -40,18 +45,24 @@ export default {
     TmField
   },
   data: () => ({
-    query: ``
+    query: ``,
+    networkSelectOptions: [
+      {
+        value: `mainnet`,
+        key: `Columbus Mainnet`
+      },
+      {
+        value: `testnet`,
+        key: `Soju Testnet`
+      }
+    ]
   }),
   methods: {
     search() {
-      if (isNaN(Number(this.query))) {
-        this.$router.push({ path: `/tx/${this.query}` })
-      } else {
-        this.$router.push({ path: `/blocks/${this.query}` })
-      }
+      this.$router.push({ path: handleSearch(this.query) });
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
@@ -163,14 +174,21 @@ input:-webkit-autofill
   transform translateX(-50%) translateY(-50%)
   background rgba(8,32,128,.85)
 
+.select-network
+  position absolute
+  top 20px
+  right 20px
+  padding 0
+  margin 0
+
 @media screen and (max-width: 767px)
   .logo-container
-    margin-top: -100px
-    padding-bottom 50px
+    margin-top: -40px
+    padding-bottom 40px
 
   .logo-container img
-    width 200px
-    height 26px
+    width 196px
+    height 25px
 
   .main-container .tm-form-group input
     font-size 16px

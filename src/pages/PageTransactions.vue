@@ -27,11 +27,11 @@
           ul.row
             li
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
+            li.type
+              div {{ tx.tx.type }}
+              span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
-              p.type
-                span {{ tx.tx.type }}
-            li
-              p.txfee {{ tx.tx.value.fee.amount[0].amount }}
+              p.txfee {{ tx.tx.value.fee.amount ? tx.tx.value.fee.amount[0].amount : `Null` }}
             li
               router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
             li
@@ -44,19 +44,17 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
-import { isEmpty } from "lodash"
-import AppHeader from "../components/AppHeader"
-import AppPage from "../components/AppPage"
-import AppNotFound from "../components/AppNotFound"
-import AppLoading from "../components/AppLoading"
-import utility from "../scripts/utility"
-
-const { txToHash, fromNow } = utility
+import { mapGetters, mapActions } from "vuex";
+import { isEmpty } from "lodash";
+import AppHeader from "../components/AppHeader";
+import AppPage from "../components/AppPage";
+import AppNotFound from "../components/AppNotFound";
+import AppLoading from "../components/AppLoading";
+import { txToHash, fromNow } from "../scripts/utility";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "page"
+    document.body.className = "page";
   },
   name: "page-Txs",
   components: {
@@ -68,29 +66,29 @@ export default {
   computed: {
     ...mapGetters(["tx", "block"]),
     txs() {
-      const blockHeight = this.$route.params.block
-      const txs = []
+      const blockHeight = this.$route.params.block;
+      const txs = [];
 
       if (this.block.blocks[blockHeight]) {
-        const blockData = this.block.blocks[blockHeight].block
+        const blockData = this.block.blocks[blockHeight].block;
 
-        const len = blockData.data.txs.length || 0
+        const len = blockData.data.txs.length || 0;
         for (let i = 0; i < len; i++) {
-          let hash = txToHash(blockData.data.txs[i])
+          let hash = txToHash(blockData.data.txs[i]);
 
-          txs.push(this.tx.txs[hash])
+          txs.push(this.tx.txs[hash]);
         }
       }
 
-      return txs
+      return txs;
     },
     blockMeta() {
-      const blockHeight = this.$route.params.block
+      const blockHeight = this.$route.params.block;
 
-      return this.block.blocks[blockHeight].block_meta
+      return this.block.blocks[blockHeight].block_meta;
     },
     blockTime() {
-      return this.blockMeta.header.time
+      return this.blockMeta.header.time;
     }
   },
   methods: {
@@ -99,19 +97,19 @@ export default {
     isEmpty
   },
   async mounted() {
-    const blockHeight = this.$route.params.block
+    const blockHeight = this.$route.params.block;
     if (!this.block.blocks[blockHeight]) {
-      await this.fetchBlock(blockHeight)
+      await this.fetchBlock(blockHeight);
     }
-    await this.queryTxs(this.block.blocks[blockHeight].block)
+    await this.queryTxs(this.block.blocks[blockHeight].block);
   },
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      this.queryTxs(this.block.blocks[this.$route.params.block])
+      this.queryTxs(this.block.blocks[this.$route.params.block]);
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">
@@ -190,7 +188,7 @@ export default {
   border-radius 3px 3px 0 0
   font-weight 500
 
- .txs-container .tx-table .title .row
+.txs-container .tx-table .title .row
   border-top 0
   background-color rgba(84, 147, 247, 0.1)
 
@@ -201,21 +199,27 @@ export default {
   overflow hidden
   width 100%
 
-.txs-container .type span
+.txs-container .type div
   border-radius: 13px;
   height: 26px;
   overflow: hidden;
-  background-color: rgba(253, 154, 2, 0.1);
+  background-color: rgba(40, 69, 174,0.1);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 400;
   font-style: normal;
   font-stretch: normal;
   line-height: 26px;
   letter-spacing: -0.3px;
-  color: rgba(253, 154, 2, 1);
+  color: rgba(40, 69, 174, 1);
   padding 0 15px
   display inline-block
   vertical-align middle
+
+.txs-container .type span
+  display: inline-block;
+  font-size: 11px;
+  vertical-align: middle;
+  margin-left: 3px;
 
 .txs-container .tx-table
   border-radius 5px
@@ -235,7 +239,7 @@ export default {
   .txs-container .row li:first-child
     width 40%
 
-  .txs-container .type span
+  .txs-container .type div
     font-size 11px
     padding 0 10px
 
@@ -250,7 +254,7 @@ export default {
   .txs-container .row li:first-child
     width 40%
 
-  .txs-container .type span
+  .txs-container .type div
     font-size 11px
     padding 0 10px
 

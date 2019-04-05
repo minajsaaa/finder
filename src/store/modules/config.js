@@ -5,12 +5,12 @@ export const state = {
   localDev: process.env.VUE_APP_LOCAL_DEV !== undefined,
   rpc:
     process.env.LCD_URL !== undefined
-      ? "https://soju.terra.money:36657"
+      ? "http://soju.terra.money:36657"
       : process.env.LCD_URL,
-  lcd: "https://soju.terra.money:1317",
+  lcd: "https://lcd.terra.money",
   wss:
     process.env.RPC_URL !== undefined
-      ? "wss://soju.terra.money:36657"
+      ? "wss://13.125.232.86:36657"
       : process.env.RPC_URL
 };
 

@@ -1,8 +1,6 @@
 import axios from "../axios"
-import utility from "../../scripts/utility"
+import { txToHash }  from "../../scripts/utility"
 import { state as configState } from "./config"
-
-const { txToHash } = utility
 
 const state = {
   txs: {},
@@ -14,18 +12,18 @@ const state = {
 }
 
 const actions = {
-  async queryTxs({ dispatch, commit }, block) {
+  async queryTxs({ dispatch, commit, rootState }, block) {
     commit("setTxsLoading", true)
     commit("setError", {})
     try {
       const len = block.data.txs.length || 0
       const promiseArr = []
       for (let i = 0; i < len; i++) {
-        let hash = await txToHash(block.data.txs[i])
-        await promiseArr.push(dispatch("queryTx", hash))
-        // let txstring = atob(block.data.txs[i])
 
-        // console.log(Buffer.from(txstring).toString('hex'))
+        let hash = await txToHash(block.data.txs[i])
+        if (!rootState.tx.txs[hash]) {
+          await promiseArr.push(dispatch("queryTx", hash))
+        }
       }
       await Promise.all(promiseArr)
 
@@ -43,7 +41,7 @@ const actions = {
 
     try {
       await axios.get(url).then(async json => {
-        await commit("updateTx", {
+        commit("updateTx", {
           json
         })
       })

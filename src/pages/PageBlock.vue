@@ -22,7 +22,7 @@
             a(v-else class="transactions none")
               span {{ blockData.header.num_txs }} Transactions
 
-        tm-list-item(dt="Validator" :dd="blockData.header.validators_hash")
+        tm-list-item(dt="Proposer" :dd="blockData.header.proposer_address")
         //- tm-list-item(dt="Block reward" :dd="`0.8888 luna`")
         //- tm-list-item(dt="Size" :dd="`8,888 bytes`")
         tm-list-item(dt="Block hash" :dd="blockMeta.block_id.hash")
@@ -35,20 +35,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
-import { isEmpty } from "lodash"
-import utility from "../scripts/utility"
-import TmListItem from "../components/TmListItem"
+import { mapGetters, mapActions } from "vuex";
+import { isEmpty } from "lodash";
+import { format } from "../scripts/utility";
+import TmListItem from "../components/TmListItem";
 
-import AppHeader from "../components/AppHeader"
-import AppNotFound from "../components/AppNotFound"
-import AppLoading from "../components/AppLoading"
-
-const { format } = utility
+import AppHeader from "../components/AppHeader";
+import AppNotFound from "../components/AppNotFound";
+import AppLoading from "../components/AppLoading";
 
 export default {
   beforeCreate: function() {
-    document.body.className = "page"
+    document.body.className = "page";
   },
   name: "page-block",
   components: {
@@ -68,7 +66,7 @@ export default {
           },
           header: {}
         }
-      )
+      );
     },
     blockMeta() {
       return (
@@ -78,11 +76,11 @@ export default {
             hash: ``
           }
         }
-      )
+      );
     }
   },
   async created() {
-    await this.fetchBlock(this.$route.params.block)
+    await this.fetchBlock(this.$route.params.block);
   },
   methods: {
     ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
@@ -92,11 +90,11 @@ export default {
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      this.setBlockLoadedFalse()
-      this.fetchBlock(this.$route.params.block)
+      this.setBlockLoadedFalse();
+      this.fetchBlock(this.$route.params.block);
     }
   }
-}
+};
 </script>
 
 <style lang="stylus">
