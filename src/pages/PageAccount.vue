@@ -60,8 +60,8 @@
                   li
                     router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
                   li.type
-                    div {{ tx.tags[0].value }}
-                    span {{ `+${tx.tags.length - 1}` }}
+                    div {{ tx.tx.value.msg[0].type }}
+                    span(v-if="tx.tx.value.msg.length > 1") {{ `+${tx.tx.value.msg.length - 1}` }}
                   li
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
                   li

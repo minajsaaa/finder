@@ -6,7 +6,7 @@ import Block from "../pages/PageBlock"
 import Transactions from "../pages/PageTransactions"
 import Transaction from "../pages/PageTransaction"
 import Account from "../pages/PageAccount"
-
+import AppPageNotFound from "../components/AppPageNotFound"
 Vue.use(Router)
 
 const routes = [
@@ -14,7 +14,8 @@ const routes = [
   { path: "/blocks/:block", name: "block", component: Block },
   { path: "/txs/:block", name: "txs", component: Transactions },
   { path: "/tx/:hash", name: "tx", component: Transaction },
-  { path: "/account/:address", name: "account", component: Account }
+  { path: "/account/:address", name: "account", component: Account },
+  { path: `*`,  component: AppPageNotFound }
 ]
 
 export default new Router({
