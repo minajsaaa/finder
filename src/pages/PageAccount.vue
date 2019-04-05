@@ -21,11 +21,11 @@
             ul.chart
               li(v-for="coin in coins")
                 div.inner
-                  span {{ coin.amount }} {{ coin.denom }}
+                  span {{ shortNumber(Number(coin.amount)) }} {{ coin.denom }}
 
         tm-list-item(dt="Delegations")
           template(slot="dd")
-            ul.account-table
+            ul.account-table.delegation
               li.title
                 ul.row
                   li
@@ -44,7 +44,7 @@
 
         tm-list-item(dt="Transactions")
           template(slot="dd")
-            ul.account-table
+            ul.account-table.transaction
               li.title
                 ul.row
                   li
@@ -242,45 +242,55 @@ export default {
   overflow visible
 
 
+// .account-container .chart
+//   font-size: 0;
+//   margin-top: 15px;
+//   margin-left: -10px;
+//   margin-right: -10px;
+
+// .account-container .chart li
+//   display: inline-block;
+//   width: 33.33%;
+//   text-align: center;
+//   padding: 0 10px;
+//   vertical-align: top;
+//   margin-bottom: 20px;
+
+// .account-container .chart li .inner
+//   border: solid 1px #ebeef7;
+//   font-size: 12px;
+//   padding: 20px 10px;
+//   border-radius: 5px;
+
+// .account-container .chart li .pie
+//   width: 80px;
+//   height: 80px;
+//   display: block;
+//   margin: 0 auto 20px;
+//   overflow: hidden;
+
+// .account-container .chart li .pie img
+//   width: 80px;
+//   height: 80px;
+
+// .account-container .chart span
+//   display: block;
+//   margin: 5px 0;
+
+// .account-container .chart span:first-of-type
+//   margin: 20px 0 12px;
+//   font-size: 15px;
+//   font-weight: 500;
+
 .account-container .chart
-  font-size: 0;
-  margin-top: 15px;
-  margin-left: -10px;
-  margin-right: -10px;
+  text-transform: uppercase;
+  font-size: 15px;
 
 .account-container .chart li
-  display: inline-block;
-  width: 33.33%;
-  text-align: center;
-  padding: 0 10px;
-  vertical-align: top;
-  margin-bottom: 20px;
+  margin-top: 5px;
 
-.account-container .chart li .inner
-  border: solid 1px #ebeef7;
-  font-size: 12px;
-  padding: 20px 10px;
-  border-radius: 5px;
-
-.account-container .chart li .pie
-  width: 80px;
-  height: 80px;
-  display: block;
-  margin: 0 auto 20px;
-  overflow: hidden;
-
-.account-container .chart li .pie img
-  width: 80px;
-  height: 80px;
-
-.account-container .chart span
-  display: block;
-  margin: 5px 0;
-
-.account-container .chart span:first-of-type
-  margin: 20px 0 12px;
-  font-size: 15px;
-  font-weight: 500;
+.account-container .chart li:first-child
+  margin-top: 0;
 
 .account-table
   border-radius 5px
@@ -299,23 +309,34 @@ export default {
   border-top solid 1px #ebeef7
   width 100%
   table-layout fixed
-  min-width: 700px
+  min-width: 720px
 
 .account-table .row li
   padding 10px
   display table-cell
   vertical-align middle
-  line-height 1
+  line-height 1.5
 
 .account-table .row li:first-child
   padding-left 20px
-  width 31%
 
 .account-table .row li:last-child
-  padding-left 20px
+  padding-right 20px
 
 .account-table .row li
-  width 23%
+  width 25%
+
+.account-table.transaction .row li:nth-child(1)
+  padding-left 20px
+  width 32%
+
+.account-table.transaction .row li:nth-child(2)
+  padding-left 20px
+  width 18%
+
+.account-table.delegation .row li:first-child
+  padding-left 20px
+  width 50%
 
 .account-table .title
   border-radius 3px 3px 0 0
@@ -406,26 +427,26 @@ export default {
     word-wrap break-word
     white-space unset
 
-  .account-container .chart li
-    display: block;
-    width: 100%;
+  // .account-container .chart li
+  //   display: block;
+  //   width: 100%;
 
-  .account-container .chart li .inner
-    font-size: 12px;
+  // .account-container .chart li .inner
+  //   font-size: 12px;
 
-  .account-container .chart li .pie
-    width: 60px;
-    height: 60px;
+  // .account-container .chart li .pie
+  //   width: 60px;
+  //   height: 60px;
 
-  .account-container .chart li .pie img
-    width: 60px;
-    height: 60px;
+  // .account-container .chart li .pie img
+  //   width: 60px;
+  //   height: 60px;
 
-  .account-container .chart span
-    display: block;
-    margin: 5px 0;
+  // .account-container .chart span
+  //   display: block;
+  //   margin: 5px 0;
 
-  .account-container .chart span:first-of-type
-    margin: 20px 0 12px;
-    font-size: 14px;
+  // .account-container .chart span:first-of-type
+  //   margin: 20px 0 12px;
+  //   font-size: 14px;
 </style>

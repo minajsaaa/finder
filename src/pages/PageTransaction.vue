@@ -196,6 +196,7 @@ export default {
   width: 200px;
   font-weight: 500;
   font-size: 14px;
+  padding-right: 20px;
 
 .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox div.type
   padding: 20px;
@@ -337,6 +338,7 @@ export default {
     width: 100%;
     margin-top: 20px;
     font-size: 13px;
+    margin-bottom: 5px;
 
   .tx-container .rawData .tm-li-dd.tm-li-dd-flush > div.msgBox div.type
     padding: 20px;

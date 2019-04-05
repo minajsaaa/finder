@@ -27,10 +27,9 @@
           ul.row
             li
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
-            li
-              p.type
-                div {{ tx.tx.type }}
-                span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
+            li.type
+              div {{ tx.tx.type }}
+              span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
               p.txfee {{ tx.tx.value.fee.amount ? tx.tx.value.fee.amount[0].amount : `Null` }}
             li
@@ -220,7 +219,7 @@ export default {
   display: inline-block;
   font-size: 11px;
   vertical-align: middle;
-  margin-left: 5px;
+  margin-left: 3px;
 
 .txs-container .tx-table
   border-radius 5px
