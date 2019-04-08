@@ -26,7 +26,7 @@
         tm-list-item(dt="Delegations")
           template(slot="dd")
             ul.account-table.delegation
-              li.title
+              li.title(v-if="delegations.length > 0")
                 ul.row
                   li
                     p Validator
@@ -41,6 +41,7 @@
                   li
                     p(v-for="reward in d.rewards")
                       span {{ shortNumber(Number(reward.amount)) }} {{ reward.denom }}
+              div(class="delegation-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
 
         tm-list-item(dt="Transactions")
           template(slot="dd")
@@ -392,6 +393,10 @@ export default {
   font-size: 11px;
   vertical-align: middle;
   margin-left: 5px;
+
+.delegation-empty
+  padding: 30px;
+  text-align: center;
 
 @media screen and (max-width: 900px)
   .account-container
