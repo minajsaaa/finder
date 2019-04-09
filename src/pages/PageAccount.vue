@@ -41,13 +41,13 @@
                   li
                     p(v-for="reward in d.rewards")
                       span {{ mlunaToLuna(reward.amount) }} {{ denomSlicer(reward.denom) }}
-              div(class="delegation-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
+              div(class="table-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
 
         tm-list-item(dt="Transactions")
           template(slot="dd")
             app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
             ul.account-table.transaction
-              li.title
+              li.title(v-if="txs.length > 0")
                 ul.row
                   li
                     p Tx hash
@@ -68,6 +68,7 @@
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
                   li
                     span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (UTC)` }}
+              div(class="table-empty", v-if="txs.length === 0") {{ `No transaction yet` }}
 
     template(v-else-if="account.error && !account.loading")
       app-not-found
@@ -405,7 +406,7 @@ export default {
   vertical-align: middle;
   margin-left: 5px;
 
-.delegation-empty
+.table-empty
   padding: 30px;
   text-align: center;
 
