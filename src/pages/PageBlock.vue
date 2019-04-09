@@ -24,7 +24,7 @@
 
         tm-list-item(dt="Proposer")
           template(slot="dd")
-            span {{ encode(blockData.header.proposer_address) }}
+            span {{ blockData.header.proposer_address }}
         //- tm-list-item(dt="Block reward" :dd="`0.8888 luna`")
         //- tm-list-item(dt="Size" :dd="`8,888 bytes`")
         tm-list-item(dt="Block hash" :dd="blockMeta.block_id.hash")
@@ -40,7 +40,6 @@
 import { mapGetters, mapActions } from "vuex";
 import { isEmpty } from "lodash";
 import { format } from "../scripts/utility";
-import { encode } from "../scripts/b32";
 import TmListItem from "../components/TmListItem";
 
 import AppHeader from "../components/AppHeader";
@@ -89,8 +88,7 @@ export default {
   methods: {
     ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
     format,
-    isEmpty,
-    encode
+    isEmpty
   },
   watch: {
     // eslint-disable-next-line
