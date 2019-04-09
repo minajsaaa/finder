@@ -8,8 +8,7 @@
         span for Block {{ `#${$route.params.block}` }}
         p
           span.total A total of {{ txs.length }} transactions found
-          app-page(:totalRow="txs.length", v-if="(txs.length) > 10" class="appPage")
-
+          app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
       ul.tx-table
         li.title
           ul.row
@@ -23,23 +22,23 @@
               p.block {{ `Height` }}
             li
               p.time {{ `Time` }}
-        li(v-for="tx in txs")
-          ul.row
+        li(v-for="(tx, index) in txs")
+          ul.row(v-if="index >= startIndex && index < endIndex")
             li
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
             li.type
               div {{ tx.tx.type }}
               span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
-              p.txfee {{ tx.tx.value.fee.amount ? tx.tx.value.fee.amount[0].amount : `Null` }}
+              p.txfee {{ tx.tx.value.fee.amount ? `${mlunaToLuna(tx.tx.value.fee.amount[0].amount)} LUNA` : `Null` }}
             li
               router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
             li
               p.time {{ fromNow(blockTime) }}
 
-      app-page(:totalRow="txs.length", v-if="(txs.length) > 10" class="appPage")
+      app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
 
-    template(v-else-if="tx.error && !tx.txsLoading")
+    template(v-else-if="tx.error && !tx.txsLoading && tx.txsLoaded")
       app-not-found
 </template>
 
@@ -51,12 +50,17 @@ import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
 import { txToHash, fromNow } from "../scripts/utility";
+import { mlunaToLuna } from "../scripts/num";
 
 export default {
   beforeCreate: function() {
     document.body.className = "page";
   },
   name: "page-Txs",
+  data: () => ({
+    startIndex: 0,
+    endIndex: 10
+  }),
   components: {
     AppHeader,
     AppPage,
@@ -94,7 +98,12 @@ export default {
   methods: {
     ...mapActions(["queryTxs", "fetchBlock"]),
     fromNow,
-    isEmpty
+    isEmpty,
+    mlunaToLuna,
+    pageChange({ pageNumber, pageSize }) {
+      this.startIndex = pageSize * (pageNumber - 1);
+      this.endIndex = pageSize * pageNumber;
+    }
   },
   async mounted() {
     const blockHeight = this.$route.params.block;
@@ -151,11 +160,6 @@ export default {
   font-size 15px
   height 40px
   line-height 40px
-
-.txs-container .appPage
-  height 40px;
-  line-height 40px;
-  font-size: 0;
 
 .txs-container .row
   display table

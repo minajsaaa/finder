@@ -10,7 +10,7 @@
 <script>
 export default {
   name: "app-loading"
-}
+};
 </script>
 
 <style scoped>
