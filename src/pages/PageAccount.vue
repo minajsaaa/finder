@@ -36,7 +36,7 @@
                     p Rewards
               li(v-for="d in delegations")
                 ul.row
-                  li {{ d.validator_addr }}
+                  li {{ d.validator_address }}
                   li {{ mlunaToLuna(d.shares) }} Luna
                   li
                     p(v-for="reward in d.rewards")

@@ -24,10 +24,10 @@ const actions = {
       url = `${configState.lcd}/staking/delegators/${address}/delegations`;
       json = await axios.get(url);
 
-      newAccount.delegations = json.data;
+      const delegations = json.data;
 
-      if (newAccount.delegations)
-        Promise.map(newAccount.delegations, async delegation => {
+      if (delegations)
+        Promise.map(delegations, async delegation => {
           const res = await axios.get(
             `${configState.lcd}/distribution/delegators/${
               delegation.delegator_address
@@ -35,6 +35,8 @@ const actions = {
           );
           delegation.rewards = res.data;
         });
+
+      newAccount.delegations = delegations;
 
       const txs = await Promise.all([
         axios.get(`${configState.lcd}/txs?sender=${address}`),
@@ -57,13 +59,13 @@ const actions = {
 
       await Promise.all(promiseArr);
 
-      commit("updateAccount", {
+      await commit("updateAccount", {
         address,
         newAccount
       });
 
-      commit("setAccountLoaded", true);
-      commit("setAccountLoading", false);
+      await commit("setAccountLoaded", true);
+      await commit("setAccountLoading", false);
     } catch (error) {
       commit("setError", error);
       commit("setAccountLoading", false);
