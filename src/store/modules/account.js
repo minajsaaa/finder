@@ -1,6 +1,6 @@
 import axios from "../axios";
 import { state as configState } from "./config";
-import * as Promise from 'bluebird';
+import * as Promise from "bluebird";
 
 const state = {
   accounts: {},
@@ -14,7 +14,7 @@ const actions = {
     commit("setAccountLoading", true);
     commit("setError", {});
     try {
-      let newAccount = {}
+      let newAccount = {};
 
       let url = `${configState.lcd}/auth/accounts/${address}`;
       let json = await axios.get(url);
@@ -24,13 +24,17 @@ const actions = {
       url = `${configState.lcd}/staking/delegators/${address}/delegations`;
       json = await axios.get(url);
 
-      newAccount.delegations = json.data
+      newAccount.delegations = json.data;
 
-      Promise.map(newAccount.delegations, async delegation => {
-        const res = await axios.get(`${configState.lcd}/distribution/delegators/${delegation.delegator_addr}/rewards/${delegation.validator_addr}`);
-        delegation.rewards = res.data
-      })
-
+      if (newAccount.delegations)
+        Promise.map(newAccount.delegations, async delegation => {
+          const res = await axios.get(
+            `${configState.lcd}/distribution/delegators/${
+              delegation.delegator_address
+            }/rewards/${delegation.validator_address}`
+          );
+          delegation.rewards = res.data;
+        });
 
       const txs = await Promise.all([
         axios.get(`${configState.lcd}/txs?sender=${address}`),
@@ -38,32 +42,32 @@ const actions = {
       ]).then(
         async ([senderTxs, recipientTxs]) =>
           await [].concat(senderTxs.data, recipientTxs.data)
-      )
+      );
 
-      newAccount.txs = txs
+      newAccount.txs = txs;
 
       const len = txs.length || 0;
-      const promiseArr = []
+      const promiseArr = [];
 
       for (let i = 0; i < len; i++) {
         if (!rootState.block.blocks[txs[i].height]) {
-          await promiseArr.push(dispatch("fetchBlock", txs[i].height))
+          await promiseArr.push(dispatch("fetchBlock", txs[i].height));
         }
       }
 
-      await Promise.all(promiseArr)
+      await Promise.all(promiseArr);
 
       commit("updateAccount", {
         address,
         newAccount
-      })
+      });
 
       commit("setAccountLoaded", true);
       commit("setAccountLoading", false);
     } catch (error) {
-      console.log(error)
       commit("setError", error);
       commit("setAccountLoading", false);
+      commit("setAccountLoaded", true);
     }
   }
 };
@@ -73,13 +77,13 @@ const mutations = {
     state.accounts = { ...state.accounts, [address]: newAccount };
   },
   setAccountLoaded(state, flag) {
-    state.loaded = flag
+    state.loaded = flag;
   },
   setAccountLoading(state, flag) {
-    state.loading = flag
+    state.loading = flag;
   },
   setError(state, error) {
-    state.error = error
+    state.error = error;
   }
 };
 

@@ -22,7 +22,9 @@
             a(v-else class="transactions none")
               span {{ blockData.header.num_txs }} Transactions
 
-        tm-list-item(dt="Proposer" :dd="blockData.header.proposer_address")
+        tm-list-item(dt="Proposer")
+          template(slot="dd")
+            span {{ encode(blockData.header.proposer_address) }}
         //- tm-list-item(dt="Block reward" :dd="`0.8888 luna`")
         //- tm-list-item(dt="Size" :dd="`8,888 bytes`")
         tm-list-item(dt="Block hash" :dd="blockMeta.block_id.hash")
@@ -30,7 +32,7 @@
           template(slot="dd")
             router-link(:to="{ name: 'block', params: { block: parseInt(blockData.header.height) - 1 }}") {{ blockData.last_commit.block_id.hash }}
 
-    template(v-else-if="block.error && !block.loading")
+    template(v-else-if="block.error && !block.loading && block.loaded")
       app-not-found
 </template>
 
@@ -38,6 +40,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { isEmpty } from "lodash";
 import { format } from "../scripts/utility";
+import { encode } from "../scripts/b32";
 import TmListItem from "../components/TmListItem";
 
 import AppHeader from "../components/AppHeader";
@@ -80,12 +83,14 @@ export default {
     }
   },
   async created() {
+    await this.setBlockLoadedFalse();
     await this.fetchBlock(this.$route.params.block);
   },
   methods: {
     ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
     format,
-    isEmpty
+    isEmpty,
+    encode
   },
   watch: {
     // eslint-disable-next-line

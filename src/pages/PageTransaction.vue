@@ -24,7 +24,7 @@
         tm-list-item(dt="Timestamp" :dd="`2019.02.28 15:06:58`")
         //- tm-list-item(dt="Sender" :dd="transaction.tx.value.msg[0].value.from_address")
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
-        tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? transaction.tx.value.fee.amount[0].amount : `Null`")
+        tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${mlunaToLuna(transaction.tx.value.fee.amount[0].amount)} LUNA` : `Null`")
         tm-list-item(dt="Gas (Used/Requested)" :dd="`${parseInt(transaction.gas_used).toLocaleString()}/${parseInt(transaction.gas_wanted).toLocaleString()}`")
         tm-list-item.rawData(dt="Message")
           template(slot="dd" v-for="m in transaction.tx.value.msg")
@@ -33,9 +33,10 @@
               div.type {{ m.type }}
               p(v-for="(value, key) in m.value")
                 span {{ key }}
-                span {{ value }}
+                router-link(v-if="isTerraAddress(value)" :to="{ name: 'account', params: { address: value }}") {{ value }}
+                span(v-else) {{ value }}
 
-    template(v-else-if="tx.error && !tx.txLoading")
+    template(v-else-if="tx.error && !tx.txLoading && tx.txLoaded")
       app-not-found
 </template>
 
@@ -43,6 +44,8 @@
 import { mapGetters, mapActions } from "vuex";
 import { isEmpty } from "lodash";
 import Clipboard from "clipboard";
+import { isTerraAddress } from "../scripts/utility";
+import { mlunaToLuna } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppNotFound from "../components/AppNotFound";
@@ -74,6 +77,8 @@ export default {
   methods: {
     ...mapActions(["queryTx"]),
     isEmpty,
+    isTerraAddress,
+    mlunaToLuna,
     copy() {
       this.copied = true;
       setTimeout(() => {

@@ -21,7 +21,7 @@
             ul.chart
               li(v-for="coin in coins")
                 div.inner
-                  span {{ shortNumber(Number(coin.amount)) }} {{ coin.denom }}
+                  span {{ mlunaToLuna(coin.amount) }} {{ denomSlicer(coin.denom) }}
 
         tm-list-item(dt="Delegations")
           template(slot="dd")
@@ -37,14 +37,15 @@
               li(v-for="d in delegations")
                 ul.row
                   li {{ d.validator_addr }}
-                  li {{ shortNumber(Number(d.shares)) }} Luna
+                  li {{ mlunaToLuna(d.shares) }} Luna
                   li
                     p(v-for="reward in d.rewards")
-                      span {{ shortNumber(Number(reward.amount)) }} {{ reward.denom }}
+                      span {{ mlunaToLuna(reward.amount) }} {{ denomSlicer(reward.denom) }}
               div(class="delegation-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
 
         tm-list-item(dt="Transactions")
           template(slot="dd")
+            app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
             ul.account-table.transaction
               li.title
                 ul.row
@@ -56,8 +57,8 @@
                     p Block
                   li
                     p Timestamp (UTC)
-              li(v-for="tx in txs")
-                ul.row
+              li(v-for="(tx, index) in txs")
+                ul.row(v-if="index >= startIndex && index < endIndex")
                   li
                     router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
                   li.type
@@ -78,9 +79,10 @@ import { isEmpty } from "lodash";
 import Clipboard from "clipboard";
 
 import { format } from "../scripts/utility";
-import { shortNumber } from "../scripts/num";
+import { shortNumber, mlunaToLuna, denomSlicer } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
+import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
 
@@ -90,11 +92,14 @@ export default {
   },
   name: "page-account",
   data: () => ({
-    copied: false
+    copied: false,
+    startIndex: 0,
+    endIndex: 10
   }),
   components: {
     TmListItem,
     AppHeader,
+    AppPage,
     AppNotFound,
     AppLoading
   },
@@ -118,11 +123,17 @@ export default {
     isEmpty,
     format,
     shortNumber,
+    denomSlicer,
+    mlunaToLuna,
     copy() {
       this.copied = true;
       setTimeout(() => {
         this.copied = false;
       }, 1500);
+    },
+    pageChange({ pageNumber, pageSize }) {
+      this.startIndex = pageSize * (pageNumber - 1);
+      this.endIndex = pageSize * pageNumber;
     }
   },
   mounted() {

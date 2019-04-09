@@ -3,7 +3,7 @@
     div
       h1 Search not found
       p Sorry, we couldn't find any results for #[span "{{ keyword }}"].
-      p Please input the correct block number or transaction hash.
+      p Please input the correct block number or transaction hash or account address.
       img(src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/earth.svg")
       router-link(to="/" exact): span Back to Home
 </template>
@@ -11,16 +11,16 @@
 <script>
 export default {
   beforeCreate: function() {
-    document.body.className = "page"
+    document.body.className = "page";
   },
   name: "app-not-found",
   computed: {
     keyword() {
-      const key = Object.keys(this.$route.params)[0]
-      return this.$route.params[key]
+      const key = Object.keys(this.$route.params)[0];
+      return this.$route.params[key];
     }
   }
-}
+};
 </script>
 
 <style lang="stylus" scoped>
