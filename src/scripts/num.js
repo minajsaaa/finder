@@ -16,5 +16,15 @@ export function mlunaToLuna(num) {
 }
 
 export function denomSlicer(str) {
-  return str.slice(1);
+  const converter = {
+    mluna: "Luna",
+    mkrw: "KRT",
+    musd: "UST",
+    msdr: "SDT",
+    mgbp: "GBT",
+    meur: "EUT",
+    mjpy: "JPT",
+    mcny: "CNT"
+  }
+  return converter[str];
 }
