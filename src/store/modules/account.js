@@ -1,5 +1,4 @@
 import axios from "../axios";
-import { state as configState } from "./config";
 import * as Promise from "bluebird";
 
 const state = {
@@ -16,12 +15,12 @@ const actions = {
     try {
       let newAccount = {};
 
-      let url = `${configState.lcd}/auth/accounts/${address}`;
+      let url = `${rootState.config.lcd}/auth/accounts/${address}`;
       let json = await axios.get(url);
 
       newAccount = json.data.value;
 
-      url = `${configState.lcd}/staking/delegators/${address}/delegations`;
+      url = `${rootState.config.lcd}/staking/delegators/${address}/delegations`;
       json = await axios.get(url);
 
       const delegations = json.data;
@@ -29,7 +28,7 @@ const actions = {
       if (delegations)
         Promise.map(delegations, async delegation => {
           const res = await axios.get(
-            `${configState.lcd}/distribution/delegators/${
+            `${rootState.config.lcd}/distribution/delegators/${
               delegation.delegator_address
             }/rewards/${delegation.validator_address}`
           );
@@ -39,8 +38,8 @@ const actions = {
       newAccount.delegations = delegations;
 
       const txs = await Promise.all([
-        axios.get(`${configState.lcd}/txs?sender=${address}`),
-        axios.get(`${configState.lcd}/txs?recipient=${address}`)
+        axios.get(`${rootState.config.lcd}/txs?sender=${address}`),
+        axios.get(`${rootState.config.lcd}/txs?recipient=${address}`)
       ]).then(
         async ([senderTxs, recipientTxs]) =>
           await [].concat(senderTxs.data, recipientTxs.data)

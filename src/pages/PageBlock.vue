@@ -82,11 +82,12 @@ export default {
     }
   },
   async created() {
+    await this.getNetworkConfig();
     await this.setBlockLoadedFalse();
     await this.fetchBlock(this.$route.params.block);
   },
   methods: {
-    ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
+    ...mapActions(["fetchBlock", "setBlockLoadedFalse", "getNetworkConfig"]),
     format,
     isEmpty
   },

@@ -20,6 +20,7 @@
     "numeral": "^2.0.6",
     "pug": "^2.0.3",
     "pug-plain-loader": "^1.0.0",
+    "store": "^2.0.12",
     "vue": "^2.6.6",
     "vue-router": "^3.0.1",
     "vuelidate": "^0.7.4",

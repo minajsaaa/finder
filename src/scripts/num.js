@@ -25,6 +25,6 @@ export function denomSlicer(str) {
     meur: "EUT",
     mjpy: "JPT",
     mcny: "CNT"
-  }
+  };
   return converter[str];
 }

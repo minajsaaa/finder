@@ -96,7 +96,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["queryTxs", "fetchBlock"]),
+    ...mapActions(["queryTxs", "fetchBlock", "getNetworkConfig"]),
     fromNow,
     isEmpty,
     mlunaToLuna,
@@ -106,12 +106,14 @@ export default {
     }
   },
   async mounted() {
+    await this.getNetworkConfig();
     const blockHeight = this.$route.params.block;
     if (!this.block.blocks[blockHeight]) {
       await this.fetchBlock(blockHeight);
     }
     await this.queryTxs(this.block.blocks[blockHeight].block);
   },
+
   watch: {
     // eslint-disable-next-line
     $route(to, from) {

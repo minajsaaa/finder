@@ -1,6 +1,5 @@
 import axios from "../axios";
 import { txToHash } from "../../scripts/utility";
-import { state as configState } from "./config";
 
 const state = {
   txs: {},
@@ -34,10 +33,10 @@ const actions = {
       commit("setTxsLoading", false);
     }
   },
-  async queryTx({ commit }, hash) {
+  async queryTx({ commit, rootState }, hash) {
     commit("setTxLoading", true);
     commit("setError", {});
-    let url = `${configState.lcd}/txs/${hash}`;
+    let url = `${rootState.config.lcd}/txs/${hash}`;
 
     try {
       await axios.get(url).then(async json => {

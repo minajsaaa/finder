@@ -1,5 +1,5 @@
 import axios from "../axios";
-import { state as configState } from "./config";
+
 const state = {
   blocks: {},
   loading: false,
@@ -8,11 +8,11 @@ const state = {
 };
 
 const actions = {
-  async fetchBlock({ commit }, blockHeight) {
+  async fetchBlock({ commit, rootState }, blockHeight) {
     commit("setBlockLoading", true);
     commit("setError", {});
     try {
-      let url = `${configState.lcd}/blocks/${blockHeight}`;
+      let url = `${rootState.config.lcd}/blocks/${blockHeight}`;
       let json = await axios.get(url);
       commit("updateBlock", {
         blockHeight,

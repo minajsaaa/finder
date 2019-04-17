@@ -75,7 +75,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["queryTx"]),
+    ...mapActions(["queryTx", `getNetworkConfig`]),
     isEmpty,
     isTerraAddress,
     mlunaToLuna,
@@ -87,9 +87,10 @@ export default {
     }
   },
   async created() {
+    await this.getNetworkConfig();
     await this.queryTx(this.$route.params.hash);
   },
-  mounted() {
+  async mounted() {
     new Clipboard(".copy");
   },
   watch: {

@@ -1,151 +1,193 @@
-<template lang="pug">
-.tm-select(v-if="type === 'select' || type === 'countries'")
-  select(
-    :class="css"
-    :value="value"
-    @input="updateValue($event.target.value)"
-    @change="onChange"
-    @keyup="onKeyup"
-    @keydown="onKeydown")
-    option(value="" disabled selected hidden) {{ selectPlaceholder }}
-    option(v-if="options" v-for="i in options" :value="i.value") {{ i.key }}
-    option(v-else-if="type === 'countries'" v-for="i in countries" :value="i.value"
-    :key="i.key") {{ i.key }}
-  .tm-field-select-addon: i.material-icons arrow_drop_down
+<template>
+  <div v-if="type === 'select'" class="tm-select">
+    <select
+      :class="css"
+      :value="value"
+      @input="updateValue($event.target.value)"
+      @change="onChange"
+      @keyup="onKeyup"
+      @keydown="onKeydown"
+    >
+      <option
+        value=""
+        disabled="disabled"
+        selected="selected"
+        hidden="hidden"
+        >{{ selectPlaceholder }}</option
+      >
+      <template>
+        <option
+          v-for="(option, index) in resolvedOptions"
+          :key="index"
+          :value="option.value"
+          >{{ option.key }}</option
+        >
+      </template>
+    </select>
+    <div class="tm-field-select-addon">
+      <i class="material-icons">arrow_drop_down</i>
+    </div>
+  </div>
 
-// .tm-datetime(v-else-if="type === 'datetime'")
-  input(
-    type="text"
+  <textarea
+    v-else-if="type === 'textarea'"
     :class="css"
+    :placeholder="placeholder"
+    :value="value"
     @change="onChange"
     @keyup="onKeyup"
     @keydown="onKeydown"
+    @input="updateValue($event.target.value)"
+  ></textarea>
+
+  <label v-else-if="type === 'toggle'" :class="toggleClass" class="tm-toggle">
+    <div class="tm-toggle-wrapper" @click.prevent="toggle">
+      <span>{{
+        currentToggleState ? resolvedOptions.checked : resolvedOptions.unchecked
+      }}</span>
+      <div class="toggle-option-checked">
+        <div>{{ resolvedOptions.checked }}</div>
+      </div>
+      <div class="toggle-option-unchecked">
+        <div>{{ resolvedOptions.unchecked }}</div>
+      </div>
+      <div class="toggle-handle"></div>
+      <input :value="currentToggleState" type="checkbox" @change="onChange" />
+    </div>
+  </label>
+
+  <input
+    v-else
+    ref="numTextInput"
+    :type="type"
+    :class="css"
     :placeholder="placeholder"
     :value="value"
-    @input="updateValue($event.target.value)")
-
-textarea(v-else-if="type === 'textarea'"
-  :class="css"
-  @change="onChange"
-  @keyup="onKeyup"
-  @keydown="onKeydown"
-  :placeholder="placeholder"
-  :value="value"
-  @input="updateValue($event.target.value)")
-
-label.tm-toggle(
-  v-else-if="type === 'toggle'"
-  :class="toggleClass")
-  .tm-toggle-wrapper
-    span {{toggleLongerWord}}
-    .toggle-option-checked: div {{toggleOptions.checked}}
-    .toggle-option-unchecked: div {{toggleOptions.unchecked}}
-    .toggle-handle
-    input(
-      type="checkbox"
-      @change="onChange"
-      :value="value"
-    )
-
-input(v-else
-  ref="numTextInput"
-  :type="type"
-  :class="css"
-  @change="onChange"
-  @keyup="onKeyup"
-  @keydown="onKeydown"
-  :placeholder="placeholder"
-  :value="value"
-  :max="max"
-  :min="min"
-  @input="updateValue($event.target.value)")
+    :max="max"
+    :min="min"
+    @change="onChange"
+    @keyup="onKeyup"
+    @keydown="onKeydown"
+    @input="updateValue($event.target.value)"
+  />
 </template>
 
 <script>
-// import flatpickr from 'flatpickr'
-import countries from "../scripts/countries.json";
 export default {
-  name: "tm-field",
-  props: [
-    "placeholder",
-    "type",
-    "size",
-    "value",
-    "theme",
-    "options",
-    "change",
-    "keyup",
-    "keydown",
-    "max",
-    "min"
-  ],
+  name: `tm-field`,
+  props: {
+    type: {
+      type: String,
+      default: `text`
+    },
+    value: {
+      type: [String, Number],
+      default: null
+    },
+    placeholder: {
+      type: String,
+      default: null
+    },
+    size: {
+      type: String,
+      default: null
+    },
+    theme: {
+      type: String,
+      default: null
+    },
+    options: {
+      type: [Array, Object],
+      default: null
+    },
+    change: {
+      type: Function,
+      default: null
+    },
+    keyup: {
+      type: Function,
+      default: null
+    },
+    keydown: {
+      type: Function,
+      default: null
+    },
+    max: {
+      type: [String, Number], // for convenience you can provide a string
+      default: null
+    },
+    min: {
+      type: [String, Number], // for convenience you can provide a string
+      default: null
+    }
+  },
+  data: () => ({
+    defaultToggleOptions: {
+      checked: `on`,
+      unchecked: `off`
+    },
+    currentToggleState: false
+  }),
   computed: {
     css() {
-      let value = "tm-field";
-      if (this.type === "select" || this.type === "countries") {
-        value += " tm-field-select";
+      let value = `tm-field`;
+      if (this.type === `select`) {
+        value += ` tm-field-select`;
       }
-      if (this.type === "toggle") {
-        value += " tm-field-toggle";
-      }
+      // not used and screws with css when used
+      // if (this.type === `toggle`) {
+      //   value += ` tm-field-toggle`
+      // }
       if (this.size) value += ` tm-field-size-${this.size}`;
       if (this.theme) value += ` tm-field-theme-${this.theme}`;
       return value;
     },
     toggleClass() {
-      return {
-        unchecked: !this.value
-      };
+      return !this.currentToggleState ? `unchecked` : undefined;
     },
-    toggleLongerWord() {
-      return this.toggleOptions.checked.length >
-        this.toggleOptions.unchecked.length
-        ? this.toggleOptions.checked
-        : this.toggleOptions.unchecked;
+    resolvedOptions() {
+      if (this.type === `select`) {
+        return this.options || [];
+      }
+      // else is always `toggle`
+      return this.options || this.defaultToggleOptions;
     },
     selectPlaceholder() {
       if (this.placeholder) return this.placeholder;
-      else return "Select option...";
-    },
-    toggleOptions() {
-      if (this.options && this.options.checked && this.options.unchecked)
-        return this.options;
-      return {
-        checked: "on",
-        unchecked: "off"
-      };
+      else return `Select option...`;
     }
   },
-  data: () => ({
-    countries: countries
-  }),
+  watch: {
+    value(newValue) {
+      this.currentToggleState = !!newValue;
+    }
+  },
+  mounted() {
+    this.currentToggleState = !!this.value;
+  },
   methods: {
     toggle() {
-      this.value = !this.value;
+      this.currentToggleState = !this.currentToggleState;
     },
     updateValue(value) {
-      let formattedValue = this.forceMinMax(value.trim());
-      // so that the user can type in "-" and it isn't removed
-      if (formattedValue) {
-        // so the actual text box displays the correct number
-        this.$refs.numTextInput.value = formattedValue;
+      let formattedValue = value;
+      if (this.type == `number`) {
+        formattedValue = this.forceMinMax(value);
       }
       // Emit the number value through the input event
-      this.$emit("input", formattedValue);
+      this.$emit(`input`, formattedValue);
     },
     onChange(...args) {
       if (this.change) return this.change(...args);
     },
     onKeyup(...args) {
-      this.$refs.numTextInput.val = this.formattedValue;
       if (this.keyup) return this.keyup(...args);
     },
     onKeydown(...args) {
       if (this.keydown) return this.keydown(...args);
     },
     forceMinMax(value) {
-      if (this.type !== "number") return value;
-      value = value ? Number(value) : value;
+      value = typeof value === `string` ? Number(value.trim()) : value;
       if (this.max && value > this.max) {
         value = Number(this.max);
       } else if (this.min && value && value < this.min) {
@@ -153,22 +195,6 @@ export default {
       }
       return value;
     }
-  },
-  mounted() {
-    let el = this.$el;
-    if (this.type === "number") {
-      el.addEventListener("focus", function() {
-        el.select();
-      });
-    }
-    /* if (this.type === 'datetime') {
-      this.picker = flatpickr(el, {
-        enableTime: true,
-        dateFormat: 'Y-m-d H:i',
-        onChange: (dateObj, dateStr) => this.updateValue(dateStr)
-      })
-      // console.log('its a datetime!', el)
-    } */
   }
 };
 </script>

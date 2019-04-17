@@ -14,11 +14,14 @@
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
-      // tm-form-group.select-network
-      //   tm-field(
-      //     type="select"
-      //     placeholder="Select network..."
-      //     :options="networkSelectOptions")
+      tm-form-group.select-network
+        tm-field(
+          type="select"
+          v-model="curNetwork"
+          placeholder="Select network..."
+          :options="networks"
+          :change="setNetwork"
+          )
     div(class="background-cover")
     <video playsinline autoplay muted loop id="background" poster="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.jpg">
       <source src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.mp4" type="video/mp4">
@@ -27,6 +30,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import TmFormGroup from "../components/TmFormGroup";
 import TmFormStruct from "../components/TmFormStruct";
 import TmBtn from "../components/TmBtn";
@@ -46,21 +50,22 @@ export default {
   },
   data: () => ({
     query: ``,
-    networkSelectOptions: [
-      {
-        value: `mainnet`,
-        key: `Columbus Mainnet`
-      },
-      {
-        value: `testnet`,
-        key: `Soju Testnet`
-      }
-    ]
+    curNetwork: ``
   }),
+  computed: {
+    ...mapGetters([`networks`])
+  },
   methods: {
+    ...mapActions([`getNetworkConfig`, `setNetworkConfig`]),
     search() {
       this.$router.push({ path: handleSearch(this.query) });
+    },
+    setNetwork() {
+      this.setNetworkConfig(this.curNetwork);
     }
+  },
+  async mounted() {
+    this.curNetwork = await this.getNetworkConfig();
   }
 };
 </script>

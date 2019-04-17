@@ -120,7 +120,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchAccount"]),
+    ...mapActions(["fetchAccount", "getNetworkConfig"]),
     isEmpty,
     format,
     shortNumber,
@@ -137,10 +137,11 @@ export default {
       this.endIndex = pageSize * pageNumber;
     }
   },
-  mounted() {
+  async mounted() {
     new Clipboard(".copy");
   },
   async created() {
+    await this.getNetworkConfig();
     await this.fetchAccount(this.$route.params.address);
   }
 };
