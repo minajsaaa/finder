@@ -11,8 +11,8 @@ const networksConfig = [
   {
     value: `vodka`,
     key: `Vodka Testnet`,
-    lcd: `https://lcd.vodka.terra.money`,
-    rpc: `https://rpc.vodka.terra.money`,
+    lcd: `https://vodka-lcd.terra.money`,
+    rpc: `https://vodka-rpc.terra.money`,
     wss: `wss://vodka.terra.money:26657/websocket`
   }
 ];
