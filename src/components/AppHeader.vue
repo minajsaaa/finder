@@ -14,10 +14,18 @@
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
+      tm-form-group.select-network
+        tm-field(
+          type="select"
+          v-model="curNetwork"
+          placeholder="Select network..."
+          :options="networks"
+          :change="setNetwork"
+          )
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import TmFormGroup from "./TmFormGroup";
 import TmFormStruct from "./TmFormStruct";
 import TmBtn from "./TmBtn";
@@ -33,19 +41,27 @@ export default {
     TmField
   },
   data: () => ({
-    query: ``
+    query: ``,
+    curNetwork: ``
   }),
   computed: {
-    ...mapGetters(["config"])
+    ...mapGetters(["config"]),
+    ...mapGetters([`networks`])
   },
   methods: {
+    ...mapActions([`getNetworkConfig`, `setNetworkConfig`]),
     search() {
       this.$router.push({
         path: handleSearch(this.query, this.$route.params.network)
       });
+    },
+    setNetwork() {
+      this.setNetworkConfig(this.curNetwork);
     }
   },
-  mounted() {}
+  async mounted() {
+    this.curNetwork = await this.getNetworkConfig();
+  }
 };
 </script>
 
@@ -79,11 +95,12 @@ export default {
 .header .tm-form
   position absolute
   top 20px
-  right 40px
+  right 230px
   display inline-flex
   height 40px
-  width 50%
+  width 34%
   max-width 640px
+  margin-left: -320px;
 
 .header .tm-form-group__field
   position relative
