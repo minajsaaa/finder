@@ -40,7 +40,9 @@ export default {
   },
   methods: {
     search() {
-      this.$router.push({ path: handleSearch(this.query) });
+      this.$router.push({
+        path: handleSearch(this.query, this.$route.params.network)
+      });
     }
   },
   mounted() {}
