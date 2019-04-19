@@ -4,7 +4,7 @@ import b64 from "base64-js";
 
 export function format(time) {
   const m = moment(time);
-  return m.format(`YYYY.MM.DD hh:mm:ss`);
+  return m.format(`YYYY.MM.DD HH:mm:ss`);
 }
 
 export function txToHash(tx) {

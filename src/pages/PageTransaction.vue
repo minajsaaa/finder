@@ -21,7 +21,7 @@
         tm-list-item(dt="Block")
           template(slot="dd")
             router-link(:to="{ name: 'block', params: { block: transaction.height }}") {{ transaction.height }}
-        tm-list-item(dt="Timestamp" :dd="`2019.02.28 15:06:58`")
+        tm-list-item(dt="Timestamp" :dd="`${format(transaction.timestamp)} (UTC)`")
         //- tm-list-item(dt="Sender" :dd="transaction.tx.value.msg[0].value.from_address")
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
         tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${mlunaToLuna(transaction.tx.value.fee.amount[0].amount)} LUNA` : `Null`")
@@ -34,6 +34,7 @@
               p(v-for="(value, key) in m.value")
                 span {{ key }}
                 router-link(v-if="isTerraAddress(value)" :to="{ name: 'account', params: { address: value }}") {{ value }}
+                span(v-else-if="key === 'amount'") {{ value.map(stringify).join(', ') }}
                 span(v-else) {{ value }}
 
     template(v-else-if="tx.error && !tx.txLoading && tx.txLoaded")
@@ -44,8 +45,8 @@
 import { mapGetters, mapActions } from "vuex";
 import { isEmpty } from "lodash";
 import Clipboard from "clipboard";
-import { isTerraAddress } from "../scripts/utility";
-import { mlunaToLuna } from "../scripts/num";
+import { isTerraAddress, format } from "../scripts/utility";
+import { denomSlicer, mlunaToLuna } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppNotFound from "../components/AppNotFound";
@@ -78,12 +79,17 @@ export default {
     ...mapActions(["queryTx", `getNetworkConfig`]),
     isEmpty,
     isTerraAddress,
+    denomSlicer,
     mlunaToLuna,
+    format,
     copy() {
       this.copied = true;
       setTimeout(() => {
         this.copied = false;
       }, 1500);
+    },
+    stringify({ denom, amount } = {}) {
+      return [mlunaToLuna(amount), this.denomSlicer(denom)].join(" ");
     }
   },
   async created() {

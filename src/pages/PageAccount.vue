@@ -72,6 +72,9 @@
 
     template(v-else-if="account.error && !account.loading")
       app-not-found
+
+    template(v-else-if="!account.loading")
+      app-not-found
 </template>
 
 <script>
