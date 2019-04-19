@@ -11,10 +11,10 @@ Vue.use(Router);
 
 const routes = [
   { path: "/", component: Index },
-  { path: "/blocks/:block", name: "block", component: Block },
-  { path: "/txs/:block", name: "txs", component: Transactions },
-  { path: "/tx/:hash", name: "tx", component: Transaction },
-  { path: "/account/:address", name: "account", component: Account },
+  { path: "/:network/blocks/:block", name: "block", component: Block },
+  { path: "/:network/txs/:block", name: "txs", component: Transactions },
+  { path: "/:network/tx/:hash", name: "tx", component: Transaction },
+  { path: "/:network/account/:address", name: "account", component: Account },
   { path: `*`, component: AppPageNotFound }
 ];
 
