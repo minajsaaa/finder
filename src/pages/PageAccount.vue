@@ -3,7 +3,7 @@
     app-header
     div(v-if="!account.loaded && account.loading")
       app-loading
-    div(class="account-container" v-else-if="account.loaded && !account.loading && !isEmpty(account)")
+    div(class="account-container" v-else-if="account.loaded && !account.loading && !isEmpty(account) && !account.error")
       h2 Account
       div(class="table")
         tm-list-item(dt="Address")
