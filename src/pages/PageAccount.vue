@@ -447,7 +447,7 @@ export default {
     font-size 15px
     word-wrap break-word
     white-space unset
-  
+
   .account-container .tm-li-dd.tm-li-dd-flush > div
     display: block;
 
