@@ -151,7 +151,7 @@ export default {
     padding 0
     display flex
     flex-direction row
-    justify-content center
+    justify-content flex-start
     align-items center
 
   .header .logo-container img
@@ -159,7 +159,7 @@ export default {
     width 116px
 
   .header .logo-container a
-    padding 13px
+    padding 13px 15px
 
   .header .tm-form
     top 54px
