@@ -96,7 +96,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["queryTxs", "fetchBlock", "getNetworkConfig"]),
+    ...mapActions(["queryTxs", "fetchBlock"]),
     fromNow,
     isEmpty,
     mlunaToLuna,
@@ -106,18 +106,23 @@ export default {
     }
   },
   async mounted() {
-    await this.getNetworkConfig();
     const blockHeight = this.$route.params.block;
     if (!this.block.blocks[blockHeight]) {
-      await this.fetchBlock(blockHeight);
+      await this.fetchBlock(this.$route.params);
     }
-    await this.queryTxs(this.block.blocks[blockHeight].block);
+    await this.queryTxs([
+      this.block.blocks[blockHeight].block,
+      this.$route.params
+    ]);
   },
 
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      this.queryTxs(this.block.blocks[this.$route.params.block]);
+      this.queryTxs([
+        this.block.blocks[this.$route.params.block],
+        this.$route.params
+      ]);
     }
   }
 };

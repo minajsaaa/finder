@@ -1,5 +1,6 @@
 import axios from "../axios";
 import * as Promise from "bluebird";
+import { getNetwork } from "../../networks";
 
 const state = {
   accounts: {},
@@ -9,18 +10,18 @@ const state = {
 };
 
 const actions = {
-  async fetchAccount({ commit, dispatch, rootState }, address) {
+  async fetchAccount({ commit, dispatch, rootState }, { network, address }) {
     commit("setAccountLoading", true);
     commit("setError", {});
     try {
+      const { lcd } = getNetwork(network);
       let newAccount = {};
-
-      let url = `${rootState.config.lcd}/auth/accounts/${address}`;
+      let url = `${lcd}/auth/accounts/${address}`;
       let json = await axios.get(url);
 
       newAccount = json.data.value;
 
-      url = `${rootState.config.lcd}/staking/delegators/${address}/delegations`;
+      url = `${lcd}/staking/delegators/${address}/delegations`;
       json = await axios.get(url);
 
       const delegations = json.data;
@@ -28,7 +29,7 @@ const actions = {
       if (delegations)
         Promise.map(delegations, async delegation => {
           const res = await axios.get(
-            `${rootState.config.lcd}/distribution/delegators/${
+            `${lcd}/distribution/delegators/${
               delegation.delegator_address
             }/rewards/${delegation.validator_address}`
           );
@@ -38,8 +39,8 @@ const actions = {
       newAccount.delegations = delegations;
 
       const txs = await Promise.all([
-        axios.get(`${rootState.config.lcd}/txs?sender=${address}`),
-        axios.get(`${rootState.config.lcd}/txs?recipient=${address}`)
+        axios.get(`${lcd}/txs?sender=${address}`),
+        axios.get(`${lcd}/txs?recipient=${address}`)
       ]).then(
         async ([senderTxs, recipientTxs]) =>
           await [].concat(senderTxs.data, recipientTxs.data)
@@ -52,7 +53,9 @@ const actions = {
 
       for (let i = 0; i < len; i++) {
         if (!rootState.block.blocks[txs[i].height]) {
-          await promiseArr.push(dispatch("fetchBlock", txs[i].height));
+          await promiseArr.push(
+            dispatch("fetchBlock", { network, block: txs[i].height })
+          );
         }
       }
 

@@ -30,12 +30,12 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
 import TmFormGroup from "../components/TmFormGroup";
 import TmFormStruct from "../components/TmFormStruct";
 import TmBtn from "../components/TmBtn";
 import TmField from "../components/TmField";
 import { handleSearch } from "../scripts/utility";
+import networks from "../networks";
 
 export default {
   beforeCreate: function() {
@@ -53,19 +53,18 @@ export default {
     curNetwork: ``
   }),
   computed: {
-    ...mapGetters([`networks`])
+    networks: () => networks
   },
   methods: {
-    ...mapActions([`getNetworkConfig`, `setNetworkConfig`]),
     search() {
       this.$router.push({ path: handleSearch(this.query, this.curNetwork) });
     },
-    setNetwork() {
-      this.setNetworkConfig(this.curNetwork);
+    setNetwork(e) {
+      this.curNetwork = e.target.value;
     }
   },
   async mounted() {
-    this.curNetwork = await this.getNetworkConfig();
+    this.curNetwork = networks[0].value;
   }
 };
 </script>

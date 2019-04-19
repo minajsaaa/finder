@@ -22,7 +22,8 @@ export default {
   },
   computed: {
     keyword() {
-      const key = Object.keys(this.$route.params)[0];
+      const keys = Object.keys(this.$route.params);
+      const key = keys[keys.length - 1];
       return this.$route.params[key];
     }
   }

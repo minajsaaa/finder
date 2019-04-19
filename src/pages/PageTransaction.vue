@@ -76,7 +76,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["queryTx", `getNetworkConfig`]),
+    ...mapActions(["queryTx"]),
     isEmpty,
     isTerraAddress,
     denomSlicer,
@@ -93,8 +93,7 @@ export default {
     }
   },
   async created() {
-    await this.getNetworkConfig();
-    await this.queryTx(this.$route.params.hash);
+    await this.queryTx(this.$route.params);
   },
   async mounted() {
     new Clipboard(".copy");
@@ -102,7 +101,7 @@ export default {
   watch: {
     // eslint-disable-next-line
     $route(to, from) {
-      this.queryTx(this.$route.params.hash);
+      this.queryTx(this.$route.params);
     }
   }
 };

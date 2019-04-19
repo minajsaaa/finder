@@ -1,4 +1,5 @@
 import axios from "../axios";
+import { getNetwork } from "../../networks";
 
 const state = {
   blocks: {},
@@ -8,14 +9,14 @@ const state = {
 };
 
 const actions = {
-  async fetchBlock({ commit, rootState }, blockHeight) {
+  async fetchBlock({ commit }, { network, block }) {
     commit("setBlockLoading", true);
     commit("setError", {});
     try {
-      let url = `${rootState.config.lcd}/blocks/${blockHeight}`;
+      let url = `${getNetwork(network).lcd}/blocks/${block}`;
       let json = await axios.get(url);
       commit("updateBlock", {
-        blockHeight,
+        blockHeight: block,
         json
       });
 

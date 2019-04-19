@@ -82,12 +82,11 @@ export default {
     }
   },
   async created() {
-    await this.getNetworkConfig();
     await this.setBlockLoadedFalse();
-    await this.fetchBlock(this.$route.params.block);
+    await this.fetchBlock(this.$route.params);
   },
   methods: {
-    ...mapActions(["fetchBlock", "setBlockLoadedFalse", "getNetworkConfig"]),
+    ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
     format,
     isEmpty
   },
@@ -95,7 +94,7 @@ export default {
     // eslint-disable-next-line
     $route(to, from) {
       this.setBlockLoadedFalse();
-      this.fetchBlock(this.$route.params.block);
+      this.fetchBlock(this.$route.params);
     }
   }
 };

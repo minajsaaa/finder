@@ -1,5 +1,6 @@
 import axios from "../axios";
 import { txToHash } from "../../scripts/utility";
+import { getNetwork } from "../../networks";
 
 const state = {
   txs: {},
@@ -11,7 +12,7 @@ const state = {
 };
 
 const actions = {
-  async queryTxs({ dispatch, commit, rootState }, block) {
+  async queryTxs({ dispatch, commit, rootState }, [block, { network }]) {
     commit("setTxsLoading", true);
     commit("setError", {});
     try {
@@ -20,7 +21,7 @@ const actions = {
       for (let i = 0; i < len; i++) {
         let hash = await txToHash(block.data.txs[i]);
         if (!rootState.tx.txs[hash]) {
-          await promiseArr.push(dispatch("queryTx", hash));
+          await promiseArr.push(dispatch("queryTx", { network, hash }));
         }
       }
       await Promise.all(promiseArr);
@@ -33,10 +34,10 @@ const actions = {
       commit("setTxsLoading", false);
     }
   },
-  async queryTx({ commit, rootState }, hash) {
+  async queryTx({ commit }, { network, hash }) {
     commit("setTxLoading", true);
     commit("setError", {});
-    let url = `${rootState.config.lcd}/txs/${hash}`;
+    let url = `${getNetwork(network).lcd}/txs/${hash}`;
 
     try {
       await axios.get(url).then(async json => {

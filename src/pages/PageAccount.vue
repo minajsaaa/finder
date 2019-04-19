@@ -113,17 +113,17 @@ export default {
       return this.account.accounts[this.$route.params.address];
     },
     coins() {
-      return this.currentAccount.coins || [];
+      return (this.currentAccount && this.currentAccount.coins) || [];
     },
     txs() {
-      return this.currentAccount.txs || [];
+      return (this.currentAccount && this.currentAccount.txs) || [];
     },
     delegations() {
-      return this.currentAccount.delegations || [];
+      return (this.currentAccount && this.currentAccount.delegations) || [];
     }
   },
   methods: {
-    ...mapActions(["fetchAccount", "getNetworkConfig"]),
+    ...mapActions(["fetchAccount"]),
     isEmpty,
     format,
     shortNumber,
@@ -144,8 +144,7 @@ export default {
     new Clipboard(".copy");
   },
   async created() {
-    await this.getNetworkConfig();
-    await this.fetchAccount(this.$route.params.address);
+    await this.fetchAccount(this.$route.params);
   }
 };
 </script>
