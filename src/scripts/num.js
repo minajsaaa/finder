@@ -8,7 +8,7 @@ export function shortNumber(num) {
   return numeral(num).format(`0,0.0000`) + ``;
 }
 
-export function mlunaToLuna(num) {
+export function rebaseAsset(num) {
   return BigNumber(num)
     .dividedBy(Math.pow(10, 6))
     .decimalPlaces(6)
@@ -16,15 +16,9 @@ export function mlunaToLuna(num) {
 }
 
 export function denomSlicer(str) {
-  const converter = {
-    mluna: "Luna",
-    mkrw: "KRT",
-    musd: "UST",
-    msdr: "SDT",
-    mgbp: "GBT",
-    meur: "EUT",
-    mjpy: "JPT",
-    mcny: "CNT"
-  };
-  return converter[str];
+  var frag = str.slice(1);
+  if (frag == "luna") {
+    return "LUNA"
+  }
+  return frag.slice(0, 2).toUpperCase() + "T"
 }

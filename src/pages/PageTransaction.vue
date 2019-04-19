@@ -24,7 +24,7 @@
         tm-list-item(dt="Timestamp" :dd="`${format(transaction.timestamp)} (UTC)`")
         //- tm-list-item(dt="Sender" :dd="transaction.tx.value.msg[0].value.from_address")
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
-        tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${mlunaToLuna(transaction.tx.value.fee.amount[0].amount)} LUNA` : `Null`")
+        tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${rebaseAsset(transaction.tx.value.fee.amount[0].amount)} LUNA` : `Null`")
         tm-list-item(dt="Gas (Used/Requested)" :dd="`${parseInt(transaction.gas_used).toLocaleString()}/${parseInt(transaction.gas_wanted).toLocaleString()}`")
         tm-list-item.rawData(dt="Message")
           template(slot="dd" v-for="m in transaction.tx.value.msg")
@@ -46,7 +46,7 @@ import { mapGetters, mapActions } from "vuex";
 import { isEmpty } from "lodash";
 import Clipboard from "clipboard";
 import { isTerraAddress, format } from "../scripts/utility";
-import { denomSlicer, mlunaToLuna } from "../scripts/num";
+import { denomSlicer, rebaseAsset } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppNotFound from "../components/AppNotFound";
@@ -80,7 +80,7 @@ export default {
     isEmpty,
     isTerraAddress,
     denomSlicer,
-    mlunaToLuna,
+    rebaseAsset,
     format,
     copy() {
       this.copied = true;
@@ -89,7 +89,7 @@ export default {
       }, 1500);
     },
     stringify({ denom, amount } = {}) {
-      return [mlunaToLuna(amount), this.denomSlicer(denom)].join(" ");
+      return [rebaseAsset(amount), this.denomSlicer(denom)].join(" ");
     }
   },
   async created() {
