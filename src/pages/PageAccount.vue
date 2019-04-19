@@ -444,6 +444,12 @@ export default {
     font-size 15px
     word-wrap break-word
     white-space unset
+  
+  .account-container .tm-li-dd.tm-li-dd-flush > div
+    display: block;
+
+  .account-container div.v-pagination>ul
+    margin-top: 20px;
 
   // .account-container .chart li
   //   display: block;
