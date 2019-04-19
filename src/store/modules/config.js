@@ -14,6 +14,13 @@ const networksConfig = [
     lcd: `https://vodka-lcd.terra.money`,
     rpc: `https://vodka-rpc.terra.money`,
     wss: `wss://vodka.terra.money:26657/websocket`
+  },
+  {
+    value: `columbus-drill`,
+    key: `Columbus Drill`,
+    lcd: `https://drill-lcd.terra.money`,
+    rpc: `https://drill-rpc.terra.money`,
+    wss: `wss://drill.terra.money:26657/websocket`
   }
 ];
 
