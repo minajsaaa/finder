@@ -30,7 +30,7 @@
               div {{ tx.tx.type }}
               span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
-              p.txfee {{ tx.tx.value.fee.amount ? `${mlunaToLuna(tx.tx.value.fee.amount[0].amount)} LUNA` : `Null` }}
+              p.txfee {{ tx.tx.value.fee.amount ? `${rebaseAsset(tx.tx.value.fee.amount[0].amount)} LUNA` : `Null` }}
             li
               router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
             li
@@ -50,7 +50,7 @@ import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
 import { txToHash, fromNow } from "../scripts/utility";
-import { mlunaToLuna } from "../scripts/num";
+import { rebaseAsset } from "../scripts/num";
 
 export default {
   beforeCreate: function() {
@@ -99,7 +99,7 @@ export default {
     ...mapActions(["queryTxs", "fetchBlock"]),
     fromNow,
     isEmpty,
-    mlunaToLuna,
+    rebaseAsset,
     pageChange({ pageNumber, pageSize }) {
       this.startIndex = pageSize * (pageNumber - 1);
       this.endIndex = pageSize * pageNumber;

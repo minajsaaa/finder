@@ -21,7 +21,7 @@
             ul.chart
               li(v-for="coin in coins")
                 div.inner
-                  span {{ mlunaToLuna(coin.amount) }} {{ denomSlicer(coin.denom) }}
+                  span {{ rebaseAsset(coin.amount) }} {{ denomSlicer(coin.denom) }}
 
         tm-list-item(dt="Delegations")
           template(slot="dd")
@@ -37,10 +37,10 @@
               li(v-for="d in delegations")
                 ul.row
                   li {{ d.validator_address }}
-                  li {{ mlunaToLuna(d.shares) }} Luna
+                  li {{ rebaseAsset(d.shares) }} Luna
                   li
                     p(v-for="reward in d.rewards")
-                      span {{ mlunaToLuna(reward.amount) }} {{ denomSlicer(reward.denom) }}
+                      span {{ rebaseAsset(reward.amount) }} {{ denomSlicer(reward.denom) }}
               div(class="table-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
 
         tm-list-item(dt="Transactions")
@@ -83,7 +83,7 @@ import { isEmpty } from "lodash";
 import Clipboard from "clipboard";
 
 import { format } from "../scripts/utility";
-import { shortNumber, mlunaToLuna, denomSlicer } from "../scripts/num";
+import { shortNumber, rebaseAsset, denomSlicer } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
@@ -128,7 +128,7 @@ export default {
     format,
     shortNumber,
     denomSlicer,
-    mlunaToLuna,
+    rebaseAsset,
     copy() {
       this.copied = true;
       setTimeout(() => {
