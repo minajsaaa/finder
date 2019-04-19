@@ -22,13 +22,13 @@ export function fromNow(time) {
   return m.fromNow();
 }
 
-export function handleSearch(keyword) {
+export function handleSearch(keyword, network) {
   if (Number.isInteger(Number(keyword))) {
-    return `/blocks/${keyword}`;
+    return `/${network}/blocks/${keyword}`;
   } else if (keyword.indexOf("terra") > -1) {
-    return `/account/${keyword}`;
+    return `/${network}/account/${keyword}`;
   } else {
-    return `/tx/${keyword}`;
+    return `/${network}/tx/${keyword}`;
   }
 }
 

@@ -58,7 +58,7 @@ export default {
   methods: {
     ...mapActions([`getNetworkConfig`, `setNetworkConfig`]),
     search() {
-      this.$router.push({ path: handleSearch(this.query) });
+      this.$router.push({ path: handleSearch(this.query, this.curNetwork) });
     },
     setNetwork() {
       this.setNetworkConfig(this.curNetwork);
