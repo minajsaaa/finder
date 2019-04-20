@@ -18,7 +18,7 @@ export function rebaseAsset(num) {
 export function denomSlicer(str) {
   var frag = str.slice(1);
   if (frag == "luna") {
-    return "LUNA"
+    return "LUNA";
   }
-  return frag.slice(0, 2).toUpperCase() + "T"
+  return frag.slice(0, 2).toUpperCase() + "T";
 }
