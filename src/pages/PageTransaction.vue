@@ -15,9 +15,11 @@
               span.copied(:class="{ on: copied }" )
         tm-list-item.status(dt="Status")
           template(slot="dd")
-            span.title Success
-            span.divider
-            span 100/100
+            span.title(v-if="isSuccess") Success
+            div.title(v-else class="failed")
+              div
+                p Failed
+                p {{ errorMessage }}
         tm-list-item(dt="Block")
           template(slot="dd")
             router-link(:to="{ name: 'block', params: { block: transaction.height }}") {{ transaction.height }}
@@ -43,7 +45,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { isEmpty } from "lodash";
+import { get, isEmpty } from "lodash";
 import Clipboard from "clipboard";
 import { isTerraAddress, format } from "../scripts/utility";
 import { denomSlicer, rebaseAsset } from "../scripts/num";
@@ -73,6 +75,12 @@ export default {
       const hash = this.$route.params.hash;
 
       return this.tx.txs[hash];
+    },
+    isSuccess() {
+      return get(this.transaction, 'logs[0].success')
+    },
+    errorMessage() {
+      return get(this.transaction, 'logs[0].log')
     }
   },
   methods: {
@@ -221,6 +229,9 @@ export default {
 
 .tx-container .status span
   color #1daa8e
+
+.tx-container .status .failed
+  color #ff5561
 
 .tx-container .status .title
   font-weight 500
