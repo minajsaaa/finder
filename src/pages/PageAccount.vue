@@ -116,7 +116,7 @@ export default {
       return (this.currentAccount && this.currentAccount.coins) || [];
     },
     txs() {
-      const order = array => orderBy(array, ["timestamp"], ["desc"]);
+      const order = array => orderBy(array, ["height"], ["desc"]);
       return (this.currentAccount && order(this.currentAccount.txs)) || [];
     },
     delegations() {
