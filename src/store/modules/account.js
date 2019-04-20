@@ -39,8 +39,8 @@ const actions = {
       newAccount.delegations = delegations;
 
       const txs = await Promise.all([
-        axios.get(`${lcd}/txs?sender=${address}`),
-        axios.get(`${lcd}/txs?recipient=${address}`)
+        axios.get(`${lcd}/txs?sender=${address}&limit=100`),
+        axios.get(`${lcd}/txs?recipient=${address}&limit=100`)
       ]).then(
         async ([senderTxs, recipientTxs]) =>
           await [].concat(senderTxs.data, recipientTxs.data)
