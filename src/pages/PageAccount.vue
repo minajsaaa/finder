@@ -146,6 +146,12 @@ export default {
   },
   async created() {
     await this.fetchAccount(this.$route.params);
+  },
+  watch: {
+    // eslint-disable-next-line
+    $route(to, from) {
+      this.fetchAccount(this.$route.params);
+    }
   }
 };
 </script>
