@@ -79,7 +79,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { isEmpty } from "lodash";
+import { isEmpty, orderBy } from "lodash";
 import Clipboard from "clipboard";
 
 import { format } from "../scripts/utility";
@@ -116,7 +116,8 @@ export default {
       return (this.currentAccount && this.currentAccount.coins) || [];
     },
     txs() {
-      return (this.currentAccount && this.currentAccount.txs) || [];
+      const order = array => orderBy(array, ["timestamp"], ["desc"]);
+      return (this.currentAccount && order(this.currentAccount.txs)) || [];
     },
     delegations() {
       return (this.currentAccount && this.currentAccount.delegations) || [];
