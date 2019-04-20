@@ -77,10 +77,10 @@ export default {
       return this.tx.txs[hash];
     },
     isSuccess() {
-      return get(this.transaction, 'logs[0].success')
+      return get(this.transaction, "logs[0].success");
     },
     errorMessage() {
-      return get(this.transaction, 'logs[0].log')
+      return get(this.transaction, "logs[0].log");
     }
   },
   methods: {
