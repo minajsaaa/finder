@@ -79,7 +79,7 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { isEmpty, orderBy } from "lodash";
+import { isEmpty, sortBy } from "lodash";
 import Clipboard from "clipboard";
 
 import { format } from "../scripts/utility";
@@ -116,8 +116,10 @@ export default {
       return (this.currentAccount && this.currentAccount.coins) || [];
     },
     txs() {
-      const order = array => orderBy(array, ["height"], ["desc"]);
-      return (this.currentAccount && order(this.currentAccount.txs)) || [];
+      const getHeight = o => Number(o.height);
+      const reverse = array => array.slice().reverse();
+      const sort = array => reverse(sortBy(array, [getHeight]));
+      return (this.currentAccount && sort(this.currentAccount.txs)) || [];
     },
     delegations() {
       return (this.currentAccount && this.currentAccount.delegations) || [];
