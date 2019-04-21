@@ -37,6 +37,7 @@
                 span {{ key }}
                 router-link(v-if="isTerraAddress(value)" :to="{ name: 'account', params: { address: value }}") {{ value }}
                 span(v-else-if="key === 'amount' || key === 'offer_coin'") {{ Array.isArray(value) ? value.map(stringify).join(', ') : stringify(value) }}
+                span(v-else-if="key === 'ask_denom'") {{ denomSlicer(value) }}
                 span(v-else) {{ value }}
 
     template(v-else-if="tx.error && !tx.txLoading && tx.txLoaded")
