@@ -48,16 +48,27 @@ const actions = {
         axios.get(`${lcd}/txs?sender=${address}&limit=100`),
         axios.get(`${lcd}/txs?recipient=${address}&limit=100`),
         axios.get(`${lcd}/txs?action=swap&trader=${address}&limit=100`),
-        axios.get(`${lcd}/txs?action=submit_proposal&proposer=${address}`),
-        axios.get(`${lcd}/txs?action=deposit&depositor=${address}`)
+        axios.get(
+          `${lcd}/txs?action=submit_proposal&proposer=${address}&limit=100`
+        ),
+        axios.get(`${lcd}/txs?action=deposit&depositor=${address}&limit=100`),
+        axios.get(`${lcd}/staking/delegators/${address}/txs?limit=100`)
       ]).then(
-        async ([senderTxs, recipientTxs, swapTxs, submitTxs, depositTxs]) =>
+        async ([
+          senderTxs,
+          recipientTxs,
+          swapTxs,
+          submitTxs,
+          depositTxs,
+          txs
+        ]) =>
           await [].concat(
             senderTxs.data,
             recipientTxs.data,
             swapTxs.data,
             submitTxs.data,
-            depositTxs.data
+            depositTxs.data,
+            txs.data
           )
       );
 
