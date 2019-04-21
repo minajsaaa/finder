@@ -40,10 +40,19 @@ const actions = {
 
       const txs = await Promise.all([
         axios.get(`${lcd}/txs?sender=${address}&limit=100`),
-        axios.get(`${lcd}/txs?recipient=${address}&limit=100`)
+        axios.get(`${lcd}/txs?recipient=${address}&limit=100`),
+        axios.get(`${lcd}/txs?action=swap&trader=${address}&limit=100`),
+        axios.get(`${lcd}/txs?action=submit_proposal&proposer=${address}`),
+        axios.get(`${lcd}/txs?action=deposit&depositor=${address}`)
       ]).then(
-        async ([senderTxs, recipientTxs]) =>
-          await [].concat(senderTxs.data, recipientTxs.data)
+        async ([senderTxs, recipientTxs, swapTxs, submitTxs, depositTxs]) =>
+          await [].concat(
+            senderTxs.data,
+            recipientTxs.data,
+            swapTxs.data,
+            submitTxs.data,
+            depositTxs.data
+          )
       );
 
       newAccount.txs = txs;
