@@ -19,7 +19,7 @@
             div.title(v-else class="failed")
               div
                 p Failed
-                p {{ errorMessage }}
+                p.failed-msg {{ errorMessage }}
         tm-list-item(dt="Block")
           template(slot="dd")
             router-link(:to="{ name: 'block', params: { block: transaction.height }}") {{ transaction.height }}
@@ -308,6 +308,15 @@ export default {
 .tm-li-dd.tm-li-dd-flush
   overflow visible
 
+.failed-msg
+  background #fff8f9
+  padding 15px
+  font-weight 400
+  font-size 15px
+  border solid 1px #ffe6e7
+  border-radius 5px
+  margin-top 5px
+
 @media screen and (max-width: 900px)
   .tx-container
     padding 50px 15px
@@ -371,4 +380,7 @@ export default {
     margin-left: -20px;
     margin-right: -20px;
     box-sizing: content-box;
+
+  .failed-msg
+    font-size 14px
 </style>
