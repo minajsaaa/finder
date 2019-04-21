@@ -12,7 +12,7 @@ export function rebaseAsset(num) {
   return BigNumber(num)
     .dividedBy(Math.pow(10, 6))
     .decimalPlaces(6)
-    .toString();
+    .toFixed(6);
 }
 
 export function denomSlicer(str) {
