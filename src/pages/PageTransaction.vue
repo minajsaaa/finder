@@ -36,7 +36,7 @@
               p(v-for="(value, key) in m.value")
                 span {{ key }}
                 router-link(v-if="isTerraAddress(value)" :to="{ name: 'account', params: { address: value }}") {{ value }}
-                span(v-else-if="key === 'amount'") {{ Array.isArray(value) ? value.map(stringify).join(', ') : stringify(value) }}
+                span(v-else-if="key === 'amount' || key === 'offer_coin'") {{ Array.isArray(value) ? value.map(stringify).join(', ') : stringify(value) }}
                 span(v-else) {{ value }}
 
     template(v-else-if="tx.error && !tx.txLoading && tx.txLoaded")
