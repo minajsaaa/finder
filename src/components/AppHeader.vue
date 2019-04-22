@@ -25,12 +25,13 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 import TmFormGroup from "./TmFormGroup";
 import TmFormStruct from "./TmFormStruct";
 import TmBtn from "./TmBtn";
 import TmField from "./TmField";
 import { handleSearch } from "../scripts/utility";
+import networks from "../networks";
 
 export default {
   name: "app-header",
@@ -46,21 +47,20 @@ export default {
   }),
   computed: {
     ...mapGetters(["config"]),
-    ...mapGetters([`networks`])
+    networks: () => networks
   },
   methods: {
-    ...mapActions([`getNetworkConfig`, `setNetworkConfig`]),
     search() {
       this.$router.push({
-        path: handleSearch(this.query, this.$route.params.network)
+        path: handleSearch(this.query, this.curNetwork)
       });
     },
-    setNetwork() {
-      this.setNetworkConfig(this.curNetwork);
+    setNetwork(e) {
+      this.curNetwork = e.target.value;
     }
   },
   async mounted() {
-    this.curNetwork = await this.getNetworkConfig();
+    this.curNetwork = this.$route.params.network;
   }
 };
 </script>
