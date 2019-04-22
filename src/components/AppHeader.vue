@@ -14,6 +14,14 @@
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
+      tm-form-group.select-network
+        tm-field(
+          type="select"
+          v-model="curNetwork"
+          placeholder="Select network..."
+          :options="networks"
+          :change="setNetwork"
+          )
 </template>
 
 <script>
@@ -23,6 +31,7 @@ import TmFormStruct from "./TmFormStruct";
 import TmBtn from "./TmBtn";
 import TmField from "./TmField";
 import { handleSearch } from "../scripts/utility";
+import networks from "../networks";
 
 export default {
   name: "app-header",
@@ -33,19 +42,26 @@ export default {
     TmField
   },
   data: () => ({
-    query: ``
+    query: ``,
+    curNetwork: ``
   }),
   computed: {
-    ...mapGetters(["config"])
+    ...mapGetters(["config"]),
+    networks: () => networks
   },
   methods: {
     search() {
       this.$router.push({
-        path: handleSearch(this.query, this.$route.params.network)
+        path: handleSearch(this.query, this.curNetwork)
       });
+    },
+    setNetwork(e) {
+      this.curNetwork = e.target.value;
     }
   },
-  mounted() {}
+  async mounted() {
+    this.curNetwork = this.$route.params.network;
+  }
 };
 </script>
 
@@ -79,11 +95,12 @@ export default {
 .header .tm-form
   position absolute
   top 20px
-  right 40px
+  right 230px
   display inline-flex
   height 40px
-  width 50%
+  width 34%
   max-width 640px
+  margin-left: -320px;
 
 .header .tm-form-group__field
   position relative
@@ -134,7 +151,7 @@ export default {
     padding 0
     display flex
     flex-direction row
-    justify-content center
+    justify-content flex-start
     align-items center
 
   .header .logo-container img
@@ -142,7 +159,7 @@ export default {
     width 116px
 
   .header .logo-container a
-    padding 13px
+    padding 13px 15px
 
   .header .tm-form
     top 54px
