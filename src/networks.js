@@ -19,6 +19,13 @@ const networks = [
     lcd: `https://drill-lcd.terra.money`,
     rpc: `https://drill-rpc.terra.money`,
     wss: `wss://drill.terra.money:26657/websocket`
+  },
+  {
+    value: `columbus-drill-2`,
+    key: `Columbus Drill 2`,
+    lcd: `https://drill-2-lcd.terra.money`,
+    rpc: `https://drill-2-rpc.terra.money`,
+    wss: `wss://drill.terra.money:26657/websocket`
   }
 ];
 
