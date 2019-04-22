@@ -1,10 +1,10 @@
 const networks = [
   {
-    value: `soju-0007`,
-    key: `Soju-0007`,
-    lcd: `https://lcd.terra.money`,
-    rpc: `http://101.101.167.127:26657`,
-    wss: `ws://101.101.167.127:26657/websocket`
+    value: 'soju-0008',
+    key: 'Soju-0008',
+    lcd: 'https://soju-0008-lcd.terra.dev',
+    rpc: 'https://soju-0008-rpc.terra.dev',
+    wss: 'ws://soju-0008-rpc.terra.dev/websocket'
   },
   {
     value: `vodka`,
@@ -12,13 +12,6 @@ const networks = [
     lcd: `https://vodka-lcd.terra.money`,
     rpc: `https://vodka-rpc.terra.money`,
     wss: `wss://vodka.terra.money:26657/websocket`
-  },
-  {
-    value: `columbus-drill`,
-    key: `Columbus Drill`,
-    lcd: `https://drill-lcd.terra.money`,
-    rpc: `https://drill-rpc.terra.money`,
-    wss: `wss://drill.terra.money:26657/websocket`
   },
   {
     value: `columbus-drill-2`,
