@@ -74,8 +74,7 @@ export default {
     ...mapGetters(["tx", "block"]),
     transaction() {
       const hash = this.$route.params.hash;
-
-      return this.tx.txs[hash];
+      return this.tx.txs[hash.toUpperCase()];
     },
     isSuccess() {
       return get(this.transaction, "logs[0].success");

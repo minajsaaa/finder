@@ -37,7 +37,7 @@ const actions = {
   async queryTx({ commit }, { network, hash }) {
     commit("setTxLoading", true);
     commit("setError", {});
-    let url = `${getNetwork(network).lcd}/txs/${hash}`;
+    let url = `${getNetwork(network).lcd}/txs/${hash.toUpperCase()}`;
 
     try {
       await axios.get(url).then(async json => {
