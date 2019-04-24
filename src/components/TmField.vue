@@ -327,22 +327,22 @@ textarea.tm-field
 
   select
     appearance none
-    border-radius 0
-    background var(--input-bg, #fff)
+    border-radius 3px
+    background transparent
     width 100%
-    color var(--txt, #333)
+    color #fff
     padding-right 2rem
 
     &:invalid
       color dim
 
     option
-      color txt
-      background var(--input-bg, #fff)
+      color #fff
+      background #0c3694
       font-family sans
       &:checked
-        color var(--bright, #000)
-        background var(--hover-bg, #ccf)
+        color #fff
+        background #0c3694
 
   .tm-field-select-addon
     position absolute
@@ -355,11 +355,11 @@ textarea.tm-field
     box-sizing border-box
     height 2rem
     width 2rem
-    border-left 1px solid var(--input-bc, #ccc)
+    border-left 1px solid rgba(255,255,255,.3)
 
-    background var(--input-bg, #fff)
+    background #0c3694
     text-align center
-    color var(--txt, #333)
+    color #fff
     pointer-events none
 
 /*==============================================================================*/

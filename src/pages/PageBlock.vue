@@ -158,6 +158,7 @@ export default {
   color #ffffff
   text-decoration none
   transition background-color .1s
+  white-space nowrap
 
 
 .block-container a.transactions:hover
