@@ -16,13 +16,51 @@
         //   template(slot="dd")
         //     span 2019.02.28 15:06:58 (Local Time)
         tm-list-item(dt="Balance")
-          template(slot="dd")
-            // span Total 1,734 Luna
+          template(slot="dd" v-if="this.type === ACCOUNT_TYPE")
             ul.chart
               li(v-for="coin in coins")
                 div.inner
                   span {{ rebaseAsset(coin.amount) }} {{ denomSlicer(coin.denom) }}
+          template(slot="dd" v-if="this.type === GRANDED_VESTING_ACCOUNT" class="vesting-account")
+            ul.chart
+              li(v-for="coin in vestingCoins")
+                ul.account-table
+                  li.title(v-if="vestingCoins.length > 0")
+                    ul.row
+                      li
+                        p Total
+                      li
+                        p Available
+                      li
+                        p Vested
+                  li(v-for="(coin, index) in vestingCoins")
+                    ul.row
+                      li
+                        span {{ rebaseAsset(coin.total) }}  {{ denomSlicer(coin.denom) }}
+                      li
+                        span {{ rebaseAsset(coin.available) }}  {{ denomSlicer(coin.denom) }}
+                      li
+                        span {{ rebaseAsset(coin.vested) }}  {{ denomSlicer(coin.denom) }}
+                  div(class="table-empty", v-if="vestingCoins.length === 0") {{ `No Balance yet` }}
+        tm-list-item(dt="Vesting Schedule" class="schedule" v-if="this.type === GRANDED_VESTING_ACCOUNT")
+          template(slot="dd")
+            ul.account-table.delegation
+              li.title(v-if="schedules.length > 0")
+                ul.row
+                  li
+                    p Amount
+                  li
+                    p Percentage
+                  li
+                    p Release Time
+              li(v-for="s in schedules")
+                ul.row
+                  li {{ rebaseAsset(s.amount) }} {{ denomSlicer(s.denom) }}
 
+                  li {{ shortRatio(s.ratio) }} %
+
+                  li {{ `${fromUnixTime(s.cliff)} (UTC)` }}
+              div(class="table-empty", v-if="schedules.length === 0") {{ `No vesting schedules` }}
         tm-list-item(dt="Delegations")
           template(slot="dd")
             ul.account-table.delegation
@@ -67,7 +105,7 @@
                   li
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
                   li
-                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (Local Time)` }}
+                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (UTC)` }}
               div(class="table-empty", v-if="txs.length === 0") {{ `No transaction yet` }}
 
     template(v-else-if="account.error && !account.loading")
@@ -82,13 +120,23 @@ import { mapGetters, mapActions } from "vuex";
 import { isEmpty, sortBy } from "lodash";
 import Clipboard from "clipboard";
 
-import { format } from "../scripts/utility";
-import { shortNumber, rebaseAsset, denomSlicer } from "../scripts/num";
+import { format, fromUnixTime } from "../scripts/utility";
+import {
+  shortNumber,
+  rebaseAsset,
+  denomSlicer,
+  shortRatio
+} from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
+import { filter } from "lodash";
+import BigNumber from "bignumber.js";
+
+const ACCOUNT_TYPE = `auth/Account`;
+const GRANDED_VESTING_ACCOUNT = `core/GradedVestingAccount`;
 
 export default {
   beforeCreate: function() {
@@ -98,7 +146,9 @@ export default {
   data: () => ({
     copied: false,
     startIndex: 0,
-    endIndex: 10
+    endIndex: 10,
+    ACCOUNT_TYPE,
+    GRANDED_VESTING_ACCOUNT
   }),
   components: {
     TmListItem,
@@ -112,8 +162,61 @@ export default {
     currentAccount() {
       return this.account.accounts[this.$route.params.address];
     },
+    type() {
+      return this.currentAccount.type;
+    },
+    baseVestingAccount() {
+      return this.type === GRANDED_VESTING_ACCOUNT
+        ? this.currentAccount.BaseVestingAccount
+        : null;
+    },
+    originalVesting() {
+      return this.baseVestingAccount
+        ? this.baseVestingAccount.original_vesting
+        : null;
+    },
+    baseAccount() {
+      return this.baseVestingAccount
+        ? this.baseVestingAccount.BaseAccount
+        : null;
+    },
+    delegationsFree() {
+      return this.baseVestingAccount
+        ? this.baseVestingAccount.delegated_free
+        : null;
+    },
+    delegationsVesting() {
+      return this.baseVestingAccount
+        ? this.baseVestingAccount.delegated_vesting
+        : null;
+    },
     coins() {
-      return (this.currentAccount && this.currentAccount.coins) || [];
+      return this.type === ACCOUNT_TYPE ? this.currentAccount.coins : [];
+    },
+    vestingCoins() {
+      let result = [];
+      result =
+        this.type === GRANDED_VESTING_ACCOUNT ? this.baseAccount.coins : [];
+      const vestedArr = this.originalVesting;
+
+      result.map(coin => {
+        coin.total = BigNumber(coin.amount); // set TOtal
+        const coinTotal =
+          filter(result, { denom: coin.denom }).length === 1
+            ? BigNumber(filter(result, { denom: coin.denom })[0].total)
+            : BigNumber(0);
+
+        const coinVested =
+          filter(vestedArr, { denom: coin.denom }).length === 1
+            ? BigNumber(filter(vestedArr, { denom: coin.denom })[0].amount)
+            : BigNumber(0);
+
+        coin.vested = coinVested;
+
+        coin.available = coinTotal.minus(coinVested);
+      });
+
+      return result;
     },
     txs() {
       const getHeight = o => Number(o.height);
@@ -123,12 +226,40 @@ export default {
     },
     delegations() {
       return (this.currentAccount && this.currentAccount.delegations) || [];
+    },
+    vestingSchedulesDenoms() {
+      return this.type === GRANDED_VESTING_ACCOUNT
+        ? this.currentAccount.vesting_schedules
+        : null;
+    },
+    schedules() {
+      if (this.type !== GRANDED_VESTING_ACCOUNT) return [];
+      let result = [];
+      this.vestingSchedulesDenoms.map(schedulesDenom => {
+        schedulesDenom.schedules.map(schedule => {
+          const denom = schedulesDenom.denom;
+          schedule.amount = BigNumber(
+            filter(this.originalVesting, { denom })[0]
+          ).times(BigNumber(schedule.ratio));
+          schedule.denom = denom;
+          const total = filter(this.originalVesting, { denom })[0].amount;
+
+          schedule.amount = BigNumber(total).times(BigNumber(schedule.ratio));
+          result.push(schedule);
+        });
+      });
+      result = result.sort(schedule => {
+        schedule.cliff < schedule.cliff;
+      });
+      return result;
     }
   },
   methods: {
     ...mapActions(["fetchAccount"]),
     isEmpty,
     format,
+    shortRatio,
+    fromUnixTime,
     shortNumber,
     denomSlicer,
     rebaseAsset,
@@ -312,7 +443,7 @@ export default {
   font-size: 15px;
 
 .account-container .chart li
-  margin-top: 5px;
+  margin-top: 0px;
 
 .account-container .chart li:first-child
   margin-top: 0;
@@ -368,7 +499,7 @@ export default {
   font-size 12px
   font-weight 500
 
- .account-table .title .row
+.account-table .title .row
   border-top 0
   background-color rgba(84, 147, 247, 0.1)
 

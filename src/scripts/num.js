@@ -8,6 +8,10 @@ export function shortNumber(num) {
   return numeral(num).format(`0,0.0000`) + ``;
 }
 
+export function shortRatio(num) {
+  return numeral(num * 100).format(`0,0.00`) + ``;
+}
+
 export function rebaseAsset(num) {
   return BigNumber(num)
     .dividedBy(Math.pow(10, 6))

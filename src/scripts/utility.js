@@ -3,7 +3,12 @@ import createHash from "create-hash";
 import b64 from "base64-js";
 
 export function format(time) {
-  const m = moment(time);
+  const m = moment.utc(time);
+  return m.format(`YYYY.MM.DD HH:mm:ss`);
+}
+
+export function fromUnixTime(time) {
+  const m = moment.utc(time * 1000);
   return m.format(`YYYY.MM.DD HH:mm:ss`);
 }
 

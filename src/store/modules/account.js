@@ -26,6 +26,7 @@ const actions = {
       }
 
       newAccount = json.data.value;
+      newAccount.type = json.data.type
 
       url = `${lcd}/staking/delegators/${address}/delegations`;
       json = await axios.get(url);

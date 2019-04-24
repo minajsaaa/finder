@@ -13,7 +13,7 @@
             span {{ blockData.header.height }}
             router-link(v-if="blockData.header.height > 1" :to="{ name: 'block', params: { block: parseInt(blockData.header.height) - 1 }}"): i.material-icons chevron_left
             router-link(:to="{ name: 'block', params: { block: parseInt(blockData.header.height) + 1 }}"): i.material-icons chevron_right
-        tm-list-item(dt="Timestamp" :dd="`${format(blockData.header.time)} (Local Time)`")
+        tm-list-item(dt="Timestamp" :dd="`${format(blockData.header.time)}  (UTC)`")
         tm-list-item(dt="Transactions")
           template(slot="dd")
             router-link(v-if="parseInt(blockData.header.num_txs) > 0" class="transactions" :to="{ name: 'txs', params: { block: parseInt(blockData.header.height) }}")
