@@ -23,7 +23,7 @@
         tm-list-item(dt="Block")
           template(slot="dd")
             router-link(:to="{ name: 'block', params: { block: transaction.height }}") {{ transaction.height }}
-        tm-list-item(dt="Timestamp" :dd="`${format(transaction.timestamp)} (UTC)`")
+        tm-list-item(dt="Timestamp" :dd="`${format(transaction.timestamp)}`")
         //- tm-list-item(dt="Sender" :dd="transaction.tx.value.msg[0].value.from_address")
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
         tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${rebaseAsset(transaction.tx.value.fee.amount[0].amount)} LUNA` : `Null`")
