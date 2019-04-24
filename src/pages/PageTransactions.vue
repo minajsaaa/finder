@@ -30,7 +30,7 @@
               div {{ tx.tx.type }}
               span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
-              p.txfee {{ tx.tx.value.fee.amount ? `${rebaseAsset(tx.tx.value.fee.amount[0].amount)} LUNA` : `Null` }}
+              p.txfee {{ tx.tx.value.fee.amount ? `${rebaseAsset(tx.tx.value.fee.amount[0].amount)} LUNA` : `0` }}
             li
               router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
             li
