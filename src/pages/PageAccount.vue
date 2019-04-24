@@ -14,7 +14,7 @@
               span.copied(:class="{ on: copied }" )
         // tm-list-item(dt="Created")
         //   template(slot="dd")
-        //     span 2019.02.28 15:06:58
+        //     span 2019.02.28 15:06:58 (UTC)
         tm-list-item(dt="Balance")
           template(slot="dd")
             // span Total 1,734 Luna
@@ -56,7 +56,7 @@
                   li
                     p Block
                   li
-                    p Timestamp
+                    p Timestamp (UTC)
               li(v-for="(tx, index) in txs")
                 ul.row(v-if="index >= startIndex && index < endIndex")
                   li
@@ -67,7 +67,7 @@
                   li
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
                   li
-                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)}` }}
+                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (UTC)` }}
               div(class="table-empty", v-if="txs.length === 0") {{ `No transaction yet` }}
 
     template(v-else-if="account.error && !account.loading")
