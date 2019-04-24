@@ -14,14 +14,14 @@
               autocomplete="off"
               title="1 to 60 characters")
             tm-btn(type="submit" icon="search")
-      tm-form-group.select-network
-        tm-field(
-          type="select"
-          v-model="curNetwork"
-          placeholder="Select network..."
-          :options="networks"
-          :change="setNetwork"
-          )
+    tm-form-group.select-network
+      tm-field(
+        type="select"
+        v-model="curNetwork"
+        placeholder="Select network..."
+        :options="networks"
+        :change="setNetwork"
+        )
     div(class="background-cover")
     <video playsinline autoplay muted loop id="background" poster="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.jpg">
       <source src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/terrafinder.mp4" type="video/mp4">
@@ -77,8 +77,8 @@ export default {
   left 50%
   min-width 100%
   min-height 100%
-  width auto
-  height auto
+  width 100%
+  height 100%
   transform translateX(-50%) translateY(-50%)
 
 .content-container
