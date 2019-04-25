@@ -1,3 +1,4 @@
+import { filter } from "lodash";
 import moment from "moment";
 import createHash from "create-hash";
 import b64 from "base64-js";
@@ -43,3 +44,14 @@ export function isTerraAddress(keyword) {
   }
   return false;
 }
+
+export function findDenomFromArray(array, denom) {
+  if (filter(array, { denom }).length === 1) {
+    return filter(array, { denom })[0]
+  }
+  else {
+    return null
+  }
+}
+
+export const DENOMS = [`uluna`, `usdr`, `uusd`, `ukrw`]

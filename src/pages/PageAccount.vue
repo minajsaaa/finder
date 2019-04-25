@@ -23,9 +23,9 @@
                   span {{ rebaseAsset(coin.amount) }} {{ denomSlicer(coin.denom) }}
           template(slot="dd" v-if="this.type === GRANDED_VESTING_ACCOUNT" class="vesting-account")
             ul.chart
-              li(v-for="coin in vestingCoins")
+              li(v-for="coin in coinsTable")
                 ul.account-table
-                  li.title(v-if="vestingCoins.length > 0")
+                  li.title(v-if="coinsTable.length > 0")
                     ul.row
                       li
                         p Total
@@ -33,15 +33,15 @@
                         p Available
                       li
                         p Vesting
-                  li(v-for="(coin, index) in vestingCoins")
+                  li(v-for="(coin, index) in coinsTable")
                     ul.row
                       li
                         span {{ rebaseAsset(coin.total) }}  {{ denomSlicer(coin.denom) }}
                       li
                         span {{ rebaseAsset(coin.available) }}  {{ denomSlicer(coin.denom) }}
                       li
-                        span {{ rebaseAsset(coin.vested) }}  {{ denomSlicer(coin.denom) }}
-                  div(class="table-empty", v-if="vestingCoins.length === 0") {{ `No Balance yet` }}
+                        span {{ rebaseAsset(coin.vesting) }}  {{ denomSlicer(coin.denom) }}
+                  div(class="table-empty", v-if="coinsTable.length === 0") {{ `No Balance yet` }}
         tm-list-item(dt="Vesting Schedule" class="schedule" v-if="this.type === GRANDED_VESTING_ACCOUNT")
           template(slot="dd")
             ul.account-table.delegation
@@ -120,7 +120,12 @@ import { mapGetters, mapActions } from "vuex";
 import { isEmpty, sortBy } from "lodash";
 import Clipboard from "clipboard";
 
-import { format, fromUnixTime } from "../scripts/utility";
+import {
+  format,
+  fromUnixTime,
+  DENOMS,
+  findDenomFromArray
+} from "../scripts/utility";
 import {
   shortNumber,
   rebaseAsset,
@@ -132,8 +137,9 @@ import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
-import { filter } from "lodash";
+import { filter, sumBy } from "lodash";
 import BigNumber from "bignumber.js";
+import moment from "moment";
 
 const ACCOUNT_TYPE = `auth/Account`;
 const GRANDED_VESTING_ACCOUNT = `core/GradedVestingAccount`;
@@ -191,33 +197,61 @@ export default {
         : null;
     },
     coins() {
-      return this.type === ACCOUNT_TYPE ? this.currentAccount.coins : [];
-    },
-    vestingCoins() {
-      let result = [];
-      result =
-        this.type === GRANDED_VESTING_ACCOUNT ? this.baseAccount.coins : [];
-      const vestedArr = this.originalVesting;
-      if (result) {
-        result.map(coin => {
-          coin.total = BigNumber(coin.amount); // set TOtal
-          const coinTotal =
-            filter(result, { denom: coin.denom }).length === 1
-              ? BigNumber(filter(result, { denom: coin.denom })[0].total)
-              : BigNumber(0);
-
-          const coinVested =
-            filter(vestedArr, { denom: coin.denom }).length === 1
-              ? BigNumber(filter(vestedArr, { denom: coin.denom })[0].amount)
-              : BigNumber(0);
-
-          coin.vested = coinVested;
-
-          coin.available = coinTotal.minus(coinVested);
-        });
+      if (this.type === ACCOUNT_TYPE) {
+        return this.currentAccount.coins ? this.currentAccount.coins : [];
+      } else if (this.type === GRANDED_VESTING_ACCOUNT) {
+        return this.baseAccount.coins;
       }
+      return [];
+    },
+    coinsTable() {
+      let coinsTableResult = [];
 
-      return result;
+      const originalVesting = this.originalVesting;
+      const delegationsFree = this.delegationsFree;
+
+      DENOMS.map(denom => {
+        const coin = findDenomFromArray(this.coins, denom);
+        if (coin) {
+          coin.totalWithoutDelegation = BigNumber(coin.amount) || 0;
+          coin.originalVesting =
+            findDenomFromArray(originalVesting, denom) || 0;
+          coin.delegatedFree = findDenomFromArray(delegationsFree, denom) || 0;
+          const freedSchedules = this.schedules.filter(
+            schedule => moment(schedule * 1000) > moment(Date.now())
+          );
+
+          coin.freedVesting = sumBy(freedSchedules, "amount");
+          coin.delegated = sumBy(this.delegations, "shares");
+
+          coinsTableResult.push(coin);
+        }
+      });
+
+      coinsTableResult.map(coin => {
+        coin.total = coin.totalWithoutDelegation
+          ? BigNumber(coin.totalWithoutDelegation)
+          : BigNumber(0);
+
+        if (coin.denom === DENOMS[0]) {
+          // luna
+          coin.total.plus(BigNumber(coin.delegated)); // total = coins.amount + delegated
+        }
+
+        coin.vesting = BigNumber(coin.originalVesting.amount).minus(
+          // vesting = original_vesting.amount - {freed vesting}
+          BigNumber(coin.freedVesting)
+        );
+
+        coin.available = BigNumber.min(
+          BigNumber(coin.amount),
+          BigNumber(coin.amount)
+            .plus(coin.delegated)
+            .minus(coin.vesting)
+        ); // available = min(coins.amount, coins.amount + delegated - vesting)
+      });
+
+      return coinsTableResult;
     },
     txs() {
       const getHeight = o => Number(o.height);
