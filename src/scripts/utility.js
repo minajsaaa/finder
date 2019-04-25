@@ -47,11 +47,10 @@ export function isTerraAddress(keyword) {
 
 export function findDenomFromArray(array, denom) {
   if (filter(array, { denom }).length === 1) {
-    return filter(array, { denom })[0]
-  }
-  else {
-    return null
+    return filter(array, { denom })[0];
+  } else {
+    return null;
   }
 }
 
-export const DENOMS = [`uluna`, `usdr`, `uusd`, `ukrw`]
+export const DENOMS = [`uluna`, `usdr`, `uusd`, `ukrw`];

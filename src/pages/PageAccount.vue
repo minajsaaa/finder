@@ -212,6 +212,7 @@ export default {
 
       DENOMS.map(denom => {
         const coin = findDenomFromArray(this.coins, denom);
+
         if (coin) {
           coin.totalWithoutDelegation = BigNumber(coin.amount) || 0;
           coin.originalVesting =
@@ -229,13 +230,11 @@ export default {
       });
 
       coinsTableResult.map(coin => {
-        coin.total = coin.totalWithoutDelegation
-          ? BigNumber(coin.totalWithoutDelegation)
-          : BigNumber(0);
+        coin.total = BigNumber(coin.totalWithoutDelegation);
 
         if (coin.denom === DENOMS[0]) {
           // luna
-          coin.total.plus(BigNumber(coin.delegated)); // total = coins.amount + delegated
+          coin.total = coin.total.plus(BigNumber(coin.delegated)); // total = coins.amount + delegated
         }
 
         coin.vesting = BigNumber(coin.originalVesting.amount).minus(
