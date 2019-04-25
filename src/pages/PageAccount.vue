@@ -198,23 +198,24 @@ export default {
       result =
         this.type === GRANDED_VESTING_ACCOUNT ? this.baseAccount.coins : [];
       const vestedArr = this.originalVesting;
+      if (result) {
+        result.map(coin => {
+          coin.total = BigNumber(coin.amount); // set TOtal
+          const coinTotal =
+            filter(result, { denom: coin.denom }).length === 1
+              ? BigNumber(filter(result, { denom: coin.denom })[0].total)
+              : BigNumber(0);
 
-      result.map(coin => {
-        coin.total = BigNumber(coin.amount); // set TOtal
-        const coinTotal =
-          filter(result, { denom: coin.denom }).length === 1
-            ? BigNumber(filter(result, { denom: coin.denom })[0].total)
-            : BigNumber(0);
+          const coinVested =
+            filter(vestedArr, { denom: coin.denom }).length === 1
+              ? BigNumber(filter(vestedArr, { denom: coin.denom })[0].amount)
+              : BigNumber(0);
 
-        const coinVested =
-          filter(vestedArr, { denom: coin.denom }).length === 1
-            ? BigNumber(filter(vestedArr, { denom: coin.denom })[0].amount)
-            : BigNumber(0);
+          coin.vested = coinVested;
 
-        coin.vested = coinVested;
-
-        coin.available = coinTotal.minus(coinVested);
-      });
+          coin.available = coinTotal.minus(coinVested);
+        });
+      }
 
       return result;
     },
