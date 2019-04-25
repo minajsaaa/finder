@@ -236,22 +236,28 @@ export default {
     schedules() {
       if (this.type !== GRANDED_VESTING_ACCOUNT) return [];
       let result = [];
-      this.vestingSchedulesDenoms.map(schedulesDenom => {
-        schedulesDenom.schedules.map(schedule => {
-          const denom = schedulesDenom.denom;
-          schedule.amount = BigNumber(
-            filter(this.originalVesting, { denom })[0]
-          ).times(BigNumber(schedule.ratio));
-          schedule.denom = denom;
-          const total = filter(this.originalVesting, { denom })[0].amount;
+      if (
+        this.vestingSchedulesDenoms &&
+        this.vestingSchedulesDenoms.length > 0
+      ) {
+        this.vestingSchedulesDenoms.map(schedulesDenom => {
+          schedulesDenom.schedules.map(schedule => {
+            const denom = schedulesDenom.denom;
+            schedule.amount = BigNumber(
+              filter(this.originalVesting, { denom })[0]
+            ).times(BigNumber(schedule.ratio));
+            schedule.denom = denom;
+            const total = filter(this.originalVesting, { denom })[0].amount;
 
-          schedule.amount = BigNumber(total).times(BigNumber(schedule.ratio));
-          result.push(schedule);
+            schedule.amount = BigNumber(total).times(BigNumber(schedule.ratio));
+            result.push(schedule);
+          });
         });
-      });
-      result = result.sort(schedule => {
-        schedule.cliff < schedule.cliff;
-      });
+        result = result.sort(schedule => {
+          schedule.cliff < schedule.cliff;
+        });
+      }
+
       return result;
     }
   },
