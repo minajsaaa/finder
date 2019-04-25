@@ -180,7 +180,6 @@ export default {
 .block-container .height span
   margin-right 10px
   display inline-block
-  vertical-align middle
 
 .block-container .height a
   position relative

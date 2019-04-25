@@ -337,12 +337,12 @@ textarea.tm-field
       color dim
 
     option
-      color #fff
-      background #0c3694
+      color #2043b5
+      background #fff
       font-family sans
       &:checked
-        color #fff
-        background #0c3694
+        color #2043b5
+        background #fff
 
   .tm-field-select-addon
     position absolute

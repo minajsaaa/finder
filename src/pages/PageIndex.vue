@@ -184,6 +184,7 @@ input:-webkit-autofill
   right 20px
   padding 0
   margin 0
+  display block
 
 @media screen and (max-width: 767px)
   .logo-container
