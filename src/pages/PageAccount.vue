@@ -32,7 +32,7 @@
                       li
                         p Available
                       li
-                        p Vested
+                        p Vesting
                   li(v-for="(coin, index) in vestingCoins")
                     ul.row
                       li
