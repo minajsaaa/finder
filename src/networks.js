@@ -15,7 +15,7 @@ const networks = [
   },
   {
     value: "ricewine",
-    key: "ricewine Testnet",
+    key: "Ricewine Testnet",
     lcd: "https://ricewine-lcd.terra.money",
     rpc: "http://ricewine.terra.money:26656",
     wss: "ws://ricewine.terra.money:26657/websocket"
