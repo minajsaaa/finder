@@ -489,15 +489,15 @@ export default {
 //   font-size: 15px;
 //   font-weight: 500;
 
-.account-container .chart
-  text-transform: uppercase;
-  font-size: 15px;
+// .account-container .chart
+//   text-transform: uppercase;
+//   font-size: 15px;
 
-.account-container .chart li
-  margin-top: 0px;
+// .account-container .chart li
+//   margin-top: 0px;
 
-.account-container .chart li:first-child
-  margin-top: 0;
+// .account-container .chart li:first-child
+//   margin-top: 0;
 
 .account-table
   border-radius 5px
@@ -547,7 +547,7 @@ export default {
 
 .account-table .title
   border-radius 3px 3px 0 0
-  font-size 12px
+  font-size 13px
   font-weight 500
 
 .account-table .title .row
