@@ -210,10 +210,8 @@ export default {
 
       const originalVesting = this.originalVesting;
       const delegationsFree = this.delegationsFree;
-
       DENOMS.map(denom => {
         const coin = findDenomFromArray(this.coins, denom);
-
         if (coin) {
           coin.totalWithoutDelegation = BigNumber(coin.amount) || 0;
           coin.originalVesting =
@@ -224,7 +222,11 @@ export default {
           );
 
           coin.freedVesting = sumBy(freedSchedules, "amount");
-          coin.delegated = sumBy(this.delegations, "shares");
+          if (denom === DENOMS[0]) {
+            coin.delegated = sumBy(this.delegations, "shares");
+          } else {
+            coin.delegated = BigNumber(0);
+          }
 
           coinsTableResult.push(coin);
         }
@@ -246,7 +248,7 @@ export default {
         coin.available = BigNumber.min(
           BigNumber(coin.amount),
           BigNumber(coin.amount)
-            .plus(coin.delegated)
+            .plus(BigNumber(coin.delegated))
             .minus(coin.vesting)
         ); // available = min(coins.amount, coins.amount + delegated - vesting)
       });
