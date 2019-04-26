@@ -199,17 +199,21 @@ export default {
     },
     coins() {
       if (this.type === ACCOUNT_TYPE) {
-        return this.currentAccount.coins ? this.currentAccount.coins : [];
+        return this.currentAccount.coins
+          ? this.currentAccount.coins
+          : [{ denom: "uluna", amount: 0 }];
       } else if (this.type === GRANDED_VESTING_ACCOUNT) {
-        return this.baseAccount.coins;
+        return this.baseAccount.coins
+          ? this.baseAccount.coins
+          : [{ denom: "uluna", amount: 0 }];
       }
-      return [];
+      return [{ denom: "uluna", amount: 0 }];
     },
     coinsTable() {
       let coinsTableResult = [];
-
       const originalVesting = this.originalVesting;
       const delegationsFree = this.delegationsFree;
+
       DENOMS.map(denom => {
         const coin = findDenomFromArray(this.coins, denom);
         if (coin) {
@@ -222,8 +226,12 @@ export default {
           );
 
           coin.freedVesting = sumBy(freedSchedules, "amount");
-          if (denom === DENOMS[0]) {
-            coin.delegated = sumBy(this.delegations, "shares");
+          if (denom === DENOMS[0] && this.type === GRANDED_VESTING_ACCOUNT) {
+            const delegated = findDenomFromArray(
+              this.delegationsVesting,
+              denom
+            );
+            coin.delegated = BigNumber(delegated.amount) || 0;
           } else {
             coin.delegated = BigNumber(0);
           }
