@@ -12,6 +12,13 @@ const networks = [
     lcd: "https://soju-0008-lcd.terra.dev",
     rpc: "https://soju-0008-rpc.terra.dev",
     wss: "ws://soju-0008-rpc.terra.dev/websocket"
+  },
+  {
+    value: "ricewine",
+    key: "ricewine Testnet",
+    lcd: "https://ricewine-lcd.terra.money",
+    rpc: "http://ricewine.terra.money:26656",
+    wss: "ws://ricewine.terra.money:26657/websocket"
   }
 ];
 
