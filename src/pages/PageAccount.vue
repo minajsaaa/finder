@@ -21,9 +21,10 @@
               li(v-for="coin in coins")
                 div.inner
                   span {{ rebaseAsset(coin.amount) }} {{ denomSlicer(coin.denom) }}
+              div(class="table-empty", v-if="coinsTable.length === 0") {{ `No Balance yet` }}
           template(slot="dd" v-if="this.type === GRANDED_VESTING_ACCOUNT" class="vesting-account")
             ul.chart
-              li(v-for="coin in coinsTable")
+              li
                 ul.account-table
                   li.title(v-if="coinsTable.length > 0")
                     ul.row
