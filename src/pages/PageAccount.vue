@@ -81,7 +81,27 @@
                     p(v-for="reward in d.rewards")
                       span {{ rebaseAsset(reward.amount) }} {{ denomSlicer(reward.denom) }}
               div(class="table-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
-
+        tm-list-item(dt="Unbondings")
+          template(slot="dd")
+            ul.account-table.unbondings
+              li.title(v-if="unbondingDelegations.length > 0")
+                ul.row
+                  li
+                    p Validator
+                  li
+                    p Block
+                  li
+                    p Amount
+                  li
+                    p Release time
+                li(v-for="u in unbondingDelegations")
+                  ul.row
+                    li {{ u.validatorAddress }}
+                    li
+                      router-link.block(:to="{ name: 'block', params: { block: u.creationHeight }}") {{ u.creationHeight }}
+                    li {{ rebaseAsset(u.balance) }} Luna
+                    li {{ `${fromISOTime(new Date(u.completionTime))} (UTC)`}}
+                div(class="table-empty", v-if="unbondingDelegations.length === 0") {{ `No unbondings yet` }}
         tm-list-item(dt="Transactions")
           template(slot="dd")
             app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
@@ -124,6 +144,7 @@ import Clipboard from "clipboard";
 import {
   format,
   fromUnixTime,
+  fromISOTime,
   DENOMS,
   findDenomFromArray
 } from "../scripts/utility";
@@ -272,6 +293,11 @@ export default {
     delegations() {
       return (this.currentAccount && this.currentAccount.delegations) || [];
     },
+    unbondingDelegations() {
+      return (
+        (this.currentAccount && this.currentAccount.unbondingDelegations) || []
+      );
+    },
     vestingSchedulesDenoms() {
       return this.type === GRANDED_VESTING_ACCOUNT
         ? this.currentAccount.vesting_schedules
@@ -311,6 +337,7 @@ export default {
     format,
     shortRatio,
     fromUnixTime,
+    fromISOTime,
     shortNumber,
     denomSlicer,
     rebaseAsset,
@@ -538,6 +565,14 @@ export default {
   width 32%
 
 .account-table.transaction .row li:nth-child(2)
+  padding-left 20px
+  width 18%
+
+.account-table.unbondings .row li:nth-child(1)
+  padding-left 20px
+  width 50%
+
+.account-table.unbondings .row li:nth-child(2)
   padding-left 20px
   width 18%
 

@@ -13,6 +13,11 @@ export function fromUnixTime(time) {
   return m.format(`YYYY.MM.DD HH:mm:ss`);
 }
 
+export function fromISOTime(time) {
+  const m = moment.utc(time);
+  return m.format(`YYYY.MM.DD HH:mm:ss`);
+}
+
 export function txToHash(tx) {
   let txbytes = b64.toByteArray(tx);
 

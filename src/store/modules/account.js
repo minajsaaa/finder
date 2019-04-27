@@ -39,6 +39,28 @@ const actions = {
 
       newAccount.delegations = delegations;
 
+      url = `${lcd}/staking/delegators/${address}/unbonding_delegations`;
+      json = await axios.get(url);
+
+      const unbondings_data = json.data
+
+      const unbondingDelegations = []
+      if (unbondings_data) {
+        unbondings_data.map(validator => {
+          const validatorAddress = validator.validator_address
+          if (validator.entries) {
+            validator.entries.map(entry => {
+              const creationHeight = entry.creation_height
+              const completionTime = entry.completion_time
+              const balance = entry.balance
+
+              unbondingDelegations.push({ validatorAddress, creationHeight, completionTime, balance})
+            })
+          }
+        })
+      }
+      newAccount.unbondingDelegations = unbondingDelegations;
+
       const txs = await Promise.all([
         axios.get(`${lcd}/txs?sender=${address}&limit=100`),
         axios.get(`${lcd}/txs?recipient=${address}&limit=100`),
