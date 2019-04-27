@@ -16,7 +16,7 @@
         //   template(slot="dd")
         //     span 2019.02.28 15:06:58 (Local Time)
         tm-list-item(dt="Balance")
-          template(slot="dd" v-if="this.type === ACCOUNT_TYPE")
+          template(slot="dd" v-if="!this.type || this.type === ACCOUNT_TYPE")
             ul.chart
               li(v-for="coin in coins")
                 div.inner
@@ -170,7 +170,7 @@ export default {
       return this.account.accounts[this.$route.params.address];
     },
     type() {
-      return this.currentAccount.type;
+      return this.currentAccount && this.currentAccount.type;
     },
     baseVestingAccount() {
       return this.type === GRANDED_VESTING_ACCOUNT

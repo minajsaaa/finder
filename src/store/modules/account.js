@@ -18,12 +18,6 @@ const actions = {
       let newAccount = {};
       let url = `${lcd}/auth/accounts/${address}`;
       let json = await axios.get(url);
-      if (json.status === 204) {
-        commit("setError", { message: "No Content" });
-        commit("setAccountLoading", false);
-        commit("setAccountLoaded", true);
-        return;
-      }
 
       newAccount = json.data.value;
       newAccount.type = json.data.type;
