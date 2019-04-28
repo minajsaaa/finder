@@ -42,22 +42,25 @@ const actions = {
       url = `${lcd}/staking/delegators/${address}/unbonding_delegations`;
       json = await axios.get(url);
 
-      const unbondings_data = json.data
+      const unbondings_data = json.data;
 
-      const unbondingDelegations = []
+      const unbondingDelegations = [];
       if (unbondings_data) {
         unbondings_data.map(validator => {
-          const validatorAddress = validator.validator_address
+          const validatorAddress = validator.validator_address;
           if (validator.entries) {
             validator.entries.map(entry => {
-              const creationHeight = entry.creation_height
-              const completionTime = entry.completion_time
-              const balance = entry.balance
+              const item = {
+                validatorAddress,
+                creationHeight: entry.creation_height,
+                completionTime: entry.completion_time,
+                balance: entry.balance
+              };
 
-              unbondingDelegations.push({ validatorAddress, creationHeight, completionTime, balance})
-            })
+              unbondingDelegations.push(item);
+            });
           }
-        })
+        });
       }
       newAccount.unbondingDelegations = unbondingDelegations;
 
