@@ -252,7 +252,7 @@ export default {
               this.delegationsVesting,
               denom
             );
-            coin.delegated = BigNumber(delegated.amount) || 0;
+            coin.delegated = (delegated && BigNumber(delegated.amount)) || 0;
           } else {
             coin.delegated = BigNumber(0);
           }
