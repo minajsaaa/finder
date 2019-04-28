@@ -238,15 +238,24 @@ export default {
       DENOMS.map(denom => {
         const coin = findDenomFromArray(this.coins, denom);
         if (coin) {
-          coin.totalWithoutDelegation = BigNumber(coin.amount) || 0;
+          coin.totalWithoutDelegation = BigNumber(coin.amount) || BigNumber(0);
+
+          coin.originalVesting = findDenomFromArray(originalVesting, denom);
           coin.originalVesting =
-            findDenomFromArray(originalVesting, denom) || 0;
-          coin.delegatedFree = findDenomFromArray(delegationsFree, denom) || 0;
+            (coin.originalVesting && coin.originalVesting.amount) ||
+            BigNumber(0);
+
+          coin.delegatedFree = findDenomFromArray(delegationsFree, denom);
+          coin.delegatedFree =
+            (coin.delegatedFree && coin.delegatedFree.amount) || BigNumber(0);
+
           const freedSchedules = this.schedules.filter(
             schedule => moment(schedule * 1000) > moment(Date.now())
           );
 
-          coin.freedVesting = sumBy(freedSchedules, "amount");
+          coin.freedVesting =
+            BigNumber(sumBy(freedSchedules, "amount")) || BigNumber(0);
+
           if (denom === DENOMS[0] && this.type === GRANDED_VESTING_ACCOUNT) {
             const delegated = findDenomFromArray(
               this.delegationsVesting,
@@ -269,7 +278,7 @@ export default {
           coin.total = coin.total.plus(BigNumber(coin.delegated)); // total = coins.amount + delegated
         }
 
-        coin.vesting = BigNumber(coin.originalVesting.amount).minus(
+        coin.vesting = BigNumber(coin.originalVesting).minus(
           // vesting = original_vesting.amount - {freed vesting}
           BigNumber(coin.freedVesting)
         );
