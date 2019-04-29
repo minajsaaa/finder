@@ -31,7 +31,7 @@
                         p.small (Delegated)
                       li
                         p Delegated
-                        p.small (Unbonding)
+                        p.small (Undelegating)
                   li(v-for="(coin, index) in coinsTable")
                     ul.row(v-if="coin.isDisplay")
                       li
