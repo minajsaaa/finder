@@ -1,7 +1,8 @@
-import { filter } from "lodash";
+import { filter, get } from "lodash";
 import moment from "moment";
 import createHash from "create-hash";
 import b64 from "base64-js";
+import BigNumber from "bignumber.js";
 
 export function format(time) {
   const m = moment.utc(time);
@@ -58,4 +59,29 @@ export function findDenomFromArray(array, denom) {
   }
 }
 
-export const DENOMS = [`uluna`, `usdr`, `uusd`, `ukrw`];
+export function extractAmountBigNumber(coin) {
+  return BigNumber(get(coin, "amount", 0));
+}
+
+export function sumByBigNumber(array, key) {
+  let result;
+
+  if (array != null && array.length) {
+    for (const o of array) {
+      const current = o[key];
+      if (current !== undefined) {
+        result =
+          result === undefined
+            ? BigNumber(current)
+            : BigNumber(result).plus(BigNumber(current));
+      }
+    }
+    return result;
+  }
+  return BigNumber(0);
+}
+
+export const ACCOUNT_TYPE = `auth/Account`;
+export const GRANDED_VESTING_ACCOUNT = `core/GradedVestingAccount`;
+
+export const DENOMS = [`uluna`, `usdr`, `uusd`, `ukrw`, `ucny`, `ugbp`, `ueur`];

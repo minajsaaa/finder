@@ -16,13 +16,7 @@
         //   template(slot="dd")
         //     span 2019.02.28 15:06:58 (Local Time)
         tm-list-item(dt="Balance")
-          template(slot="dd" v-if="!this.type || this.type === ACCOUNT_TYPE")
-            ul.chart
-              li(v-for="coin in coins")
-                div.inner
-                  span {{ rebaseAsset(coin.amount) }} {{ denomSlicer(coin.denom) }}
-              div(class="table-empty", v-if="coinsTable.length === 0") {{ `No Balance yet` }}
-          template(slot="dd" v-if="this.type === GRANDED_VESTING_ACCOUNT" class="vesting-account")
+          template(slot="dd" class="vesting-account")
             ul.chart
               li
                 ul.account-table
@@ -32,16 +26,26 @@
                         p Total
                       li
                         p Available
-                      li
+                      li(v-if="this.type === GRANDED_VESTING_ACCOUNT")
                         p Vesting
+                        p (Delegated)
+                      li
+                        p Delegated
+                        p (Unbonding)
                   li(v-for="(coin, index) in coinsTable")
-                    ul.row
+                    ul.row(v-if="coin.isDisplay")
                       li
                         span {{ rebaseAsset(coin.total) }}  {{ denomSlicer(coin.denom) }}
                       li
                         span {{ rebaseAsset(coin.available) }}  {{ denomSlicer(coin.denom) }}
-                      li
-                        span {{ rebaseAsset(coin.vesting) }}  {{ denomSlicer(coin.denom) }}
+                      li(v-if="type === GRANDED_VESTING_ACCOUNT")
+                        p {{ rebaseAsset(coin.vesting) }}  {{ denomSlicer(coin.denom) }}
+                        p(v-if="coin.denom === DENOMS[0]") {{ rebaseAsset(coin.delegatedVesting) }}  {{ denomSlicer(coin.denom) }}
+                      li(v-if="coin.denom === DENOMS[0]")
+                        p {{ rebaseAsset(coin.delegated) }}  {{ denomSlicer(coin.denom) }}
+                        p {{ rebaseAsset(coin.unbondingDelegations) }}  {{ denomSlicer(coin.denom) }}
+                      li(v-else)
+                        p
                   div(class="table-empty", v-if="coinsTable.length === 0") {{ `No Balance yet` }}
         tm-list-item(dt="Vesting Schedule" class="schedule" v-if="this.type === GRANDED_VESTING_ACCOUNT")
           template(slot="dd")
@@ -81,9 +85,9 @@
                     p(v-for="reward in d.rewards")
                       span {{ rebaseAsset(reward.amount) }} {{ denomSlicer(reward.denom) }}
               div(class="table-empty", v-if="delegations.length === 0") {{ `No delegation yet` }}
-        tm-list-item(dt="Unbondings")
+        tm-list-item(dt="Undelegations")
           template(slot="dd")
-            ul.account-table.unbondings
+            ul.account-table.unbondingDelegations
               li.title(v-if="unbondingDelegations.length > 0")
                 ul.row
                   li
@@ -101,7 +105,7 @@
                       router-link.block(:to="{ name: 'block', params: { block: u.creationHeight }}") {{ u.creationHeight }}
                     li {{ rebaseAsset(u.balance) }} Luna
                     li {{ `${fromISOTime(new Date(u.completionTime))} (UTC)`}}
-                div(class="table-empty", v-if="unbondingDelegations.length === 0") {{ `No unbondings yet` }}
+                div(class="table-empty", v-if="unbondingDelegations.length === 0") {{ `No Undelegations yet` }}
         tm-list-item(dt="Transactions")
           template(slot="dd")
             app-page(:totalRow="txs.length", v-if="txs.length > 10", v-on:page-change="pageChange")
@@ -146,7 +150,11 @@ import {
   fromUnixTime,
   fromISOTime,
   DENOMS,
-  findDenomFromArray
+  findDenomFromArray,
+  extractAmountBigNumber,
+  sumByBigNumber,
+  ACCOUNT_TYPE,
+  GRANDED_VESTING_ACCOUNT
 } from "../scripts/utility";
 import {
   shortNumber,
@@ -159,12 +167,9 @@ import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
-import { filter, sumBy } from "lodash";
+import { filter } from "lodash";
 import BigNumber from "bignumber.js";
 import moment from "moment";
-
-const ACCOUNT_TYPE = `auth/Account`;
-const GRANDED_VESTING_ACCOUNT = `core/GradedVestingAccount`;
 
 export default {
   beforeCreate: function() {
@@ -176,7 +181,8 @@ export default {
     startIndex: 0,
     endIndex: 10,
     ACCOUNT_TYPE,
-    GRANDED_VESTING_ACCOUNT
+    GRANDED_VESTING_ACCOUNT,
+    DENOMS
   }),
   components: {
     TmListItem,
@@ -208,12 +214,12 @@ export default {
         ? this.baseVestingAccount.BaseAccount
         : null;
     },
-    delegationsFree() {
+    delegatedFree() {
       return this.baseVestingAccount
         ? this.baseVestingAccount.delegated_free
         : null;
     },
-    delegationsVesting() {
+    delegatedVesting() {
       return this.baseVestingAccount
         ? this.baseVestingAccount.delegated_vesting
         : null;
@@ -231,64 +237,114 @@ export default {
       return [{ denom: "uluna", amount: 0 }];
     },
     coinsTable() {
+      // vesting 계정
+      // total = coins.amount + ( delegated_vesting + delegated_free )
+      // vesting = original_vesting.amount - {freed vesting}
+      // available = min(coins.amount, coins.amount + delegated_vesting - vesting)
+
+      // 일반계정
+      // total = coins.amount + delegating + unbonding
+      // available = coins.amount
+
+      const type = this.type;
       let coinsTableResult = [];
+
       const originalVesting = this.originalVesting;
-      const delegationsFree = this.delegationsFree;
+      const delegatedFree = this.delegatedFree;
+      const delegatedVesting = this.delegatedVesting;
+      const delegations = this.delegations;
+      const unbondingDelegations = this.unbondingDelegations;
+      const schedules = this.schedules;
+      const coins = this.coins;
 
       DENOMS.map(denom => {
-        const coin = findDenomFromArray(this.coins, denom);
-        if (coin) {
-          coin.totalWithoutDelegation = BigNumber(coin.amount) || BigNumber(0);
+        let coin = findDenomFromArray(coins, denom);
 
-          coin.originalVesting = findDenomFromArray(originalVesting, denom);
-          coin.originalVesting =
-            (coin.originalVesting && coin.originalVesting.amount) ||
+        if (!coin) {
+          coin = { denom, amount: 0 };
+        }
+
+        coin.totalWithoutDelegation = extractAmountBigNumber(coin);
+
+        coin.originalVesting = findDenomFromArray(originalVesting, denom);
+        coin.originalVesting = extractAmountBigNumber(coin.originalVesting);
+
+        coin.delegatedFree = findDenomFromArray(delegatedFree, denom);
+        coin.delegatedFree = extractAmountBigNumber(coin.delegatedFree);
+
+        coin.delegatedVesting = findDenomFromArray(delegatedVesting, denom);
+        coin.delegatedVesting = extractAmountBigNumber(coin.delegatedVesting);
+
+        const freedSchedules = schedules.filter(
+          schedule =>
+            moment(schedule * 1000) > moment(Date.now()) &&
+            denom === schedule.denom
+        );
+        coin.freedVesting =
+          BigNumber(sumByBigNumber(freedSchedules, "amount")) || BigNumber(0);
+
+        if (denom === DENOMS[0]) {
+          coin.delegations =
+            BigNumber(sumByBigNumber(delegations, "shares")) || BigNumber(0);
+
+          coin.unbondingDelegations =
+            BigNumber(sumByBigNumber(unbondingDelegations, "balance")) ||
             BigNumber(0);
+          coin.delegated = coin.delegations.plus(coin.unbondingDelegations);
+        } else {
+          coin.delegations = BigNumber(0);
+          coin.unbondingDelegations = BigNumber(0);
+          coin.delegated = coin.delegations.plus(coin.unbondingDelegations);
+        }
 
-          coin.delegatedFree = findDenomFromArray(delegationsFree, denom);
-          coin.delegatedFree =
-            (coin.delegatedFree && coin.delegatedFree.amount) || BigNumber(0);
-
-          const freedSchedules = this.schedules.filter(
-            schedule => moment(schedule * 1000) > moment(Date.now())
-          );
-
-          coin.freedVesting =
-            BigNumber(sumBy(freedSchedules, "amount")) || BigNumber(0);
-
-          if (denom === DENOMS[0] && this.type === GRANDED_VESTING_ACCOUNT) {
-            const delegated = findDenomFromArray(
-              this.delegationsVesting,
-              denom
-            );
-            coin.delegated = (delegated && BigNumber(delegated.amount)) || 0;
+        // Total
+        // vesting
+        // total = coins.amount + ( delegated_vesting + delegated_free )
+        if (type === GRANDED_VESTING_ACCOUNT) {
+          coin.total = BigNumber(coin.totalWithoutDelegation)
+            .plus(coin.delegatedVesting)
+            .plus(coin.delegatedFree);
+        } else {
+          // 일반계정
+          // total = coins.amount + delegating + unbonding
+          if (denom === DENOMS[0]) {
+            coin.total = BigNumber(coin.totalWithoutDelegation)
+              .plus(coin.delegations)
+              .plus(coin.unbondingDelegations);
           } else {
-            coin.delegated = BigNumber(0);
+            coin.total = BigNumber(coin.totalWithoutDelegation);
           }
-
-          coinsTableResult.push(coin);
-        }
-      });
-
-      coinsTableResult.map(coin => {
-        coin.total = BigNumber(coin.totalWithoutDelegation);
-
-        if (coin.denom === DENOMS[0]) {
-          // luna
-          coin.total = coin.total.plus(BigNumber(coin.delegated)); // total = coins.amount + delegated
         }
 
+        // vesting = original_vesting.amount - {freed vesting}
         coin.vesting = BigNumber(coin.originalVesting).minus(
-          // vesting = original_vesting.amount - {freed vesting}
           BigNumber(coin.freedVesting)
         );
 
-        coin.available = BigNumber.min(
-          BigNumber(coin.amount),
-          BigNumber(coin.amount)
-            .plus(BigNumber(coin.delegated))
-            .minus(coin.vesting)
-        ); // available = min(coins.amount, coins.amount + delegated - vesting)
+        // available = min(coins.amount, coins.amount + delegated_vesting - vesting)
+        if (type === GRANDED_VESTING_ACCOUNT) {
+          coin.available = BigNumber.min(
+            BigNumber(coin.totalWithoutDelegation),
+            BigNumber(coin.totalWithoutDelegation)
+              .plus(coin.delegatedVesting)
+              .minus(coin.vesting)
+          );
+        } else {
+          // available = coins.amount
+          coin.available = coin.totalWithoutDelegation;
+        }
+
+        if (
+          coin.total.isZero() &&
+          coin.available.isZero() &&
+          coin.vesting.isZero()
+        ) {
+          coin.isDisplay = false;
+        } else {
+          coin.isDisplay = true;
+        }
+
+        coinsTableResult.push(coin);
       });
 
       return coinsTableResult;
@@ -577,11 +633,11 @@ export default {
   padding-left 20px
   width 18%
 
-.account-table.unbondings .row li:nth-child(1)
+.account-table.unbondingDelegations .row li:nth-child(1)
   padding-left 20px
   width 50%
 
-.account-table.unbondings .row li:nth-child(2)
+.account-table.unbondingDelegations .row li:nth-child(2)
   padding-left 20px
   width 18%
 
