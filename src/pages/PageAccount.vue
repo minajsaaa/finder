@@ -28,10 +28,10 @@
                         p Available
                       li(v-if="this.type === GRANDED_VESTING_ACCOUNT")
                         p Vesting
-                        p (Delegated)
+                        p.small (Delegated)
                       li
                         p Delegated
-                        p (Unbonding)
+                        p.small (Unbonding)
                   li(v-for="(coin, index) in coinsTable")
                     ul.row(v-if="coin.isDisplay")
                       li
@@ -40,10 +40,10 @@
                         span {{ rebaseAsset(coin.available) }}  {{ denomSlicer(coin.denom) }}
                       li(v-if="type === GRANDED_VESTING_ACCOUNT")
                         p {{ rebaseAsset(coin.vesting) }}  {{ denomSlicer(coin.denom) }}
-                        p(v-if="coin.denom === DENOMS[0]") {{ rebaseAsset(coin.delegatedVesting) }}  {{ denomSlicer(coin.denom) }}
+                        p.small(v-if="coin.denom === DENOMS[0]") ({{ rebaseAsset(coin.delegatedVesting) }}  {{ denomSlicer(coin.denom) }})
                       li(v-if="coin.denom === DENOMS[0]")
                         p {{ rebaseAsset(coin.delegated) }}  {{ denomSlicer(coin.denom) }}
-                        p {{ rebaseAsset(coin.unbondingDelegations) }}  {{ denomSlicer(coin.denom) }}
+                        p.small ({{ rebaseAsset(coin.unbondingDelegations) }}  {{ denomSlicer(coin.denom) }})
                       li(v-else)
                         p
                   div(class="table-empty", v-if="coinsTable.length === 0") {{ `No Balance yet` }}
@@ -608,7 +608,7 @@ export default {
   border-top solid 1px #ebeef7
   width 100%
   table-layout fixed
-  min-width: 720px
+  min-width: 800px
 
 .account-table .row li
   padding 10px
