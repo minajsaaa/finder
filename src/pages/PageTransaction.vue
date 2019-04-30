@@ -28,6 +28,7 @@
         //- tm-list-item(dt="Receiver" :dd="transaction.tx.value.msg[0].value.to_address")
         tm-list-item(dt="Transaction fee" :dd="transaction.tx.value.fee.amount ? `${rebaseAsset(transaction.tx.value.fee.amount[0].amount)} LUNA` : `0`")
         tm-list-item(dt="Gas (Used/Requested)" :dd="`${parseInt(transaction.gas_used).toLocaleString()}/${parseInt(transaction.gas_wanted).toLocaleString()}`")
+        tm-list-item(dt="Memo" :dd="transaction.tx.value.memo ? transaction.tx.value.memo : `-`")
         tm-list-item.rawData(dt="Message")
           template(slot="dd" v-for="m in transaction.tx.value.msg")
             //- vue-json-pretty(:data="transaction.tx")
