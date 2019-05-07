@@ -1,18 +1,20 @@
-import Vue from "vue";
+import _Vue from "vue";
 import Vuelidate from "vuelidate";
 import App from "./App.vue";
 
-// sync store and router...
-import { sync } from "vuex-router-sync";
 import router from "./router";
-import store from "./store";
-sync(store, router);
-Vue.use(Vuelidate);
+import _Store from "./store";
 
-Vue.config.productionTip = false;
+export const startApp = async (store = _Store, Vue = _Vue) => {
+  Vue.use(Vuelidate);
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount("#app");
+  Vue.config.productionTip = false;
+
+  return new Vue({
+    router,
+    store,
+    render: h => h(App)
+  }).$mount("#app");
+};
+
+startApp();
