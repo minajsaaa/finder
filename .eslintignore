@@ -1,4 +1,4 @@
-/test/unit/coverage/
+/tests/unit/coverage/
 /.vscode/*
 /dist
 /**/builds/*
