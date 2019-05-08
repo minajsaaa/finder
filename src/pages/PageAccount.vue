@@ -277,7 +277,7 @@ export default {
 
         const freedSchedules = schedules.filter(
           schedule =>
-            moment(schedule * 1000) > moment(Date.now()) &&
+            moment(schedule.cliff * 1000) < moment(Date.now()) &&
             denom === schedule.denom
         );
         coin.freedVesting =
