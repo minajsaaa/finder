@@ -1,26 +1,24 @@
-import numeral from "numeral";
 import BigNumber from "bignumber.js";
 
-export function full(num) {
-  return numeral(num).format(`0,0.0000000000`);
-}
-export function shortNumber(num) {
-  return numeral(num).format(`0,0.0000`) + ``;
-}
-
 export function shortRatio(num) {
-  return numeral(num * 100).format(`0,0.00`) + ``;
+  return BigNumber(num || 0)
+    .times(100)
+    .decimalPlaces(2)
+    .toFixed(2);
 }
 
 export function rebaseAsset(num) {
-  return BigNumber(num)
+  return BigNumber(num || 0)
     .dividedBy(Math.pow(10, 6))
     .decimalPlaces(6)
     .toFixed(6);
 }
 
 export function denomSlicer(str) {
-  var frag = str.slice(1);
+  if (!str) {
+    return `ERROR`;
+  }
+  var frag = String(str).slice(1);
   if (frag == "luna") {
     return "LUNA";
   }

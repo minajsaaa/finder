@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TmField TmField Snapshot 1`] = `
+<input
+  class="tm-field"
+  type="text"
+/>
+`;

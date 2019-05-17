@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageTransaction Snapshot Snapshot: defaultHash 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="tx-container"
+  >
+    <h2>
+      Transaction Details
+    </h2>
+    <div
+      class="table"
+    >
+      <tm-list-item-stub
+        dt="Transaction hash"
+      >
+        <template>
+          <span>
+            B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2
+          </span>
+          <span
+            class="copy"
+            data-clipboard-text="B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2"
+          >
+            <i
+              class="material-icons"
+            >
+              filter_none
+            </i>
+            <span
+              class="copied"
+            />
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        class="status"
+        dt="Status"
+      >
+        <template>
+          <span
+            class="title"
+          >
+            Success
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Block"
+      >
+        <template>
+          <router-link-stub
+            to="[object Object]"
+          >
+            719
+          </router-link-stub>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dd="2019.04.24 07:03:35  (UTC)"
+        dt="Timestamp"
+      />
+      <tm-list-item-stub
+        dd="0.003000 LUNA"
+        dt="Transaction fee"
+      />
+      <tm-list-item-stub
+        dd="163,455/200,000"
+        dt="Gas (Used/Requested)"
+      />
+      <tm-list-item-stub
+        dd="-"
+        dt="Memo"
+      />
+      <tm-list-item-stub
+        class="rawData"
+        dt="Message"
+      >
+        <template>
+          <div
+            class="msgBox"
+          >
+            <div
+              class="type"
+            >
+              cosmos-sdk/MsgBeginRedelegate
+            </div>
+            <p>
+              <span>
+                delegator_address
+              </span>
+              <router-link-stub
+                to="[object Object]"
+              >
+                terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6
+              </router-link-stub>
+            </p>
+            <p>
+              <span>
+                validator_src_address
+              </span>
+              <span>
+                terravaloper1d3hatwcsvkktgwp3elglw9glca0h42yg6xy4lp
+              </span>
+            </p>
+            <p>
+              <span>
+                validator_dst_address
+              </span>
+              <span>
+                terravaloper1rgu3qmm6rllfxlrfk94pgxa0jm37902dynqehm
+              </span>
+            </p>
+            <p>
+              <span>
+                amount
+              </span>
+              <span>
+                10000000.000000 LUNA
+              </span>
+            </p>
+          </div>
+        </template>
+      </tm-list-item-stub>
+    </div>
+  </div>
+</div>
+`;

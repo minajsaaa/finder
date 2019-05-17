@@ -1,0 +1,2102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="account-container"
+  >
+    <h2>
+      Account
+    </h2>
+    <div
+      class="table"
+    >
+      <tm-list-item-stub
+        dt="Address"
+      >
+        <template>
+          <span>
+            terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6
+          </span>
+          <span
+            class="copy"
+            data-clipboard-text="terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6"
+          >
+            <i
+              class="material-icons"
+            >
+              filter_none
+            </i>
+            <span
+              class="copied"
+            />
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Balance"
+      >
+        <template
+          class="vesting-account"
+        >
+          <ul
+            class="chart"
+          >
+            <li>
+              <ul
+                class="account-table"
+              >
+                <li
+                  class="title"
+                >
+                  <ul
+                    class="row"
+                  >
+                    <li>
+                      <p>
+                        Total
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Available
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Vesting
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (Delegated)
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Delegated
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (Amt. being undelegated)
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    class="row"
+                  >
+                    <li>
+                      <span>
+                        808061779.862000  LUNA
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        699861779.862000  LUNA
+                      </span>
+                    </li>
+                    <li>
+                      <p>
+                        0.000000  LUNA
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (0.000000  LUNA)
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        108200000.000000  LUNA
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (0.000000  LUNA)
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <ul
+                    class="row"
+                  >
+                    <li>
+                      <span>
+                        999916136.980000  SDT
+                      </span>
+                    </li>
+                    <li>
+                      <span>
+                        99916136.980000  SDT
+                      </span>
+                    </li>
+                    <li>
+                      <p>
+                        900000000.000000  SDT
+                      </p>
+                      <!---->
+                    </li>
+                    <li>
+                      <p />
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <!---->
+              </ul>
+            </li>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        class="schedule"
+        dt="Vesting Schedule"
+      >
+        <template>
+          <ul
+            class="account-table delegation"
+          >
+            <li
+              class="title"
+            >
+              <ul
+                class="row"
+              >
+                <li>
+                  <p>
+                    Amount
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Percentage
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Release Time
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2019.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2020.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2021.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2022.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2023.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2024.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2025.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2026.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2027.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  100000000.000000 SDT
+                </li>
+                <li>
+                  10.00 %
+                </li>
+                <li>
+                  2028.04.24 06:00:00 (UTC)
+                </li>
+              </ul>
+            </li>
+            <!---->
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Delegations"
+      >
+        <template>
+          <ul
+            class="account-table delegation"
+          >
+            <li
+              class="title"
+            >
+              <ul
+                class="row"
+              >
+                <li>
+                  <p>
+                    Validator
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Delegated
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Rewards
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1p54hc4yy2ajg67j645dn73w3378j6k05vmx9r9
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.742740 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.052119 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1pc0gs3n6803x7jqe9m7etegmyx29xw38aaf3u7
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.704496 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.081334 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1pmf7ja0p70dmtj50yfjjhd5a44pjk56gemx0ej
+                </li>
+                <li>
+                  4000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      2.965823 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.196670 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1rgu3qmm6rllfxlrfk94pgxa0jm37902dynqehm
+                </li>
+                <li>
+                  10000000.000000 Luna
+                </li>
+                <li />
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1ya23p5cxtxwcfdrq4dmd2h0p5nc0vcl96yhjra
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.840914 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1yad8pjqp93gvwkxa2aa5mh4vctzfs37ekjxr4s
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741646 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper18825kzx0zmdntpucvd2gjezau57vdyua6frdnh
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.156568 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.010380 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper18fk2ye6m5wnnfrarpwycunnw0ls8564zw37myg
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.151561 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.010052 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1grgelyng2v6v3t8z87wu3sxgt9m5s03x2mfyu7
+                </li>
+                <li>
+                  2000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.642042 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.100846 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1gh7wpfpsjrqnash5uc84z4njt95y9g5nh3uqzx
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.812683 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.050806 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1fjuvyccn8hfmn5r7wc2t3kwqy09zzp6tyjcf50
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741495 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper123gn6j23lmexu0qx5qhmgxgunmjcqsx8gmsyse
+                </li>
+                <li>
+                  6000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      4.909553 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.343954 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper12jpzzmwthrljcvm48adncspxtchazkl8vah7u4
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.151548 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.010052 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1tusfpgvjrplqg2fm7wacy4slzjmnzswcfufuvp
+                </li>
+                <li>
+                  4000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      3.090716 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.219674 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1v5hrqlv8dqgzvy0pwzqzg0gxy899rm4kdur03x
+                </li>
+                <li>
+                  2000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.483579 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.098335 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1d0vfj9zvxfgcm4yt4ze4u35mvhj57eg2ku2ekv
+                </li>
+                <li>
+                  2000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.494627 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.096150 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1d3hatwcsvkktgwp3elglw9glca0h42yg6xy4lp
+                </li>
+                <li>
+                  10000000.000000 Luna
+                </li>
+                <li />
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1sym8gyehrdsm03vdc44rg9sflg8zeuqwfzavhx
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.831444 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper13kcwnlafvu4xvy2jr3vhdte9aq9tadwds3lx2d
+                </li>
+                <li>
+                  5000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      3.799488 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.245837 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1jyjg55hzsh0f4xymy0kuuan30pp4q75ruqmvyt
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741494 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1jkqr2vfg4krfd4zwmsf7elfj07cjuzss30ux8g
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.011375 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049465 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1nwrksgv2vuadma8ygs8rhwffu2ygk4j24w2mku
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.161452 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.010708 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper15zcjduavxc5mkp8qcqs9eyhwlqwdlrzy6jln3m
+                </li>
+                <li>
+                  2000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.528645 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.098335 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper15urq2dtp9qce4fyc85m6upwm9xul30496sgk37
+                </li>
+                <li>
+                  6000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      4.437750 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.278616 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper144l7c3uph5a7h62xd8u5et3rqvj3dqtvvka2fu
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.786673 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1kprce6kc08a6l03gzzh99hfpazfjeczfpzkkau
+                </li>
+                <li>
+                  5000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      3.933934 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.245837 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1kgddca7qj96z0qcxr2c45z73cfl0c75paknc5e
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.148250 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.009833 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1khfcg09plqw84jxy5e7fj6ag4s2r9wqsgm7k94
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741702 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.093315 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1hz754zdldnrrhp3qpfan3l2dxkcv5cgkuzqq9v
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741517 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1hg70rkal5d86fl57k0gc7de0rrk4klgs59r7jc
+                </li>
+                <li>
+                  2000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      1.567103 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.101613 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1c6gve6zhye5690563wxmvns7mugz6plu4aj7d3
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.785862 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.085927 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1eutun6vh83lmyq0wmyf9vgghvurze2xanl9sq6
+                </li>
+                <li>
+                  10000000.000000 Luna
+                </li>
+                <li />
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper16xr5kdu5xv7htepnd36q8wn3ayjd7p7kv94dxt
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.767494 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper163phlen6dn7sp9khhjar2gqqx6kga0ly8d7h9g
+                </li>
+                <li>
+                  20000000.000000 Luna
+                </li>
+                <li />
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1uhjx34pfsxk9xh34yn8p2w4469uqdz067rqu5g
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.782390 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.051899 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1a0l55c3tzxel6fg927qftkfaxfa0he80q9djgj
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.741538 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.049167 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1ltwln4yqytkfzn6868xazlhg7vlzdcf96ly9zs
+                </li>
+                <li>
+                  200000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.148339 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.012208 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  terravaloper1lda78gzrjx0rsadtdk0zn4v7awtz6m9lrd5ez9
+                </li>
+                <li>
+                  1000000.000000 Luna
+                </li>
+                <li>
+                  <p>
+                    <span>
+                      0.708301 LUNA
+                    </span>
+                  </p>
+                  <p>
+                    <span>
+                      0.047340 SDT
+                    </span>
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <!---->
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Undelegations"
+      >
+        <template>
+          <ul
+            class="account-table unbondingDelegations"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No Undelegations yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Transactions"
+      >
+        <template>
+          <app-page-stub
+            align="right"
+            border="true"
+            info="true"
+            pagesizemenu="10,20,50,100"
+            totalrow="48"
+          />
+          <ul
+            class="account-table transaction"
+          >
+            <li
+              class="title"
+            >
+              <ul
+                class="row"
+              >
+                <li>
+                  <p>
+                    Tx hash
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Msg
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Block
+                  </p>
+                </li>
+                <li>
+                  <p>
+                    Timestamp (Local Time)
+                  </p>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    7A26AACC42F6CD22AB939D39134D5E7E51B2BBEC1D8FAF36CAB7E72D9BBAC310
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgSend
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    195293
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.08 06:00:12 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    4031BCFD85C937C79D0CF4799815FF97281EC84A7953C952EFC2261190F444AB
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129646
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:23:27 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    5B0E5CF86242EB78B1CBB33666F64D54D016AEC98324CCDB53D984FF05A9716B
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129628
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:21:35 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    7E60B611D83AFC84121AF10565A73A68714497E3A802554E62153416571CD513
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129616
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:20:20 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    B8D7DB439A54491FADF8BF3A7D1C78DE4749AB7368F7B853488BE0B6F85F9ED3
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129606
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:19:18 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    F1C4A7E80060852248DFC276D0B5087F596701F9496E1553935D8188A8936289
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129593
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:17:57 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    1C7F4F308391FCE2CBBBE30200481030B67266896324182D45C915EC11078FE7
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129582
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:16:49 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    591BBB50C499EF003A36B705777A65679415E20C49C017422FB2D94AB5F13A7C
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129571
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:15:40 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    52A50654C9204ADBBD558D22902A484E6418FBC4F491E352D03090F07BDAD3BB
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129561
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:14:38 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <ul
+                class="row"
+              >
+                <li>
+                  <router-link-stub
+                    class="txhash"
+                    to="[object Object]"
+                  >
+                    052220B8DD2F88456E5AB94685703BAD799FE8EC529A202728FBBE3D55FA9D55
+                  </router-link-stub>
+                </li>
+                <li
+                  class="type"
+                >
+                  <div>
+                    cosmos-sdk/MsgDelegate
+                  </div>
+                  <!---->
+                </li>
+                <li>
+                  <router-link-stub
+                    class="block"
+                    to="[object Object]"
+                  >
+                    129551
+                  </router-link-stub>
+                </li>
+                <li>
+                  <span>
+                    2019.05.03 12:13:35 (UTC)
+                  </span>
+                </li>
+              </ul>
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <li>
+              <!---->
+            </li>
+            <!---->
+          </ul>
+        </template>
+      </tm-list-item-stub>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PageAccount Snapshot Snapshot: errorAddress(inactive) 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="account-container"
+  >
+    <h2>
+      Account
+    </h2>
+    <div
+      class="table"
+    >
+      <tm-list-item-stub
+        dt="Address"
+      >
+        <template>
+          <span>
+            terra1j0ykfs05q33cqyag297k6sa24ukq5jfm0wcr4l
+          </span>
+          <span
+            class="copy"
+            data-clipboard-text="terra1j0ykfs05q33cqyag297k6sa24ukq5jfm0wcr4l"
+          >
+            <i
+              class="material-icons"
+            >
+              filter_none
+            </i>
+            <span
+              class="copied"
+            />
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Balance"
+      >
+        <template
+          class="vesting-account"
+        >
+          <ul
+            class="chart"
+          >
+            <li>
+              <ul
+                class="account-table"
+              >
+                <li
+                  class="title"
+                >
+                  <ul
+                    class="row"
+                  >
+                    <li>
+                      <p>
+                        Total
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Available
+                      </p>
+                    </li>
+                    <!---->
+                    <li>
+                      <p>
+                        Delegated
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (Amt. being undelegated)
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <!---->
+              </ul>
+            </li>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <!---->
+      <tm-list-item-stub
+        dt="Delegations"
+      >
+        <template>
+          <ul
+            class="account-table delegation"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No delegation yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Undelegations"
+      >
+        <template>
+          <ul
+            class="account-table unbondingDelegations"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No Undelegations yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Transactions"
+      >
+        <template>
+          <!---->
+          <ul
+            class="account-table transaction"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No transaction yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PageAccount Snapshot snapshot with error 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="account-container"
+  >
+    <h2>
+      Account
+    </h2>
+    <div
+      class="table"
+    >
+      <tm-list-item-stub
+        dt="Address"
+      >
+        <template>
+          <span>
+            erroraddress
+          </span>
+          <span
+            class="copy"
+            data-clipboard-text="erroraddress"
+          >
+            <i
+              class="material-icons"
+            >
+              filter_none
+            </i>
+            <span
+              class="copied"
+            />
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Balance"
+      >
+        <template
+          class="vesting-account"
+        >
+          <ul
+            class="chart"
+          >
+            <li>
+              <ul
+                class="account-table"
+              >
+                <li
+                  class="title"
+                >
+                  <ul
+                    class="row"
+                  >
+                    <li>
+                      <p>
+                        Total
+                      </p>
+                    </li>
+                    <li>
+                      <p>
+                        Available
+                      </p>
+                    </li>
+                    <!---->
+                    <li>
+                      <p>
+                        Delegated
+                      </p>
+                      <p
+                        class="small"
+                      >
+                        (Amt. being undelegated)
+                      </p>
+                    </li>
+                  </ul>
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <li>
+                  <!---->
+                </li>
+                <!---->
+              </ul>
+            </li>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <!---->
+      <tm-list-item-stub
+        dt="Delegations"
+      >
+        <template>
+          <ul
+            class="account-table delegation"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No delegation yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Undelegations"
+      >
+        <template>
+          <ul
+            class="account-table unbondingDelegations"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No Undelegations yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Transactions"
+      >
+        <template>
+          <!---->
+          <ul
+            class="account-table transaction"
+          >
+            <!---->
+            <div
+              class="table-empty"
+            >
+              No transaction yet
+            </div>
+          </ul>
+        </template>
+      </tm-list-item-stub>
+    </div>
+  </div>
+</div>
+`;

@@ -19,13 +19,6 @@ export default {
   name: "app-page-not-found",
   components: {
     AppHeader
-  },
-  computed: {
-    keyword() {
-      const keys = Object.keys(this.$route.params);
-      const key = keys[keys.length - 1];
-      return this.$route.params[key];
-    }
   }
 };
 </script>

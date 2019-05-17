@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageBlock Snapshot Snapshot: defaultBlock 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="block-container"
+  >
+    <h2>
+      Block
+      <span>
+        #42
+      </span>
+    </h2>
+    <div
+      class="table"
+    >
+      <tm-list-item-stub
+        class="height"
+        dt="Block height"
+      >
+        <template>
+          <span>
+            42
+          </span>
+          <router-link-stub
+            to="[object Object]"
+          >
+            <i
+              class="material-icons"
+            >
+              chevron_left
+            </i>
+          </router-link-stub>
+          <router-link-stub
+            to="[object Object]"
+          >
+            <i
+              class="material-icons"
+            >
+              chevron_right
+            </i>
+          </router-link-stub>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dd="2019.04.24 06:03:24  (UTC)"
+        dt="Timestamp"
+      />
+      <tm-list-item-stub
+        dt="Transactions"
+      >
+        <template>
+          <a
+            class="transactions none"
+          >
+            <span>
+              0 Transactions
+            </span>
+          </a>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dt="Proposer"
+      >
+        <template>
+          <span>
+            AE699F966DBC31F1EDCDC8A7388A0B9FF827C529
+          </span>
+        </template>
+      </tm-list-item-stub>
+      <tm-list-item-stub
+        dd="D77DC9D47985955B3E6BAF381C81C4F25A2C00AA75966611B910D02407D62B00"
+        dt="Block hash"
+      />
+      <tm-list-item-stub
+        dt="Parent hash"
+      >
+        <template>
+          <router-link-stub
+            to="[object Object]"
+          >
+            13381A34751403CBCB192C34E9C14F30E208A5C08A2A49ADE06766299C30DDDC
+          </router-link-stub>
+        </template>
+      </tm-list-item-stub>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`PageBlock Snapshot Snapshot: load Error 1`] = `
+<div>
+  <app-header-stub />
+  <app-not-found-stub />
+</div>
+`;

@@ -1,13 +1,9 @@
-import Vue from "vue";
-import Router from "vue-router";
-
-import Index from "../pages/PageIndex";
-import Block from "../pages/PageBlock";
-import Transactions from "../pages/PageTransactions";
-import Transaction from "../pages/PageTransaction";
-import Account from "../pages/PageAccount";
-import AppPageNotFound from "../components/AppPageNotFound";
-Vue.use(Router);
+import Index from "./pages/PageIndex";
+import Block from "./pages/PageBlock";
+import Transactions from "./pages/PageTransactions";
+import Transaction from "./pages/PageTransaction";
+import Account from "./pages/PageAccount";
+import AppPageNotFound from "./components/AppPageNotFound";
 
 const routes = [
   { path: "/", component: Index },
@@ -18,7 +14,7 @@ const routes = [
   { path: `*`, component: AppPageNotFound }
 ];
 
-export default new Router({
+export default {
   mode: "history",
   routes: routes,
   scrollBehavior(to, from, savedPosition) {
@@ -33,4 +29,4 @@ export default new Router({
       return { x: 0, y: 0 };
     }
   }
-});
+};

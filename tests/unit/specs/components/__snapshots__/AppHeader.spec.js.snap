@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppHeader AppHeader Snapshot 1`] = `
+<div
+  class="header"
+>
+  <div
+    class="header-inner"
+  >
+    <div
+      class="logo-container"
+    >
+      <router-link-stub
+        exact="exact"
+        to="/"
+      >
+        <img
+          src="https://s3.ap-northeast-2.amazonaws.com/terra.money.home/static/finder/logo.svg"
+        />
+      </router-link-stub>
+    </div>
+    <form
+      class="tm-form"
+    >
+      <div
+        class="tm-form-container"
+      >
+        <!---->
+        <main
+          class="tm-form-main"
+        >
+          <div
+            class="tm-form-group"
+          >
+            <!---->
+            <!---->
+            <div
+              class="tm-form-group__field"
+            >
+              <div
+                class="tm-modal-search"
+              >
+                <input
+                  autocomplete="off"
+                  class="tm-field"
+                  id="search-input"
+                  placeholder="Search Block / Tx / Account"
+                  required="required"
+                  title="1 to 60 characters"
+                  type="text"
+                />
+                <button
+                  class="tm-btn"
+                  type="submit"
+                >
+                  <span
+                    class="tm-btn__container"
+                  >
+                    <i
+                      aria-hidden="true"
+                      class="tm-btn__icon material-icons"
+                    >
+                      search
+                    </i>
+                    <!---->
+                    <!---->
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </main>
+        <!---->
+      </div>
+    </form>
+    <div
+      class="select-network tm-form-group"
+    >
+      <!---->
+      <!---->
+      <div
+        class="tm-form-group__field"
+      >
+        <div
+          class="tm-select"
+        >
+          <select
+            class="tm-field tm-field-select"
+          >
+            <option
+              disabled="disabled"
+              hidden="hidden"
+              selected="selected"
+              value=""
+            >
+              Select network...
+            </option>
+             
+            <option
+              value="columbus-1"
+            >
+              Columbus-1
+            </option>
+            <option
+              value="soju-0008"
+            >
+              Soju-0008 Testnet
+            </option>
+            <option
+              value="ricewine-0001"
+            >
+              Ricewine-0001 Testnet
+            </option>
+          </select>
+           
+          <div
+            class="tm-field-select-addon"
+          >
+            <i
+              class="material-icons"
+            >
+              arrow_drop_down
+            </i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

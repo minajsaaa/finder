@@ -106,14 +106,16 @@ export default {
     }
   },
   async mounted() {
-    const blockHeight = this.$route.params.block;
-    if (!this.block.blocks[blockHeight]) {
-      await this.fetchBlock(this.$route.params);
+    if (this.$route.params) {
+      const blockHeight = this.$route.params.block;
+      if (!this.block.blocks[blockHeight]) {
+        await this.fetchBlock(this.$route.params);
+      }
+      await this.queryTxs([
+        this.block.blocks[blockHeight].block,
+        this.$route.params
+      ]);
     }
-    await this.queryTxs([
-      this.block.blocks[blockHeight].block,
-      this.$route.params
-    ]);
   },
 
   watch: {

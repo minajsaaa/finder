@@ -29,6 +29,6 @@ describe(`App Start`, () => {
   it(`Check the calls on VUE`, async () => {
     const { Vue } = await start();
 
-    expect(Vue.use).toHaveBeenCalledTimes(1);
+    expect(Vue.use).toHaveBeenCalledTimes(2);
   });
 });

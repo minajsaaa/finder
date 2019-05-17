@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PageTransactions Snapshot Snapshot: with defaultBlock 1`] = `
+<div>
+  <app-header-stub />
+  <div
+    class="txs-container"
+  >
+    <h2>
+      Transactions
+      <span>
+        for Block #719
+      </span>
+      <p>
+        <span
+          class="total"
+        >
+          A total of 1 transactions found
+        </span>
+        <!---->
+      </p>
+    </h2>
+    <ul
+      class="tx-table"
+    >
+      <li
+        class="title"
+      >
+        <ul
+          class="row"
+        >
+          <li>
+            <p
+              class="txhash"
+            >
+              TxHash
+            </p>
+          </li>
+          <li>
+            <p
+              class="type"
+            >
+              Type
+            </p>
+          </li>
+          <li>
+            <p
+              class="txfee"
+            >
+              Fee
+            </p>
+          </li>
+          <li>
+            <p
+              class="block"
+            >
+              Height
+            </p>
+          </li>
+          <li>
+            <p
+              class="time"
+            >
+              Time
+            </p>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <ul
+          class="row"
+        >
+          <li>
+            <router-link-stub
+              class="txhash"
+              to="[object Object]"
+            >
+              B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2
+            </router-link-stub>
+          </li>
+          <li
+            class="type"
+          >
+            <div>
+              auth/StdTx
+            </div>
+            <!---->
+          </li>
+          <li>
+            <p
+              class="txfee"
+            >
+              0.003000 LUNA
+            </p>
+          </li>
+          <li>
+            <router-link-stub
+              class="block"
+              to="[object Object]"
+            >
+              719
+            </router-link-stub>
+          </li>
+          <li>
+            <p
+              class="time"
+            >
+              23 days ago
+            </p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <!---->
+  </div>
+</div>
+`;

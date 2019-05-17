@@ -156,12 +156,7 @@ import {
   ACCOUNT_TYPE,
   GRANDED_VESTING_ACCOUNT
 } from "../scripts/utility";
-import {
-  shortNumber,
-  rebaseAsset,
-  denomSlicer,
-  shortRatio
-} from "../scripts/num";
+import { rebaseAsset, denomSlicer, shortRatio } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
@@ -403,7 +398,6 @@ export default {
     shortRatio,
     fromUnixTime,
     fromISOTime,
-    shortNumber,
     denomSlicer,
     rebaseAsset,
     copy() {
