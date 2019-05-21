@@ -1,12 +1,12 @@
 import { mount } from "@vue/test-utils";
-import TmField from "@/components/TmField"
+import TmField from "@/components/TmField";
 describe(`TmField`, () => {
-  let wrapper
+  let wrapper;
   beforeEach(() => {
-    wrapper = mount(TmField)
-  })
+    wrapper = mount(TmField);
+  });
 
   it(`TmField Snapshot`, () => {
-    expect(wrapper.vm.$el).toMatchSnapshot()
-  })
-})
+    expect(wrapper.vm.$el).toMatchSnapshot();
+  });
+});

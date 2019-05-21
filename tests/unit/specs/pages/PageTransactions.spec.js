@@ -8,7 +8,7 @@ describe(`PageTransactions`, () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   let wrapper, $store, $route, mockStore;
-  const defaultBlock = 719
+  const defaultBlock = 719;
   beforeEach(() => {
     $store = {
       commit: jest.fn(),

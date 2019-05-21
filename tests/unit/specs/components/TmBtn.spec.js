@@ -2,12 +2,12 @@ import { mount } from "@vue/test-utils";
 import TmBtn from "@/components/TmBtn";
 
 describe(`TmBtn`, () => {
-  let wrapper
+  let wrapper;
   beforeEach(() => {
-    wrapper = mount(TmBtn)
-  })
+    wrapper = mount(TmBtn);
+  });
 
   it(`TmBtn Snapshot`, () => {
-    expect(wrapper.vm.$el).toMatchSnapshot()
-  })
-})
+    expect(wrapper.vm.$el).toMatchSnapshot();
+  });
+});

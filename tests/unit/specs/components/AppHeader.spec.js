@@ -4,7 +4,7 @@ import networks from "@/networks";
 
 describe(`AppHeader`, () => {
   let $router, $route, wrapper, localThis;
-  const network = networks[0].value
+  const network = networks[0].value;
 
   beforeEach(() => {
     $router = {

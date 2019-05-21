@@ -8,8 +8,8 @@ describe(`PageBlock`, () => {
   const localVue = createLocalVue();
   localVue.use(Vuex);
   let wrapper, $store, $route, mockStore, localThis;
-  const defaultBlock = 42
-  const errorBlock = 43
+  const defaultBlock = 42;
+  const errorBlock = 43;
   beforeEach(() => {
     $store = {
       commit: jest.fn(),

@@ -111,8 +111,8 @@ describe(`Module: tx`, () => {
     const params = { network: networks[0].value };
     const { queryTxs } = actions;
     const commit = jest.fn();
-    const dispatch = jest.fn()
-    const rootState = mockState
+    const dispatch = jest.fn();
+    const rootState = mockState;
     await queryTxs({ commit, dispatch, rootState }, [block, params]);
     expect(commit).toHaveBeenCalledWith("setTxsLoading", true);
     expect(commit).toHaveBeenCalledWith("setError", {});
@@ -125,8 +125,8 @@ describe(`Module: tx`, () => {
     const params = { network: networks[0].value };
     const { queryTxs } = actions;
     const commit = jest.fn();
-    const dispatch = jest.fn()
-    const rootState = undefined
+    const dispatch = jest.fn();
+    const rootState = undefined;
     await queryTxs({ commit, dispatch, rootState }, [block, params]);
     expect(commit).toHaveBeenCalledWith("setTxsLoading", true);
     expect(commit).toHaveBeenCalledWith("setError", {});

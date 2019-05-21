@@ -9,8 +9,8 @@ describe(`PageAccount`, () => {
   localVue.use(Vuex);
 
   let wrapper, $store, $route, mockStore, localThis;
-  const defaultAddress = `terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6`
-  const errorAddress = `terra1j0ykfs05q33cqyag297k6sa24ukq5jfm0wcr4l`
+  const defaultAddress = `terra1dp0taj85ruc299rkdvzp4z5pfg6z6swaed74e6`;
+  const errorAddress = `terra1j0ykfs05q33cqyag297k6sa24ukq5jfm0wcr4l`;
   beforeEach(() => {
     $store = {
       commit: jest.fn(),
