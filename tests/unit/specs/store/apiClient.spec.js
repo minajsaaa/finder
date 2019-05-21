@@ -40,27 +40,27 @@ describe(`apiClient Test`, () => {
       );
       apiClient.getSenderTxs(network, hash, instance);
       expect(instance.get.mock.calls[6][0]).toEqual(
-        `https://lcd.terra.dev/txs?sender=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=1000`
+        `https://lcd.terra.dev/txs?sender=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=100`
       );
       apiClient.getRecipientTxs(network, hash, instance);
       expect(instance.get.mock.calls[7][0]).toEqual(
-        `https://lcd.terra.dev/txs?recipient=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=1000`
+        `https://lcd.terra.dev/txs?recipient=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=100`
       );
       apiClient.getSwapTxs(network, hash, instance);
       expect(instance.get.mock.calls[8][0]).toEqual(
-        `https://lcd.terra.dev/txs?action=swap&trader=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=1000`
+        `https://lcd.terra.dev/txs?action=swap&trader=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=100`
       );
       apiClient.getProposerTxs(network, hash, instance);
       expect(instance.get.mock.calls[9][0]).toEqual(
-        `https://lcd.terra.dev/txs?action=submit_proposal&proposer=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=1000`
+        `https://lcd.terra.dev/txs?action=submit_proposal&proposer=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=100`
       );
       apiClient.getDepositorTxs(network, hash, instance);
       expect(instance.get.mock.calls[10][0]).toEqual(
-        `https://lcd.terra.dev/txs?action=deposit&depositor=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=1000`
+        `https://lcd.terra.dev/txs?action=deposit&depositor=B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2&limit=100`
       );
       apiClient.getDelegatorsTxs(network, hash, instance);
       expect(instance.get.mock.calls[11][0]).toEqual(
-        `https://lcd.terra.dev/staking/delegators/B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2/txs?limit=1000`
+        `https://lcd.terra.dev/staking/delegators/B463C2868822FD5ABCAAF67FC579691E7060B83139E94CA589E0F56FA10F04D2/txs?limit=100`
       );
     });
   });

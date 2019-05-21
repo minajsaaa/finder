@@ -82,12 +82,12 @@ export default apiClient => {
             txs
           ]) =>
             await [].concat(
-              senderTxs.data,
-              recipientTxs.data,
-              swapTxs.data,
-              submitTxs.data,
-              depositTxs.data,
-              txs.data
+              senderTxs,
+              recipientTxs,
+              swapTxs,
+              submitTxs,
+              depositTxs,
+              txs
             )
         );
 
