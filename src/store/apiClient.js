@@ -1,6 +1,8 @@
 import axios from "axios";
 import { getNetwork } from "../networks";
 
+const limit = 1000;
+
 function lcdUrl(network) {
   return getNetwork(network).lcd;
 }
@@ -49,31 +51,35 @@ const getUndelegations = (network, address, requester = instance) => {
 };
 
 const getSenderTxs = (network, address, requester = instance) => {
-  let url = `${lcdUrl(network)}/txs?sender=${address}&limit=100`;
+  let url = `${lcdUrl(network)}/txs?sender=${address}&limit=${limit}`;
   return requester.get(url);
 };
 const getRecipientTxs = (network, address, requester = instance) => {
-  let url = `${lcdUrl(network)}/txs?recipient=${address}&limit=100`;
+  let url = `${lcdUrl(network)}/txs?recipient=${address}&limit=${limit}`;
   return requester.get(url);
 };
 const getSwapTxs = (network, address, requester = instance) => {
-  let url = `${lcdUrl(network)}/txs?action=swap&trader=${address}&limit=100`;
+  let url = `${lcdUrl(
+    network
+  )}/txs?action=swap&trader=${address}&limit=${limit}`;
   return requester.get(url);
 };
 const getProposerTxs = (network, address, requester = instance) => {
   let url = `${lcdUrl(
     network
-  )}/txs?action=submit_proposal&proposer=${address}&limit=100`;
+  )}/txs?action=submit_proposal&proposer=${address}&limit=${limit}`;
   return requester.get(url);
 };
 const getDepositorTxs = (network, address, requester = instance) => {
   let url = `${lcdUrl(
     network
-  )}/txs?action=deposit&depositor=${address}&limit=100`;
+  )}/txs?action=deposit&depositor=${address}&limit=${limit}`;
   return requester.get(url);
 };
 const getDelegatorsTxs = (network, address, requester = instance) => {
-  let url = `${lcdUrl(network)}/staking/delegators/${address}/txs?limit=100`;
+  let url = `${lcdUrl(
+    network
+  )}/staking/delegators/${address}/txs?limit=${limit}`;
   return requester.get(url);
 };
 
