@@ -119,7 +119,7 @@
                   li
                     p Block
                   li
-                    p Timestamp (Local Time)
+                    p Timestamp
               li(v-for="(tx, index) in txs")
                 ul.row(v-if="index >= startIndex && index < endIndex")
                   li

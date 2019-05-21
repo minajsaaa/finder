@@ -1307,7 +1307,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                 </li>
                 <li>
                   <p>
-                    Timestamp (Local Time)
+                    Timestamp
                   </p>
                 </li>
               </ul>
