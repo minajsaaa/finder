@@ -99,6 +99,9 @@ export default {
     },
     stringify({ denom, amount } = {}) {
       return [rebaseAsset(amount), this.denomSlicer(denom)].join(" ");
+    },
+    track() {
+      this.$ga.page("/:network/tx/:hash");
     }
   },
   async created() {

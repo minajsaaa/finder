@@ -88,7 +88,10 @@ export default {
   methods: {
     ...mapActions(["fetchBlock", "setBlockLoadedFalse"]),
     format,
-    isEmpty
+    isEmpty,
+    track() {
+      this.$ga.page("/:network/blocks/:block");
+    }
   },
   watch: {
     // eslint-disable-next-line

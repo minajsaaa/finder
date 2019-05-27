@@ -103,6 +103,9 @@ export default {
     pageChange({ pageNumber, pageSize }) {
       this.startIndex = pageSize * (pageNumber - 1);
       this.endIndex = pageSize * pageNumber;
+    },
+    track() {
+      this.$ga.page("/:network/txs/:block");
     }
   },
   async mounted() {

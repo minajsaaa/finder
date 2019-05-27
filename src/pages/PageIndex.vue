@@ -61,6 +61,9 @@ export default {
     },
     setNetwork(e) {
       this.curNetwork = e.target.value;
+    },
+    track() {
+      this.$ga.page("/");
     }
   },
   async mounted() {
