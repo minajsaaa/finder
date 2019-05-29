@@ -1328,7 +1328,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgSend
+                    MsgSend
                   </div>
                   <!---->
                 </li>
@@ -1363,7 +1363,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1398,7 +1398,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1433,7 +1433,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1468,7 +1468,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1503,7 +1503,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1538,7 +1538,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1573,7 +1573,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1608,7 +1608,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>
@@ -1643,7 +1643,7 @@ exports[`PageAccount Snapshot Snapshot: defaultAddress 1`] = `
                   class="type"
                 >
                   <div>
-                    cosmos-sdk/MsgDelegate
+                    MsgDelegate
                   </div>
                   <!---->
                 </li>

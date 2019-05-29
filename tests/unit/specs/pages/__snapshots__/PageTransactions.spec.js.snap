@@ -82,7 +82,7 @@ exports[`PageTransactions Snapshot Snapshot: with defaultBlock 1`] = `
             class="type"
           >
             <div>
-              auth/StdTx
+              StdTx
             </div>
             <!---->
           </li>

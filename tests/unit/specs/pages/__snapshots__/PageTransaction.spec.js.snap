@@ -84,7 +84,7 @@ exports[`PageTransaction Snapshot Snapshot: defaultHash 1`] = `
             <div
               class="type"
             >
-              cosmos-sdk/MsgBeginRedelegate
+              MsgBeginRedelegate
             </div>
             <p>
               <span>
