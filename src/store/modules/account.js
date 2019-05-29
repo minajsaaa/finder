@@ -9,7 +9,7 @@ export default apiClient => {
   };
 
   const actions = {
-    async fetchAccount({ commit, dispatch, rootState }, { network, address }) {
+    async fetchAccount({ commit }, { network, address }) {
       commit("setAccountLoading", true);
       commit("setError", {});
       try {
@@ -92,19 +92,6 @@ export default apiClient => {
         );
 
         newAccount.txs = txs;
-
-        const len = txs.length || 0;
-        const promiseArr = [];
-
-        for (let i = 0; i < len; i++) {
-          if (!rootState.block.blocks[txs[i].height]) {
-            await promiseArr.push(
-              dispatch("fetchBlock", { network, block: txs[i].height })
-            );
-          }
-        }
-
-        await Promise.all(promiseArr);
 
         await commit("updateAccount", {
           address,

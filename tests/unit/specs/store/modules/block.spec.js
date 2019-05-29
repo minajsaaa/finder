@@ -70,8 +70,16 @@ describe(`Module: block`, () => {
 
     const { fetchBlock } = actions;
     const commit = jest.fn();
-
-    await fetchBlock({ commit }, { network: networks[0].value, block: `42` });
+    const state = {
+      blocks: {},
+      loading: false,
+      loaded: false,
+      error: {}
+    };
+    await fetchBlock(
+      { state, commit },
+      { network: networks[0].value, block: `42` }
+    );
     expect(commit).toHaveBeenCalledWith("setBlockLoading", true);
     expect(commit).toHaveBeenCalledWith("setError", {});
     expect(commit).toHaveBeenCalledWith("setBlockLoading", false);

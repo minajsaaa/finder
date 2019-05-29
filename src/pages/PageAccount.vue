@@ -130,7 +130,7 @@
                   li
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
                   li
-                    span {{ `${format(block.blocks[tx.height].block_meta.header.time)} (UTC)` }}
+                    span {{ `${format(tx.timestamp)} (UTC)` }}
               div(class="table-empty", v-if="txs.length === 0") {{ `No transaction yet` }}
 
     template(v-else-if="account.error && !account.loading")

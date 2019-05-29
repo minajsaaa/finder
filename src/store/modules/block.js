@@ -1,3 +1,5 @@
+import { get } from "lodash";
+
 export default apiClient => {
   const state = {
     blocks: {},
@@ -7,16 +9,22 @@ export default apiClient => {
   };
 
   const actions = {
-    async fetchBlock({ commit }, { network, block }) {
+    async fetchBlock({ state, commit }, { network, block }) {
       commit("setBlockLoading", true);
       commit("setError", {});
       try {
-        const { getBlock } = apiClient;
-        let result = await getBlock(network, block);
-        commit("updateBlock", {
-          blockHeight: block,
-          result
-        });
+        if (
+          !state.blocks[block] ||
+          (state.blocks[block] &&
+            get(state, `blocks[${block}].block.header['chain_id']`) !== network)
+        ) {
+          const { getBlock } = apiClient;
+          let result = await getBlock(network, block);
+          commit("updateBlock", {
+            blockHeight: block,
+            result
+          });
+        }
 
         commit("setBlockLoaded", true);
         commit("setBlockLoading", false);
