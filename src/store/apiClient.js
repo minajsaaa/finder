@@ -68,7 +68,9 @@ const getUndelegations = (network, address, requester = instance) => {
 };
 
 const getSenderTxs = (network, address, requester = instance) => {
-  const baseUrl = `${lcdUrl(network)}/txs?sender=${address}&limit=${limit}&page=`;
+  const baseUrl = `${lcdUrl(
+    network
+  )}/txs?sender=${address}&limit=${limit}&page=`;
 
   return requestTxs(baseUrl, requester);
 };

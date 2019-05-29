@@ -33,7 +33,7 @@
           template(slot="dd" v-for="m in transaction.tx.value.msg")
             //- vue-json-pretty(:data="transaction.tx")
             div.msgBox
-              div.type {{ m.type }}
+              div.type {{ sliceMsgType(m.type) }}
               p(v-for="(value, key) in m.value")
                 span {{ key }}
                 router-link(v-if="isTerraAddress(value)" :to="{ name: 'account', params: { address: value }}") {{ value }}
@@ -49,7 +49,7 @@
 import { mapGetters, mapActions } from "vuex";
 import { get, isEmpty } from "lodash";
 import Clipboard from "clipboard";
-import { isTerraAddress, format } from "../scripts/utility";
+import { isTerraAddress, format, sliceMsgType } from "../scripts/utility";
 import { denomSlicer, rebaseAsset } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
 import AppHeader from "../components/AppHeader";
@@ -91,6 +91,7 @@ export default {
     denomSlicer,
     rebaseAsset,
     format,
+    sliceMsgType,
     copy() {
       this.copied = true;
       setTimeout(() => {

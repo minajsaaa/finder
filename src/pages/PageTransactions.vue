@@ -27,7 +27,7 @@
             li
               router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
             li.type
-              div {{ tx.tx.type }}
+              div {{ sliceMsgType(tx.tx.type) }}
               span(v-if="tx.tx.value.msg.length > 1") {{ `+ ${tx.tx.value.msg.length - 1}` }}
             li
               p.txfee {{ tx.tx.value.fee.amount ? `${rebaseAsset(tx.tx.value.fee.amount[0].amount)} LUNA` : `0` }}
@@ -49,7 +49,7 @@ import AppHeader from "../components/AppHeader";
 import AppPage from "../components/AppPage";
 import AppNotFound from "../components/AppNotFound";
 import AppLoading from "../components/AppLoading";
-import { txToHash, fromNow } from "../scripts/utility";
+import { txToHash, fromNow, sliceMsgType } from "../scripts/utility";
 import { rebaseAsset } from "../scripts/num";
 
 export default {
@@ -100,6 +100,7 @@ export default {
     fromNow,
     isEmpty,
     rebaseAsset,
+    sliceMsgType,
     pageChange({ pageNumber, pageSize }) {
       this.startIndex = pageSize * (pageNumber - 1);
       this.endIndex = pageSize * pageNumber;

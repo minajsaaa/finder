@@ -81,6 +81,13 @@ export function sumByBigNumber(array, key) {
   return BigNumber(0);
 }
 
+export function sliceMsgType(msg) {
+  if (!msg || typeof msg === "object") return "unknown msg";
+  const msgResult = String(msg);
+  const slashIndex = msgResult.indexOf("/");
+  return slashIndex > -1 ? msgResult.slice(slashIndex + 1) : msgResult;
+}
+
 export const ACCOUNT_TYPE = `auth/Account`;
 export const GRANDED_VESTING_ACCOUNT = `core/GradedVestingAccount`;
 

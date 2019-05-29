@@ -125,7 +125,7 @@
                   li
                     router-link.txhash(:to="{ name: 'tx', params: { hash: tx.txhash }}") {{ tx.txhash }}
                   li.type
-                    div {{ tx.tx.value.msg[0].type }}
+                    div {{ sliceMsgType(tx.tx.value.msg[0].type) }}
                     span(v-if="tx.tx.value.msg.length > 1") {{ `+${tx.tx.value.msg.length - 1}` }}
                   li
                     router-link.block(:to="{ name: 'block', params: { block: tx.height }}") {{ tx.height }}
@@ -154,7 +154,8 @@ import {
   extractAmountBigNumber,
   sumByBigNumber,
   ACCOUNT_TYPE,
-  GRANDED_VESTING_ACCOUNT
+  GRANDED_VESTING_ACCOUNT,
+  sliceMsgType
 } from "../scripts/utility";
 import { rebaseAsset, denomSlicer, shortRatio } from "../scripts/num";
 import TmListItem from "../components/TmListItem";
@@ -400,6 +401,7 @@ export default {
     fromISOTime,
     denomSlicer,
     rebaseAsset,
+    sliceMsgType,
     copy() {
       this.copied = true;
       setTimeout(() => {
