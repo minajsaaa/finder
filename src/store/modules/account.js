@@ -1,4 +1,5 @@
 import * as Promise from "bluebird";
+import { get } from "lodash";
 
 export default apiClient => {
   const state = {
@@ -13,90 +14,97 @@ export default apiClient => {
       commit("setAccountLoading", true);
       commit("setError", {});
       try {
-        let newAccount = {};
+        if (
+          !state.accounts[address] ||
+          (state.accounts[address] &&
+            get(state, `accounts[${address}].network`) !== network)
+        ) {
+          let newAccount = {};
+          let result = await apiClient.getAccount(network, address);
 
-        let result = await apiClient.getAccount(network, address);
+          newAccount = get(result, `data.value`) || null;
 
-        newAccount = result.data && result.data.value;
+          if (!newAccount) {
+            await commit("updateAccount", { address, newAccount });
+            await commit("setAccountLoaded", true);
+            return commit("setAccountLoading", false);
+          }
+          newAccount.network = network;
+          newAccount.type = result.data.type;
 
-        if (!newAccount) {
-          await commit("setAccountLoaded", true);
-          return commit("setAccountLoading", false);
-        }
-        newAccount.type = result.data.type;
+          result = await apiClient.getDelegations(network, address);
 
-        result = await apiClient.getDelegations(network, address);
+          const delegations = result.data;
 
-        const delegations = result.data;
+          if (delegations)
+            Promise.map(delegations, async delegation => {
+              const res = await apiClient.getRewards(
+                network,
+                delegation.delegator_address,
+                delegation.validator_address
+              );
+              delegation.rewards = res.data;
+            });
 
-        if (delegations)
-          Promise.map(delegations, async delegation => {
-            const res = await apiClient.getRewards(
-              network,
-              delegation.delegator_address,
-              delegation.validator_address
-            );
-            delegation.rewards = res.data;
-          });
+          newAccount.delegations = delegations;
 
-        newAccount.delegations = delegations;
+          result = await apiClient.getUndelegations(network, address);
 
-        result = await apiClient.getUndelegations(network, address);
+          const unbondings_data = result.data;
 
-        const unbondings_data = result.data;
+          const unbondingDelegations = [];
+          if (unbondings_data) {
+            unbondings_data.map(validator => {
+              const validatorAddress = validator.validator_address;
+              if (validator.entries) {
+                validator.entries.map(entry => {
+                  const item = {
+                    validatorAddress,
+                    creationHeight: entry.creation_height,
+                    completionTime: entry.completion_time,
+                    balance: entry.balance
+                  };
 
-        const unbondingDelegations = [];
-        if (unbondings_data) {
-          unbondings_data.map(validator => {
-            const validatorAddress = validator.validator_address;
-            if (validator.entries) {
-              validator.entries.map(entry => {
-                const item = {
-                  validatorAddress,
-                  creationHeight: entry.creation_height,
-                  completionTime: entry.completion_time,
-                  balance: entry.balance
-                };
+                  unbondingDelegations.push(item);
+                });
+              }
+            });
+          }
+          newAccount.unbondingDelegations = unbondingDelegations;
 
-                unbondingDelegations.push(item);
-              });
-            }
-          });
-        }
-        newAccount.unbondingDelegations = unbondingDelegations;
-
-        const txs = await Promise.all([
-          apiClient.getSenderTxs(network, address),
-          apiClient.getRecipientTxs(network, address),
-          apiClient.getSwapTxs(network, address),
-          apiClient.getProposerTxs(network, address),
-          apiClient.getDepositorTxs(network, address),
-          apiClient.getDelegatorsTxs(network, address)
-        ]).then(
-          async ([
-            senderTxs,
-            recipientTxs,
-            swapTxs,
-            submitTxs,
-            depositTxs,
-            txs
-          ]) =>
-            await [].concat(
+          const txs = await Promise.all([
+            apiClient.getSenderTxs(network, address),
+            apiClient.getRecipientTxs(network, address),
+            apiClient.getSwapTxs(network, address),
+            apiClient.getProposerTxs(network, address),
+            apiClient.getDepositorTxs(network, address),
+            apiClient.getDelegatorsTxs(network, address)
+          ]).then(
+            async ([
               senderTxs,
               recipientTxs,
               swapTxs,
               submitTxs,
               depositTxs,
               txs
-            )
-        );
+            ]) =>
+              await [].concat(
+                senderTxs,
+                recipientTxs,
+                swapTxs,
+                submitTxs,
+                depositTxs,
+                txs
+              )
+          );
 
-        newAccount.txs = txs;
+          newAccount.txs = txs;
 
-        await commit("updateAccount", {
-          address,
-          newAccount
-        });
+          await commit("updateAccount", {
+            address,
+            newAccount
+          });
+        }
 
         await commit("setAccountLoaded", true);
         await commit("setAccountLoading", false);

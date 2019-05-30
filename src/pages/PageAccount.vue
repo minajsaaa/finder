@@ -418,8 +418,6 @@ export default {
   },
   async mounted() {
     new Clipboard(".copy");
-  },
-  async created() {
     await this.fetchAccount(this.$route.params);
   },
   watch: {
