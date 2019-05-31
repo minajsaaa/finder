@@ -45,7 +45,7 @@ export function handleSearch(keyword, network) {
 }
 
 export function isTerraAddress(keyword) {
-  if (keyword.length === 44 && keyword.indexOf("terra") > -1) {
+  if (keyword && keyword.length === 44 && keyword.indexOf("terra") > -1) {
     return true;
   }
   return false;
